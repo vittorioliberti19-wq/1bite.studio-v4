@@ -1,4 +1,5 @@
 import Nav from "@/components/sections/Nav";
+import FlyingLogo from "@/components/ui/FlyingLogo";
 import Hero from "@/components/sections/Hero";
 import Promesa from "@/components/sections/Promesa";
 import Departamentos from "@/components/sections/Departamentos";
@@ -11,7 +12,8 @@ import Footer from "@/components/sections/Footer";
 export default function Home() {
   return (
     <main className="flex-1">
-      <Nav />
+      <Nav flyingLogo />
+      <FlyingLogo />
       <Hero />
       <Promesa />
       <Departamentos />

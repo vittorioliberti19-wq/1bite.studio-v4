@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import FluidBackground from "@/components/ui/FluidBackground";
@@ -12,18 +11,11 @@ export default function Hero() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
-      // intro
-      gsap.from(".hero-logo", {
-        scale: 0.85,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power3.out",
-      });
       gsap.from(".hero-tag", {
         y: 24,
         opacity: 0,
         duration: 1,
-        delay: 0.4,
+        delay: 0.9,
         ease: "power3.out",
       });
       gsap.from(".hero-dot", {
@@ -31,25 +23,32 @@ export default function Hero() {
         opacity: 0,
         duration: 0.6,
         stagger: 0.08,
-        delay: 0.2,
+        delay: 0.3,
         ease: "back.out(2)",
       });
 
-      // scroll cinemático: pin + zoom del logo + zoom del fondo + fade
-      const tl = gsap.timeline({
+      // el fondo hace un leve zoom y la UI se desvanece al bajar
+      gsap.to(".hero-fade", {
+        opacity: 0,
+        y: -40,
+        ease: "none",
         scrollTrigger: {
           trigger: root.current,
           start: "top top",
-          end: "+=120%",
+          end: "60% top",
           scrub: 1,
-          pin: true,
         },
       });
-      tl.to(".hero-logo", { scale: 2.4, opacity: 0, ease: "none" }, 0)
-        .to(".hero-tag", { opacity: 0, y: -40, ease: "none" }, 0)
-        .to(".hero-dots", { opacity: 0, y: -60, ease: "none" }, 0)
-        .to(".hero-bg", { scale: 1.35, ease: "none" }, 0)
-        .to(".hero-scrollcue", { opacity: 0, ease: "none" }, 0);
+      gsap.to(".hero-bg", {
+        scale: 1.25,
+        ease: "none",
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      });
     }, root);
     return () => ctx.revert();
   }, []);
@@ -61,16 +60,15 @@ export default function Hero() {
     >
       <h1 className="sr-only">1bite — Concebimos experiencias indelebles</h1>
 
-      <div className="hero-bg absolute inset-0 -z-10">
-        <FluidBackground
-          src="/fondos/fondo-wide-1.png"
-          priority
-          objectPosition="center"
-        />
-      </div>
+      <FluidBackground
+        className="hero-bg"
+        src="/fondos/fondo-wide-1.png"
+        priority
+        objectPosition="center"
+      />
 
-      {/* puntos degradados descendentes (del manual de marca) */}
-      <div className="hero-dots mb-6 flex flex-col items-center gap-3">
+      {/* puntos degradados descendentes (del manual) */}
+      <div className="hero-dots hero-fade mb-6 flex flex-col items-center gap-3">
         {[10, 13, 16, 20, 26].map((s, i) => (
           <span
             key={i}
@@ -86,27 +84,25 @@ export default function Hero() {
         ))}
       </div>
 
-      <Image
-        src="/logos/1bite-white.png"
-        alt="1bite"
-        width={3018}
-        height={1301}
-        priority
-        className="hero-logo w-[78vw] max-w-3xl"
+      {/* espacio reservado: el FlyingLogo (fixed) arranca aquí y vuela al header */}
+      <div
+        aria-hidden
+        className="w-[78vw] max-w-3xl"
+        style={{ aspectRatio: "3018 / 1301" }}
       />
 
-      <p className="hero-tag mt-8 max-w-xl text-balance text-base uppercase tracking-[0.35em] text-white/80 md:text-xl">
+      <p className="hero-tag hero-fade mt-8 max-w-xl text-balance text-base uppercase tracking-[0.35em] text-white/80 md:text-xl">
         Concebimos experiencias indelebles
       </p>
       <a
         href="#contacto"
         data-cursor
-        className="hero-tag mt-12 rounded-full bg-white px-8 py-4 font-medium text-black transition hover:scale-105"
+        className="hero-tag hero-fade mt-12 rounded-full bg-white px-8 py-4 font-medium text-black transition hover:scale-105"
       >
         Comienza
       </a>
 
-      <span className="hero-scrollcue absolute bottom-8 text-xs uppercase tracking-[0.3em] text-white/40">
+      <span className="hero-fade absolute bottom-8 text-xs uppercase tracking-[0.3em] text-white/40">
         Scroll · Branding · Social · Web · Apps
       </span>
     </section>

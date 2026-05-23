@@ -14,23 +14,36 @@ export default function Departamentos() {
     const ctx = gsap.context(() => {
       const t = track.current;
       if (!t) return;
-      // solo scroll horizontal en pantallas medianas+
       const mm = gsap.matchMedia();
       mm.add("(min-width: 768px)", () => {
-        const distance = () => t.scrollWidth - window.innerWidth;
-        gsap.to(t, {
+        const distance = () => Math.max(0, t.scrollWidth - window.innerWidth);
+        const tween = gsap.to(t, {
           x: () => -distance(),
           ease: "none",
           scrollTrigger: {
             trigger: root.current,
             start: "top top",
-            end: () => "+=" + distance(),
+            // más recorrido = más scroll para ver los 4 puntos sin que se sienta brusco
+            end: () => "+=" + distance() * 1.15,
             scrub: 1,
             pin: true,
-            invalidateOnRefresh: true,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
+            // se detiene en cada card (intro + 4 departamentos)
+            snap: {
+              snapTo: 1 / depts.length,
+              duration: 0.25,
+              ease: "power1.inOut",
+            },
           },
         });
+        // recalcula cuando todo cargó
+        const r = setTimeout(() => ScrollTrigger.refresh(), 300);
+        return () => {
+          clearTimeout(r);
+          tween.scrollTrigger?.kill();
+          tween.kill();
+        };
       });
     }, root);
     return () => ctx.revert();
@@ -42,7 +55,7 @@ export default function Departamentos() {
         ref={track}
         className="flex flex-col gap-6 px-6 py-24 md:h-screen md:flex-row md:items-center md:gap-10 md:px-[8vw] md:py-0"
       >
-        <div className="shrink-0 md:w-[34vw] md:pr-10">
+        <div className="shrink-0 md:w-[32vw] md:pr-10">
           <p className="text-xs uppercase tracking-[0.4em] text-white/50">
             Lo que hacemos
           </p>
@@ -64,7 +77,7 @@ export default function Departamentos() {
           <article
             key={d.id}
             data-cursor
-            className="group relative flex shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/30 md:h-[60vh] md:w-[26vw] md:p-10"
+            className="group relative flex shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/30 md:h-[62vh] md:w-[28vw] md:p-10"
           >
             <div
               className="absolute -inset-px -z-10 opacity-0 blur-3xl transition duration-500 group-hover:opacity-30"
@@ -77,6 +90,9 @@ export default function Departamentos() {
             </div>
           </article>
         ))}
+
+        {/* spacer final para que "Apps" llegue al centro antes de soltar el pin */}
+        <div aria-hidden className="hidden shrink-0 md:block md:w-[24vw]" />
       </div>
     </section>
   );

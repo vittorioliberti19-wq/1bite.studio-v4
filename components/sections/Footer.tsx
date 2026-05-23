@@ -12,6 +12,9 @@ export default function Footer() {
         <a href="https://instagram.com/1bite.studio" data-cursor>
           @1bite.studio
         </a>
+        <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+          build v6 · flying logo
+        </span>
       </div>
     </footer>
   );

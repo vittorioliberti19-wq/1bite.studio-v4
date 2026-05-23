@@ -1,24 +1,29 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Nav() {
+export default function Nav({ flyingLogo = false }: { flyingLogo?: boolean }) {
   return (
     <nav className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-4 backdrop-blur-md md:px-12">
-      <Link
-        href="/"
-        className="flex items-center"
-        data-cursor
-        aria-label="1bite inicio"
-      >
-        <Image
-          src="/logos/1bite-white.png"
-          alt="1bite"
-          width={3018}
-          height={1301}
-          priority
-          className="h-7 w-auto"
-        />
-      </Link>
+      {flyingLogo ? (
+        // en el home el logo lo provee <FlyingLogo/> (vuela del centro al header)
+        <span aria-hidden className="block h-7 w-[78px] md:w-[104px]" />
+      ) : (
+        <Link
+          href="/"
+          className="flex items-center"
+          data-cursor
+          aria-label="1bite inicio"
+        >
+          <Image
+            src="/logos/1bite-white.png"
+            alt="1bite"
+            width={3018}
+            height={1301}
+            priority
+            className="h-7 w-auto"
+          />
+        </Link>
+      )}
       <div className="hidden gap-8 text-xs uppercase tracking-[0.2em] text-white/80 md:flex">
         <a href="/#departamentos">Servicios</a>
         <a href="/#planes">Planes</a>
