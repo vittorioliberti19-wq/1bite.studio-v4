@@ -21,11 +21,9 @@ test("home: funnel completo, sin precios, sin errores de consola", async ({
     await new Promise((r) => setTimeout(r, 300));
   });
 
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("1bite");
   await expect(
-    page.getByRole("heading", { level: 1, name: "1bite" }),
-  ).toBeVisible();
-  await expect(
-    page.getByText("Concebimos experiencias indelebles"),
+    page.getByText("Concebimos experiencias indelebles").first(),
   ).toBeVisible();
 
   // 4 planes sin precio

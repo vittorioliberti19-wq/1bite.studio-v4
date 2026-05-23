@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --deep-code: #001422;
+  --deep-code: #000208;
+  --black: #000000;
   --white: #ffffff;
   --cyber-cyan: #08e1f4;
   --neon-pulse: #086bfc;
@@ -30,7 +31,7 @@
 
 html,
 body {
-  background: var(--deep-code);
+  background: #000000;
   color: var(--white);
   -webkit-font-smoothing: antialiased;
 }
