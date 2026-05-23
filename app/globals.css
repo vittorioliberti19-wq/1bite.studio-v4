@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --deep-code: #001422;
+  --white: #ffffff;
+  --cyber-cyan: #08e1f4;
+  --neon-pulse: #086bfc;
+  --synth-wave: #ac31fb;
+  --hyper-pink: #ed2e97;
+  --glitch-coral: #fd6648;
+  --grad-firma: linear-gradient(
+    90deg,
+    var(--cyber-cyan),
+    var(--neon-pulse),
+    var(--synth-wave),
+    var(--hyper-pink),
+    var(--glitch-coral)
+  );
+}
+
+@theme inline {
+  --color-deep-code: var(--deep-code);
+  --color-cyber-cyan: var(--cyber-cyan);
+  --color-neon-pulse: var(--neon-pulse);
+  --color-synth-wave: var(--synth-wave);
+  --color-hyper-pink: var(--hyper-pink);
+  --color-glitch-coral: var(--glitch-coral);
+  --font-display: var(--font-display);
+}
+
+html,
+body {
+  background: var(--deep-code);
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* cursor custom solo en punteros finos (desktop) */
+@media (pointer: fine) {
+  * {
+    cursor: none;
+  }
+}
+
+.gradient-text {
+  background: var(--grad-firma);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
