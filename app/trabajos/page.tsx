@@ -20,9 +20,9 @@ export default function Trabajos() {
         </Reveal>
         <div className="grid gap-6 md:grid-cols-3">
           {trabajos.map((t, i) => (
-            <Reveal key={t.id} delay={i * 0.08}>
+            <div key={t.id} className={i % 2 === 1 ? "md:mt-16" : ""}>
               <WorkCard marca={t.marca} tipo={t.tipo} img={t.img} />
-            </Reveal>
+            </div>
           ))}
         </div>
       </section>

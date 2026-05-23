@@ -1,23 +1,81 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { depts } from "@/lib/content";
-import DeptCard from "@/components/cards/DeptCard";
-import Reveal from "@/components/ui/Reveal";
 
 export default function Departamentos() {
+  const root = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      const t = track.current;
+      if (!t) return;
+      // solo scroll horizontal en pantallas medianas+
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 768px)", () => {
+        const distance = () => t.scrollWidth - window.innerWidth;
+        gsap.to(t, {
+          x: () => -distance(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: root.current,
+            start: "top top",
+            end: () => "+=" + distance(),
+            scrub: 1,
+            pin: true,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
+          },
+        });
+      });
+    }, root);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section
-      id="departamentos"
-      className="mx-auto max-w-6xl px-6 py-24 md:py-32"
-    >
-      <Reveal>
-        <h2 className="mb-12 text-center text-xs uppercase tracking-[0.4em] text-white/60">
-          Branding · Social · Web · Apps
-        </h2>
-      </Reveal>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <section id="departamentos" ref={root} className="relative overflow-hidden">
+      <div
+        ref={track}
+        className="flex flex-col gap-6 px-6 py-24 md:h-screen md:flex-row md:items-center md:gap-10 md:px-[8vw] md:py-0"
+      >
+        <div className="shrink-0 md:w-[34vw] md:pr-10">
+          <p className="text-xs uppercase tracking-[0.4em] text-white/50">
+            Lo que hacemos
+          </p>
+          <h2 className="mt-4 text-5xl font-bold leading-none md:text-7xl">
+            Branding
+            <br />
+            Social
+            <br />
+            Web
+            <br />
+            Apps
+          </h2>
+          <p className="mt-6 text-white/60 md:max-w-xs">
+            Cuatro departamentos, un solo sistema para hacer crecer tu marca.
+          </p>
+        </div>
+
         {depts.map((d, i) => (
-          <Reveal key={d.id} delay={i * 0.1}>
-            <DeptCard title={d.title} desc={d.desc} />
-          </Reveal>
+          <article
+            key={d.id}
+            data-cursor
+            className="group relative flex shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/30 md:h-[60vh] md:w-[26vw] md:p-10"
+          >
+            <div
+              className="absolute -inset-px -z-10 opacity-0 blur-3xl transition duration-500 group-hover:opacity-30"
+              style={{ background: "var(--grad-firma)" }}
+            />
+            <span className="text-6xl font-bold text-white/15">0{i + 1}</span>
+            <div>
+              <h3 className="text-3xl font-bold md:text-4xl">{d.title}</h3>
+              <p className="mt-3 text-sm text-white/70">{d.desc}</p>
+            </div>
+          </article>
         ))}
       </div>
     </section>
