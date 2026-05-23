@@ -63,9 +63,9 @@ export default function Hero() {
 
       <div className="hero-bg absolute inset-0 -z-10">
         <FluidBackground
-          src="/fondos/fondo-1.png"
+          src="/fondos/fondo-wide-1.png"
           priority
-          objectPosition="center 60%"
+          objectPosition="center"
         />
       </div>
 

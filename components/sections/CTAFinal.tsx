@@ -6,7 +6,7 @@ export default function CTAFinal() {
       id="contacto"
       className="relative overflow-hidden px-6 py-32 text-center md:py-48"
     >
-      <FluidBackground src="/fondos/fondo-4.png" />
+      <FluidBackground src="/fondos/fondo-wide-4.png" />
       <h2 className="text-balance text-4xl font-bold md:text-7xl">
         ¿Listo para empezar?
       </h2>

@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import FluidBackground from "@/components/ui/FluidBackground";
+import Parallax from "@/components/ui/Parallax";
 
 const LINEA_1 = "Tu marca no necesita otro post.".split(" ");
 const LINEA_2 = "Necesita una".split(" ");
@@ -35,8 +37,13 @@ export default function Promesa() {
   }, []);
 
   return (
-    <section ref={root} className="mx-auto max-w-5xl px-6 py-32 md:py-56">
-      <h2 className="text-3xl font-bold leading-tight md:text-6xl">
+    <section ref={root} className="relative overflow-hidden py-32 md:py-56">
+      <Parallax speed={0.18} className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 scale-125 opacity-70">
+          <FluidBackground src="/fondos/fondo-wide-2.png" />
+        </div>
+      </Parallax>
+      <h2 className="mx-auto max-w-5xl px-6 text-3xl font-bold leading-tight md:text-6xl">
         {LINEA_1.map((w, i) => (
           <span key={`a${i}`} className="promesa-word inline-block">
             {w}&nbsp;
