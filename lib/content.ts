@@ -119,3 +119,9 @@ export const proceso = [
   },
   { n: "03", t: "Entrega", d: "Sistema entregado con presentación ejecutiva." },
 ] as const;
+
+// 153 logos de clientes (recoloreados a blanco, en /public/logos/clientes)
+export const clientes: string[] = Array.from(
+  { length: 153 },
+  (_, i) => `/logos/clientes/${String(i + 1).padStart(3, "0")}.webp`,
+);

@@ -49,3 +49,62 @@ body {
   background-clip: text;
   color: transparent;
 }
+
+/* --- Órbita de logos de clientes --- */
+@keyframes orbit-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.orbit-spin,
+.orbit-counter {
+  animation-name: orbit-rotate;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+/* will-change solo en los 8 anillos, no en los 153 contadores */
+.orbit-spin {
+  will-change: transform;
+}
+
+/* pausa cuando la órbita no está en viewport (sin gasto de CPU/GPU) */
+.orbit-root[data-active="false"] .orbit-spin,
+.orbit-root[data-active="false"] .orbit-counter,
+.orbit-root[data-active="false"] .orbit-path {
+  animation-play-state: paused;
+}
+
+/* pista del anillo: glow radial suave teñido con --oc (cyan / morado 1bite) */
+.orbit-path {
+  pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--oc, #fff) 22%, transparent);
+  background: radial-gradient(
+    circle,
+    transparent 58%,
+    color-mix(in srgb, var(--oc, #fff) 12%, transparent) 82%,
+    color-mix(in srgb, var(--oc, #fff) 22%, transparent) 100%
+  );
+  box-shadow:
+    0 0 55px color-mix(in srgb, var(--oc, #fff) 10%, transparent),
+    inset 0 0 55px color-mix(in srgb, var(--oc, #fff) 8%, transparent);
+  animation: orbit-pulse 4s ease-in-out infinite;
+}
+
+@keyframes orbit-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-spin,
+  .orbit-counter,
+  .orbit-path {
+    animation: none;
+  }
+}
