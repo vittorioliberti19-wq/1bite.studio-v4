@@ -18,13 +18,12 @@ export default function FlyingLogo() {
     const el = ref.current;
     if (!el) return;
 
-    const ASPECT = 1301 / 3018; // alto/ancho del logo
+    const ASPECT = 1302 / 3020; // alto/ancho del logo
 
     const ctx = gsap.context(() => {
       const setStart = () => {
         const w = window.innerWidth;
-        const isMobile = w < 768;
-        const startW = Math.min(w * 0.78, 760);
+        const startW = Math.min(w * 0.56, 560);
         gsap.set(el, {
           left: w / 2,
           top: window.innerHeight * 0.46,
@@ -65,8 +64,8 @@ export default function FlyingLogo() {
       <Image
         src="/logos/1bite-white.png"
         alt="1bite"
-        width={3018}
-        height={1301}
+        width={3020}
+        height={1302}
         priority
         className="h-auto w-full"
       />
