@@ -14,7 +14,8 @@ export default function Clientes() {
             Marcas que <span className="gradient-text">confían</span>
           </h2>
           <p className="mt-4 text-balance text-white/60">
-            Cada logo es una experiencia que concebimos para que sea indeleble.
+            Marcas que han confiado en nosotros a lo largo de los años —
+            clientes actuales y pasados de la agencia.
           </p>
         </div>
       </Reveal>

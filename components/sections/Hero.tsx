@@ -71,8 +71,8 @@ export default function Hero() {
         Comienza
       </a>
 
-      <span className="hero-fade absolute bottom-8 text-xs uppercase tracking-[0.3em] text-white/40">
-        Scroll · Branding · Social · Web · Apps
+      <span className="hero-fade absolute bottom-8 text-xs uppercase tracking-[0.25em] text-white/70">
+        Branding · Social · Web · Apps · Audiovisual
       </span>
     </section>
   );
