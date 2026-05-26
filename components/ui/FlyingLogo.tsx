@@ -37,7 +37,7 @@ export default function FlyingLogo() {
         const startW = Math.min(w * 0.56, 560);
         const endW = w < 768 ? 78 : 104;
         const pad = w < 768 ? 24 : 48;
-        const endH = endW * (1302 / 3020);
+        const endH = endW * (1140 / 2872);
         geo.startW = startW;
         geo.startX = w / 2;
         geo.startY = window.innerHeight * 0.46;
@@ -75,6 +75,22 @@ export default function FlyingLogo() {
         scale: () => geo.scale,
       });
 
+      // La raya degradada solo aparece cuando el logo aterriza en el header.
+      gsap.fromTo(
+        ".flying-bar",
+        { opacity: 0 },
+        {
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: document.documentElement,
+            start: () => window.innerHeight * 0.62,
+            end: () => window.innerHeight * 0.85,
+            scrub: true,
+          },
+        },
+      );
+
       ScrollTrigger.addEventListener("refreshInit", measure);
     }, ref);
 
@@ -87,12 +103,17 @@ export default function FlyingLogo() {
       className="pointer-events-none fixed left-0 top-0 z-[60] will-change-transform"
     >
       <Image
-        src="/logos/1bite-white.png"
+        src="/logos/1bite-white-nobar.png"
         alt="1bite"
-        width={3020}
-        height={1302}
+        width={2872}
+        height={1140}
         priority
         className="h-auto w-full"
+      />
+      <div
+        aria-hidden
+        className="flying-bar mt-[10px] h-[8px] w-full rounded-full opacity-0"
+        style={{ background: "var(--grad-firma)" }}
       />
     </div>
   );

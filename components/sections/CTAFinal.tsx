@@ -1,15 +1,17 @@
 "use client";
 
-import FluidBackground from "@/components/ui/FluidBackground";
+import { ShaderAnimation } from "@/components/ui/shader-animation";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
 export default function CTAFinal() {
   return (
     <section
       id="contacto"
-      className="relative overflow-hidden px-6 py-32 text-center md:py-48"
+      className="relative isolate overflow-hidden px-6 py-32 text-center md:py-48"
     >
-      <FluidBackground src="/fondos/fondo-wide-4.webp" />
+      <ShaderAnimation className="absolute inset-0 -z-10 h-full w-full" />
+      {/* oscurece el shader para que el texto resalte */}
+      <div className="absolute inset-0 -z-10 bg-black/40" />
       <h2 className="text-balance text-4xl font-bold md:text-7xl">
         ¿Listo para empezar?
       </h2>

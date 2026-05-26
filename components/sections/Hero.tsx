@@ -58,12 +58,9 @@ export default function Hero() {
       <div
         aria-hidden
         className="w-[56vw] max-w-xl"
-        style={{ aspectRatio: "3020 / 1302" }}
+        style={{ aspectRatio: "2872 / 1140" }}
       />
 
-      <p className="hero-tag hero-fade mt-8 max-w-xl text-balance text-base uppercase tracking-[0.35em] text-white/80 md:text-xl">
-        Concebimos experiencias indelebles
-      </p>
       <LiquidButton
         size="xl"
         data-cursor
