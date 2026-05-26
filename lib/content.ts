@@ -19,6 +19,11 @@ export const depts = [
     title: "Apps",
     desc: "Productos y automatizaciones a la medida.",
   },
+  {
+    id: "audiovisual",
+    title: "Audiovisual",
+    desc: "Video, fotografía y producción que cuenta tu historia.",
+  },
 ] as const;
 
 export type Plan = {

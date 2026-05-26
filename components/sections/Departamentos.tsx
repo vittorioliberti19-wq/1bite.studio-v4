@@ -16,7 +16,32 @@ export default function Departamentos() {
       if (!t) return;
       const mm = gsap.matchMedia();
       mm.add("(min-width: 768px)", () => {
-        const distance = () => Math.max(0, t.scrollWidth - window.innerWidth);
+        // progreso (0..1) que centra cada card en el viewport
+        const cardEls = gsap.utils.toArray<HTMLElement>(
+          t.querySelectorAll("[data-dept]"),
+        );
+        // distancia = centrar el ÚLTIMO card (scrollWidth ignora la cola en flex)
+        const distance = () => {
+          const last = cardEls[cardEls.length - 1];
+          if (!last) return 0;
+          return Math.max(
+            0,
+            last.offsetLeft + last.offsetWidth / 2 - window.innerWidth / 2,
+          );
+        };
+        const snapPoints = () => {
+          const dist = distance();
+          if (dist <= 0) return [0];
+          const pts = cardEls.map((el) =>
+            gsap.utils.clamp(
+              0,
+              1,
+              (el.offsetLeft + el.offsetWidth / 2 - window.innerWidth / 2) /
+                dist,
+            ),
+          );
+          return [0, ...pts];
+        };
         const tween = gsap.to(t, {
           x: () => -distance(),
           ease: "none",
@@ -24,15 +49,20 @@ export default function Departamentos() {
           scrollTrigger: {
             trigger: root.current,
             start: "top top",
-            // más recorrido = más scroll para ver los 4 puntos sin que se sienta brusco
-            end: () => "+=" + distance() * 1.15,
+            // recorrido = distancia del track (ya incluye cola para centrar el 5to)
+            end: () => "+=" + distance(),
             // scrub:true sigue a Lenis 1:1 (más barato que el lerp extra de scrub:1)
             scrub: true,
             pin: true,
             anticipatePin: 1,
-            // se detiene en cada card (intro + 4 departamentos)
+            // se detiene centrando cada card (intro + 5 departamentos, hasta Audiovisual)
             snap: {
-              snapTo: 1 / depts.length,
+              snapTo: (v) => {
+                const pts = snapPoints();
+                return pts.reduce((best, p) =>
+                  Math.abs(p - v) < Math.abs(best - v) ? p : best,
+                );
+              },
               duration: 0.25,
               ease: "power1.inOut",
             },
@@ -68,9 +98,11 @@ export default function Departamentos() {
             Web
             <br />
             Apps
+            <br />
+            Audiovisual
           </h2>
           <p className="mt-6 text-white/60 md:max-w-xs">
-            Cuatro departamentos, un solo sistema para hacer crecer tu marca.
+            Cinco departamentos, un solo sistema para hacer crecer tu marca.
           </p>
         </div>
 
@@ -78,6 +110,7 @@ export default function Departamentos() {
           <article
             key={d.id}
             data-cursor
+            data-dept
             className="group relative flex shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/30 md:h-[62vh] md:w-[28vw] md:p-10"
           >
             {/* glow decorativo: hidden hasta hover para no pintar blur a opacity 0 */}
@@ -93,8 +126,8 @@ export default function Departamentos() {
           </article>
         ))}
 
-        {/* spacer final para que "Apps" llegue al centro antes de soltar el pin */}
-        <div aria-hidden className="hidden shrink-0 md:block md:w-[24vw]" />
+        {/* cola final para que "Audiovisual" (5to) llegue al centro antes de soltar el pin */}
+        <div aria-hidden className="hidden shrink-0 md:block md:w-[42vw]" />
       </div>
     </section>
   );
