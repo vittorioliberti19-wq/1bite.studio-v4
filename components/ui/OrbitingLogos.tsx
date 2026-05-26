@@ -18,6 +18,13 @@ interface OrbitingLogosProps {
   logos: string[];
   /** diámetro base del lienzo en px (desktop). Se escala fluido en pantallas chicas. */
   size?: number;
+  /**
+   * Máximo de logos renderizados a la vez. 153 logos = 153 animaciones de
+   * contrarrotación en loop infinito → recálculo de composite por frame.
+   * Limitamos a un subconjunto (default 80) que sigue luciendo como "muchas
+   * marcas" pero recorta drásticamente nodos DOM y trabajo del compositor.
+   */
+  maxVisible?: number;
   className?: string;
 }
 
@@ -82,41 +89,43 @@ const Ring = memo(function Ring({
       >
         {logos.map((src, idx) => {
           const angle = count > 0 ? (idx / count) * 360 : 0;
+          // 2 nodos por logo (antes 5):
+          // 1) posicionador estático: lo lleva a su punto del anillo
+          // 2) la tarjeta misma cuenta-rota con UNA animación que comparte
+          //    duración/dirección con el anillo. La rotación estática inicial
+          //    (-angle) se hornea en el mismo transform, así el logo nace y
+          //    permanece derecho sin un wrapper extra por cada uno.
           return (
             <div
               key={src}
               className="absolute h-0 w-0"
               style={{
-                transform: `rotate(${angle}deg) translateY(-${radius}px)`,
+                transform: `rotate(${angle}deg) translateY(-${radius}px) rotate(${-angle}deg)`,
               }}
             >
               {/* contrarrotación: cancela el giro del anillo → logo siempre derecho */}
               <div
-                className="orbit-counter absolute h-0 w-0"
+                data-cursor
+                className="orbit-counter group/logo absolute grid h-14 w-[5.5rem] place-items-center rounded-xl bg-white/[0.02] p-2 ring-1 ring-white/5 transition-[background,box-shadow] duration-300 hover:bg-white/[0.07] hover:shadow-[0_0_26px_color-mix(in_srgb,var(--oc)_45%,transparent)]"
                 style={{
+                  // centrado vía offsets (no translate) para que la animación
+                  // de rotación no pise el transform de centrado
+                  left: "-2.75rem",
+                  top: "-1.75rem",
                   animationDuration: `${duration}s`,
                   animationDirection: reverse ? "normal" : "reverse",
                 }}
               >
-                <div
-                  style={{ transform: `rotate(${-angle}deg)` }}
-                  className="absolute h-0 w-0"
-                >
-                  <div
-                    data-cursor
-                    className="group/logo absolute grid h-14 w-[5.5rem] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-xl bg-white/[0.02] p-2 ring-1 ring-white/5 transition-[transform,background,box-shadow] duration-300 hover:scale-[1.35] hover:bg-white/[0.07] hover:shadow-[0_0_26px_color-mix(in_srgb,var(--oc)_45%,transparent)]"
-                  >
-                    <Image
-                      src={src}
-                      alt=""
-                      width={80}
-                      height={44}
-                      loading="lazy"
-                      draggable={false}
-                      className="h-auto max-h-9 w-auto max-w-[64px] object-contain opacity-45 transition-opacity duration-300 group-hover/logo:opacity-100"
-                    />
-                  </div>
-                </div>
+                <Image
+                  src={src}
+                  alt=""
+                  width={80}
+                  height={44}
+                  loading="lazy"
+                  sizes="80px"
+                  draggable={false}
+                  className="h-auto max-h-9 w-auto max-w-[64px] object-contain opacity-45 transition-[opacity,transform] duration-300 group-hover/logo:scale-[1.35] group-hover/logo:opacity-100"
+                />
               </div>
             </div>
           );
@@ -129,6 +138,7 @@ const Ring = memo(function Ring({
 function OrbitingLogos({
   logos,
   size = 1180,
+  maxVisible = 153,
   className = "",
 }: OrbitingLogosProps) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -149,14 +159,23 @@ function OrbitingLogos({
   }, []);
 
   const rings = useMemo(() => {
-    const cfg = buildRings(logos.length);
+    // Subconjunto rotativo: muestreamos uniformemente el catálogo completo
+    // para no renderizar los 153 a la vez sin perder variedad de marcas.
+    const visible =
+      logos.length > maxVisible
+        ? Array.from(
+            { length: maxVisible },
+            (_, i) => logos[Math.floor((i * logos.length) / maxVisible)],
+          )
+        : logos;
+    const cfg = buildRings(visible.length);
     let cursor = 0;
     return cfg.map((c, i) => {
-      const slice = logos.slice(cursor, cursor + c.count);
+      const slice = visible.slice(cursor, cursor + c.count);
       cursor += c.count;
       return { key: i, config: c, logos: slice };
     });
-  }, [logos]);
+  }, [logos, maxVisible]);
 
   return (
     <div

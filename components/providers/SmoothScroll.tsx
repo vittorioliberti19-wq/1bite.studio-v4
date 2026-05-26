@@ -13,7 +13,8 @@ export default function SmoothScroll({
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    const lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1 });
+    // lerp 0.11: menos interpolación por frame que 0.09 (más barato) sin perder suavidad
+    const lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 1 });
 
     // sincroniza ScrollTrigger con el scroll suave de Lenis
     lenis.on("scroll", ScrollTrigger.update);

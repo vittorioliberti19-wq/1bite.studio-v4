@@ -20,15 +20,16 @@ export default function Departamentos() {
         const tween = gsap.to(t, {
           x: () => -distance(),
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: root.current,
             start: "top top",
             // más recorrido = más scroll para ver los 4 puntos sin que se sienta brusco
             end: () => "+=" + distance() * 1.15,
-            scrub: 1,
+            // scrub:true sigue a Lenis 1:1 (más barato que el lerp extra de scrub:1)
+            scrub: true,
             pin: true,
             anticipatePin: 1,
-            invalidateOnRefresh: true,
             // se detiene en cada card (intro + 4 departamentos)
             snap: {
               snapTo: 1 / depts.length,
@@ -53,7 +54,7 @@ export default function Departamentos() {
     <section id="departamentos" ref={root} className="relative overflow-hidden">
       <div
         ref={track}
-        className="flex flex-col gap-6 px-6 py-24 md:h-screen md:flex-row md:items-center md:gap-10 md:px-[8vw] md:py-0"
+        className="flex flex-col gap-6 px-6 py-24 will-change-transform md:h-screen md:flex-row md:items-center md:gap-10 md:px-[8vw] md:py-0"
       >
         <div className="shrink-0 md:w-[32vw] md:pr-10">
           <p className="text-xs uppercase tracking-[0.4em] text-white/50">
@@ -79,8 +80,9 @@ export default function Departamentos() {
             data-cursor
             className="group relative flex shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/30 md:h-[62vh] md:w-[28vw] md:p-10"
           >
+            {/* glow decorativo: hidden hasta hover para no pintar blur a opacity 0 */}
             <div
-              className="absolute -inset-px -z-10 opacity-0 blur-3xl transition duration-500 group-hover:opacity-30"
+              className="absolute -inset-px -z-10 hidden opacity-0 blur-3xl transition duration-500 group-hover:block group-hover:opacity-30"
               style={{ background: "var(--grad-firma)" }}
             />
             <span className="text-6xl font-bold text-white/15">0{i + 1}</span>

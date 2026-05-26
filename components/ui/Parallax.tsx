@@ -24,6 +24,7 @@ export default function Parallax({
       gsap.to(el, {
         yPercent: -speed * 100,
         ease: "none",
+        force3D: true,
         scrollTrigger: {
           trigger: el,
           start: "top bottom",
@@ -36,7 +37,7 @@ export default function Parallax({
   }, [speed]);
 
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={`will-change-transform ${className}`}>
       {children}
     </div>
   );

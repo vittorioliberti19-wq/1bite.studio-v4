@@ -94,19 +94,19 @@ export const trabajos: Trabajo[] = [
     id: "maraplus",
     marca: "MaraPlus",
     tipo: "Social Media",
-    img: "/fondos/fondo-2.png",
+    img: "/fondos/fondo-2.webp",
   },
   {
     id: "lapiu",
     marca: "La Piu",
     tipo: "Branding + Social",
-    img: "/fondos/fondo-3.png",
+    img: "/fondos/fondo-3.webp",
   },
   {
     id: "ciao",
     marca: "Ciao",
     tipo: "Producción + Social",
-    img: "/fondos/fondo-4.png",
+    img: "/fondos/fondo-4.webp",
   },
 ];
 

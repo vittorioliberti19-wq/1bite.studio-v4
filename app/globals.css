@@ -57,13 +57,23 @@ body {
   }
 }
 
+/* la sección entera se salta layout/paint cuando está fuera de pantalla */
+.orbit-root {
+  content-visibility: auto;
+  contain-intrinsic-size: 1180px;
+}
+/* el lienzo aísla su layout/paint del resto del documento */
+.orbit-stage {
+  contain: layout paint style;
+}
+
 .orbit-spin,
 .orbit-counter {
   animation-name: orbit-rotate;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
-/* will-change solo en los 8 anillos, no en los 153 contadores */
+/* will-change solo en los 8 anillos, NO en los contadores por-logo */
 .orbit-spin {
   will-change: transform;
 }

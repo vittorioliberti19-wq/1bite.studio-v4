@@ -27,6 +27,7 @@ export default function WorkCard({
         {
           yPercent: 16,
           ease: "none",
+          force3D: true,
           scrollTrigger: {
             trigger: root.current,
             start: "top bottom",
@@ -59,7 +60,10 @@ export default function WorkCard({
       className="group relative aspect-[4/5] overflow-hidden rounded-2xl"
     >
       {/* contenedor sobredimensionado para que el parallax no muestre bordes */}
-      <div ref={imgWrap} className="absolute inset-0 -top-[16%] h-[132%]">
+      <div
+        ref={imgWrap}
+        className="absolute inset-0 -top-[16%] h-[132%] will-change-transform"
+      >
         <Image
           src={img}
           alt={marca}

@@ -10,7 +10,7 @@ export default function Planes() {
     <section id="planes" className="relative overflow-hidden">
       <Parallax speed={0.15} className="absolute inset-0 -z-10">
         <div className="absolute inset-0 scale-125 opacity-50">
-          <FluidBackground src="/fondos/fondo-wide-3.png" />
+          <FluidBackground src="/fondos/fondo-wide-3.webp" />
         </div>
       </Parallax>
 

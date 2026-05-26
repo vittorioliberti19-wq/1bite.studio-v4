@@ -18,21 +18,46 @@ export default function FlyingLogo() {
     const el = ref.current;
     if (!el) return;
 
-    const ASPECT = 1302 / 3020; // alto/ancho del logo
+    // El elemento se dimensiona en su tamaño inicial (startW) vía CSS width fijo
+    // y SOLO animamos transform (translate + scale). Nunca tocamos layout props.
 
     const ctx = gsap.context(() => {
-      const setStart = () => {
+      // estado de geometría calculado en refresh; el tween lee de aquí por frame
+      const geo = {
+        startW: 0,
+        startX: 0, // centro X inicial (px)
+        startY: 0, // centro Y inicial (px)
+        endX: 0, // centro X final (px)
+        endY: 0, // centro Y final (px)
+        scale: 1, // endW / startW
+      };
+
+      const measure = () => {
         const w = window.innerWidth;
         const startW = Math.min(w * 0.56, 560);
+        const endW = w < 768 ? 78 : 104;
+        const pad = w < 768 ? 24 : 48;
+        const endH = endW * (1302 / 3020);
+        geo.startW = startW;
+        geo.startX = w / 2;
+        geo.startY = window.innerHeight * 0.46;
+        geo.endX = pad + endW / 2;
+        geo.endY = 16 + endH / 2;
+        geo.scale = endW / startW;
+        // left/top fijan el centro inicial (NO se animan, solo en refresh).
+        // El scroll anima únicamente transform (x/y/scale) sobre esta base.
+        // ancho fijo via CSS; transformOrigin centro para que scale no desplace
         gsap.set(el, {
-          left: w / 2,
-          top: window.innerHeight * 0.46,
+          left: geo.startX,
+          top: geo.startY,
           width: startW,
           xPercent: -50,
           yPercent: -50,
+          transformOrigin: "50% 50%",
+          force3D: true,
         });
       };
-      setStart();
+      measure();
 
       gsap.to(el, {
         scrollTrigger: {
@@ -43,24 +68,24 @@ export default function FlyingLogo() {
           invalidateOnRefresh: true,
         },
         ease: "none",
-        // posición final = donde va el logo del header
-        left: () => {
-          const pad = window.innerWidth < 768 ? 24 : 48;
-          const endW = window.innerWidth < 768 ? 78 : 104;
-          return pad + endW / 2;
-        },
-        top: 16 + ((window.innerWidth < 768 ? 78 : 104) * ASPECT) / 2,
-        width: () => (window.innerWidth < 768 ? 78 : 104),
+        force3D: true,
+        // solo transform: desplazamiento relativo al centro inicial + escala
+        x: () => geo.endX - geo.startX,
+        y: () => geo.endY - geo.startY,
+        scale: () => geo.scale,
       });
 
-      ScrollTrigger.addEventListener("refreshInit", setStart);
+      ScrollTrigger.addEventListener("refreshInit", measure);
     }, ref);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={ref} className="pointer-events-none fixed left-0 top-0 z-[60]">
+    <div
+      ref={ref}
+      className="pointer-events-none fixed left-0 top-0 z-[60] will-change-transform"
+    >
       <Image
         src="/logos/1bite-white.png"
         alt="1bite"

@@ -1,4 +1,7 @@
+"use client";
+
 import GradientBar from "@/components/ui/GradientBar";
+import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import type { Plan } from "@/lib/content";
 
 export default function PlanCard({
@@ -31,12 +34,17 @@ export default function PlanCard({
             </li>
           ))}
         </ul>
-        <a
-          href="#contacto"
-          className="mt-8 rounded-full border border-white/30 py-3 text-center text-sm font-medium transition hover:bg-white hover:text-[color:var(--deep-code)]"
+        <LiquidButton
+          size="lg"
+          onClick={() =>
+            document
+              .querySelector("#contacto")
+              ?.scrollIntoView({ behavior: "smooth" })
+          }
+          className="mt-8 w-full font-medium text-white"
         >
           Quiero este plan
-        </a>
+        </LiquidButton>
       </div>
     </div>
   );

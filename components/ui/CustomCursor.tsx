@@ -10,17 +10,42 @@ export default function CustomCursor() {
     if (!el) return;
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
-    let x = window.innerWidth / 2;
-    let y = window.innerHeight / 2;
+    // posición renderizada (con easing) y target (mouse real)
+    let renderX = window.innerWidth / 2;
+    let renderY = window.innerHeight / 2;
+    let targetX = renderX;
+    let targetY = renderY;
     let raf = 0;
 
+    // lerp/easing suave estilo Cuberto
+    const EASE = 0.18;
+    // umbral en px: por debajo de esto el cursor ya "llegó" y paramos el rAF
+    const THRESHOLD = 0.1;
+
     const render = () => {
-      el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+      const dx = targetX - renderX;
+      const dy = targetY - renderY;
+
+      // si ya llegó, snap exacto, pinta una última vez y corta el loop (idle)
+      if (Math.abs(dx) < THRESHOLD && Math.abs(dy) < THRESHOLD) {
+        renderX = targetX;
+        renderY = targetY;
+        el.style.transform = `translate(${renderX}px, ${renderY}px) translate(-50%, -50%)`;
+        raf = 0;
+        return;
+      }
+
+      renderX += dx * EASE;
+      renderY += dy * EASE;
+      el.style.transform = `translate(${renderX}px, ${renderY}px) translate(-50%, -50%)`;
       raf = requestAnimationFrame(render);
     };
+
     const move = (e: MouseEvent) => {
-      x = e.clientX;
-      y = e.clientY;
+      targetX = e.clientX;
+      targetY = e.clientY;
+      // reanuda el loop solo si está detenido
+      if (!raf) raf = requestAnimationFrame(render);
     };
     const grow = () => el.classList.add("cursor--grow");
     const shrink = () => el.classList.remove("cursor--grow");

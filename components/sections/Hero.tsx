@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ShaderBackground from "@/components/ui/shader-background";
+import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
 export default function Hero() {
   const root = useRef<HTMLDivElement>(null);
@@ -63,13 +64,18 @@ export default function Hero() {
       <p className="hero-tag hero-fade mt-8 max-w-xl text-balance text-base uppercase tracking-[0.35em] text-white/80 md:text-xl">
         Concebimos experiencias indelebles
       </p>
-      <a
-        href="#contacto"
+      <LiquidButton
+        size="xl"
         data-cursor
-        className="hero-tag hero-fade mt-12 rounded-full bg-white px-8 py-4 font-medium text-black transition hover:scale-105"
+        onClick={() =>
+          document
+            .querySelector("#contacto")
+            ?.scrollIntoView({ behavior: "smooth" })
+        }
+        className="hero-tag hero-fade mt-12 font-medium text-white"
       >
         Comienza
-      </a>
+      </LiquidButton>
 
       <span className="hero-fade absolute bottom-8 text-xs uppercase tracking-[0.25em] text-white/70">
         Branding · Social · Web · Apps · Audiovisual

@@ -40,7 +40,7 @@ export default function Promesa() {
     <section ref={root} className="relative overflow-hidden py-32 md:py-56">
       <Parallax speed={0.18} className="absolute inset-0 -z-10">
         <div className="absolute inset-0 scale-125 opacity-70">
-          <FluidBackground src="/fondos/fondo-wide-2.png" />
+          <FluidBackground src="/fondos/fondo-wide-2.webp" />
         </div>
       </Parallax>
       <h2 className="mx-auto max-w-5xl px-6 text-3xl font-bold leading-tight md:text-6xl">
