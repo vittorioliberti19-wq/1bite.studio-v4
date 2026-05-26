@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Nav from "@/components/sections/Nav";
 import Footer from "@/components/sections/Footer";
 import WorkCard from "@/components/cards/WorkCard";
@@ -20,9 +21,13 @@ export default function Trabajos() {
         </Reveal>
         <div className="grid gap-6 md:grid-cols-3">
           {trabajos.map((t, i) => (
-            <div key={t.id} className={i % 2 === 1 ? "md:mt-16" : ""}>
+            <Link
+              key={t.id}
+              href="/galeria"
+              className={i % 2 === 1 ? "block md:mt-16" : "block"}
+            >
               <WorkCard marca={t.marca} tipo={t.tipo} img={t.img} />
-            </div>
+            </Link>
           ))}
         </div>
       </section>

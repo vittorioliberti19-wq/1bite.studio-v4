@@ -100,7 +100,11 @@ export default function FlyingLogo() {
   return (
     <div
       ref={ref}
-      className="pointer-events-none fixed left-0 top-0 z-[60] will-change-transform"
+      role="link"
+      aria-label="1bite inicio"
+      data-cursor
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className="fixed left-0 top-0 z-[60] cursor-pointer will-change-transform"
     >
       <Image
         src="/logos/1bite-white-nobar.png"
