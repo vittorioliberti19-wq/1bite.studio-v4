@@ -33,36 +33,19 @@ export function ShaderAnimation({ className = "" }: ShaderAnimationProps) {
       uniform vec2 resolution;
       uniform float time;
 
-      // Gradiente firma 1bite
-      vec3 gradFirma(float t) {
-        vec3 cyan   = vec3(0.031, 0.882, 0.957); // #08E1F4
-        vec3 blue   = vec3(0.031, 0.420, 0.988); // #086BFC
-        vec3 purple = vec3(0.675, 0.192, 0.984); // #AC31FB
-        vec3 pink   = vec3(0.929, 0.180, 0.592); // #ED2E97
-        vec3 coral  = vec3(0.992, 0.400, 0.282); // #FD6648
-        t = fract(t);
-        float s = t * 4.0;
-        if (s < 1.0) return mix(cyan, blue, s);
-        else if (s < 2.0) return mix(blue, purple, s - 1.0);
-        else if (s < 3.0) return mix(purple, pink, s - 2.0);
-        else return mix(pink, coral, s - 3.0);
-      }
-
       void main(void) {
         vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
-        float t = time * 0.05;
+        float t = time*0.05;
         float lineWidth = 0.002;
 
-        // Intensidad escalar de las líneas (sin separar por canal RGB)
-        float intensity = 0.0;
-        for (int i = 0; i < 5; i++) {
-          intensity += lineWidth * float(i * i) /
-            abs(fract(t + float(i) * 0.01) * 5.0 - length(uv) + mod(uv.x + uv.y, 0.2));
+        vec3 color = vec3(0.0);
+        for(int j = 0; j < 3; j++){
+          for(int i=0; i < 5; i++){
+            color[j] += lineWidth*float(i*i) / abs(fract(t - 0.01*float(j)+float(i)*0.01)*5.0 - length(uv) + mod(uv.x+uv.y, 0.2));
+          }
         }
 
-        // Color del degradado 1bite según posición + tiempo
-        vec3 grad = gradFirma(length(uv) * 0.5 + t * 0.6 + (uv.x + uv.y) * 0.15);
-        gl_FragColor = vec4(grad * intensity, 1.0);
+        gl_FragColor = vec4(color[0],color[1],color[2],1.0);
       }
     `;
 
