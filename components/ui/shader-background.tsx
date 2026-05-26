@@ -206,36 +206,34 @@ const ShaderBackground = ({ className = "" }: ShaderBackgroundProps) => {
       },
     };
 
-    // dimensiona al tamaño real del canvas (no a la ventana) pa vivir dentro del Hero
+    // Render a media resolución (el shader es caro por-pixel); CSS estira el
+    // canvas al tamaño real. dpr capado a 1 — este plasma no necesita retina.
+    const RENDER_SCALE = 0.5;
     const resizeCanvas = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const w = canvas.clientWidth || window.innerWidth;
       const h = canvas.clientHeight || window.innerHeight;
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
+      canvas.width = Math.max(1, Math.floor(w * RENDER_SCALE));
+      canvas.height = Math.max(1, Math.floor(h * RENDER_SCALE));
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
 
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    let frameId = 0;
-    const startTime = Date.now();
-    const render = () => {
-      const currentTime = (Date.now() - startTime) / 1000;
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
 
+    const drawFrame = (currentTime: number) => {
       gl.clearColor(0.0, 0.0, 0.0, 1.0);
       gl.clear(gl.COLOR_BUFFER_BIT);
-
       gl.useProgram(programInfo.program);
-
       gl.uniform2f(
         programInfo.uniformLocations.resolution,
         canvas.width,
         canvas.height,
       );
       gl.uniform1f(programInfo.uniformLocations.time, currentTime);
-
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
       gl.vertexAttribPointer(
         programInfo.attribLocations.vertexPosition,
@@ -246,15 +244,58 @@ const ShaderBackground = ({ className = "" }: ShaderBackgroundProps) => {
         0,
       );
       gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
-
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    };
+
+    let frameId = 0;
+    let running = false;
+    const startTime = Date.now();
+
+    const render = () => {
+      drawFrame((Date.now() - startTime) / 1000);
       frameId = requestAnimationFrame(render);
     };
 
-    frameId = requestAnimationFrame(render);
+    const start = () => {
+      if (running || reduceMotion) return;
+      running = true;
+      frameId = requestAnimationFrame(render);
+    };
+    const stop = () => {
+      running = false;
+      if (frameId) cancelAnimationFrame(frameId);
+      frameId = 0;
+    };
+
+    // Pausa el shader cuando el Hero sale del viewport (gran ahorro de GPU al
+    // hacer scroll) y cuando la pestaña queda oculta.
+    let inView = true;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        inView = e.isIntersecting;
+        if (inView && !document.hidden) start();
+        else stop();
+      },
+      { threshold: 0 },
+    );
+    io.observe(canvas);
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else if (inView) start();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    if (reduceMotion) {
+      drawFrame(0); // un solo frame estático
+    } else {
+      start();
+    }
 
     return () => {
-      cancelAnimationFrame(frameId);
+      stop();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", resizeCanvas);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
