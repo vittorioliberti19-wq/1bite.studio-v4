@@ -104,7 +104,16 @@ export default function FlyingLogo() {
       aria-label="1bite inicio"
       data-cursor
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed left-0 top-0 z-[60] cursor-pointer will-change-transform"
+      className="fixed z-[60] cursor-pointer will-change-transform"
+      // estado inicial vía CSS para evitar flash gigante antes de que GSAP mida
+      // (coincide con measure(): startW=min(56vw,560), centro en 50%/46vh)
+      style={{
+        width: "min(56vw, 560px)",
+        left: "50%",
+        top: "46vh",
+        transform: "translate(-50%, -50%)",
+        transformOrigin: "50% 50%",
+      }}
     >
       <Image
         src="/logos/1bite-white-nobar.png"
