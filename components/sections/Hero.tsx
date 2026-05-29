@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ShaderBackground from "@/components/ui/shader-background";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
+import { WHATSAPP_URL } from "@/lib/content";
 
 export default function Hero() {
   const root = useRef<HTMLDivElement>(null);
@@ -64,11 +65,7 @@ export default function Hero() {
       <LiquidButton
         size="xl"
         data-cursor
-        onClick={() =>
-          document
-            .querySelector("#contacto")
-            ?.scrollIntoView({ behavior: "smooth" })
-        }
+        onClick={() => window.open(WHATSAPP_URL, "_blank", "noopener")}
         className="hero-tag hero-fade mt-12 font-medium text-white"
       >
         Comienza

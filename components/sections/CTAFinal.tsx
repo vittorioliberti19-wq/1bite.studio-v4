@@ -2,6 +2,7 @@
 
 import { ShaderAnimation } from "@/components/ui/shader-animation";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
+import { WHATSAPP_URL } from "@/lib/content";
 
 export default function CTAFinal() {
   return (
@@ -21,13 +22,7 @@ export default function CTAFinal() {
       <LiquidButton
         size="xxl"
         data-cursor
-        onClick={() =>
-          window.open(
-            "https://instagram.com/1bite.studio",
-            "_blank",
-            "noopener,noreferrer",
-          )
-        }
+        onClick={() => window.open(WHATSAPP_URL, "_blank", "noopener")}
         className="mt-12 font-medium text-white"
       >
         Comienza tu proyecto

@@ -1,3 +1,8 @@
+// Contacto — todos los CTA "Comienza" abren WhatsApp.
+export const WHATSAPP_URL =
+  "https://wa.me/17869063354?text=" +
+  encodeURIComponent("Hola 1bite, quiero empezar un proyecto.");
+
 export const depts = [
   {
     id: "branding",

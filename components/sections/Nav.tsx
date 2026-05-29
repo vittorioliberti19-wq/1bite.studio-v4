@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
+import { WHATSAPP_URL } from "@/lib/content";
 
 export default function Nav({ flyingLogo = false }: { flyingLogo?: boolean }) {
   return (
@@ -36,9 +37,7 @@ export default function Nav({ flyingLogo = false }: { flyingLogo?: boolean }) {
       <LiquidButton
         size="sm"
         data-cursor
-        onClick={() => {
-          window.location.href = "/#contacto";
-        }}
+        onClick={() => window.open(WHATSAPP_URL, "_blank", "noopener")}
         className="text-white"
       >
         Comienza

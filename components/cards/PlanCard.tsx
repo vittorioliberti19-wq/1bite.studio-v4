@@ -2,7 +2,7 @@
 
 import GradientBar from "@/components/ui/GradientBar";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
-import type { Plan } from "@/lib/content";
+import { WHATSAPP_URL, type Plan } from "@/lib/content";
 
 export default function PlanCard({
   cat,
@@ -36,11 +36,7 @@ export default function PlanCard({
         </ul>
         <LiquidButton
           size="lg"
-          onClick={() =>
-            document
-              .querySelector("#contacto")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
+          onClick={() => window.open(WHATSAPP_URL, "_blank", "noopener")}
           className="mt-8 w-full font-medium text-white"
         >
           Quiero este plan
