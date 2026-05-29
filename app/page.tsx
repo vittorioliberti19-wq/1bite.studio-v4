@@ -8,6 +8,7 @@ import Clientes from "@/components/sections/Clientes";
 import Planes from "@/components/sections/Planes";
 import Proceso from "@/components/sections/Proceso";
 import CTAFinal from "@/components/sections/CTAFinal";
+import Contacto from "@/components/sections/Contacto";
 import Footer from "@/components/sections/Footer";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       <Planes />
       <Proceso />
       <CTAFinal />
+      <Contacto />
       <Footer />
     </main>
   );
