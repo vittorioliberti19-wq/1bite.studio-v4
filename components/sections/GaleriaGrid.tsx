@@ -21,8 +21,8 @@ const FOTOS: Media[] = [
   "1648688135643-2716ec8f4b24",
 ].map((id) => ({ cat: "fotos" as const, src: U(id) }));
 
-// reel-01 (supermercado) retirado a pedido. 02..37.
-const REELS: Media[] = Array.from({ length: 36 }, (_, i) => {
+// reel-01 (supermercado) retirado. 02..37 = 1bite, 38..61 = thestudio4 + 1pixel.
+const REELS: Media[] = Array.from({ length: 60 }, (_, i) => {
   const n = String(i + 2).padStart(2, "0");
   return {
     cat: "reels" as const,
