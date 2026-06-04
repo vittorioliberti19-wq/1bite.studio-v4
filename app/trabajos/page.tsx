@@ -7,8 +7,15 @@ import Reveal from "@/components/ui/Reveal";
 import { trabajos } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Trabajos — 1bite",
-  description: "Proyectos destacados de 1bite Studio.",
+  title: "Trabajos",
+  description:
+    "Proyectos destacados de 1bite Studio: branding, redes sociales, páginas web, apps y producción audiovisual para marcas en Maracaibo y Venezuela.",
+  alternates: { canonical: "/trabajos" },
+  openGraph: {
+    title: "Trabajos · 1bite",
+    description: "Proyectos destacados de 1bite Studio.",
+    url: "https://1bite.studio/trabajos",
+  },
 };
 
 export default function Trabajos() {
