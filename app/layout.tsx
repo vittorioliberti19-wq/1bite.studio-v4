@@ -39,6 +39,9 @@ export const metadata: Metadata = {
   creator: "1bite Studio",
   publisher: "1bite Studio",
   category: "Marketing & Advertising",
+  verification: {
+    google: "V6-Jm-fg6WKKeXENz1DX2S3egoiG_SFDucsjtiTmBfQ",
+  },
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
