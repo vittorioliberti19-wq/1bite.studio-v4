@@ -51,8 +51,6 @@ export default function Hero() {
       ref={root}
       className="relative isolate flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
     >
-      <h1 className="sr-only">1bite — Concebimos experiencias indelebles</h1>
-
       <ShaderBackground className="hero-bg -z-10" />
 
       {/* espacio reservado: el FlyingLogo (fixed) arranca aquí y vuela al header */}
@@ -71,9 +69,13 @@ export default function Hero() {
         Comienza
       </LiquidButton>
 
-      <span className="hero-fade absolute bottom-8 text-xs uppercase tracking-[0.25em] text-white/70">
+      {/* h1 visible (mismo diseño del strip); la marca completa queda en sr-only */}
+      <h1 className="hero-fade absolute bottom-8 text-xs font-normal uppercase tracking-[0.25em] text-white/70">
+        <span className="sr-only">
+          1bite — Concebimos experiencias indelebles:{" "}
+        </span>
         Branding · Social · Web · Apps · Audiovisual
-      </span>
+      </h1>
     </section>
   );
 }
