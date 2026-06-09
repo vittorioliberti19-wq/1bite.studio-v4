@@ -25,6 +25,12 @@ export default function Footer() {
         <Link href="/blog" className="hover:text-white">
           Blog
         </Link>
+        <Link href="/#planes" className="hover:text-white">
+          Planes
+        </Link>
+        <Link href="/#contacto" className="hover:text-white">
+          Contacto
+        </Link>
       </nav>
       <div className="relative flex flex-col items-center gap-4 text-sm text-white/60 md:flex-row md:justify-between">
         <p>© 2026 1bite Studio · Maracaibo, Venezuela</p>
@@ -37,7 +43,7 @@ export default function Footer() {
             @1bite.studio
           </a>
           <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-            build v10
+            build v11
           </span>
         </div>
       </div>

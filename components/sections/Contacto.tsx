@@ -25,7 +25,7 @@ const TEL = "+17869063354";
 type Estado = "idle" | "enviando" | "ok" | "error";
 
 const inputCls =
-  "w-full rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white/40";
+  "w-full rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none transition focus:border-white/40 focus-visible:ring-2 focus-visible:ring-[#08E1F4]/60";
 
 /* ---------- Formulario de contacto general (→ gerencia + CRM) ---------- */
 function ContactoForm() {
@@ -87,6 +87,7 @@ function ContactoForm() {
           name="nombre"
           required
           placeholder="Nombre"
+          aria-label="Nombre"
           className={inputCls}
         />
         <input
@@ -94,6 +95,7 @@ function ContactoForm() {
           type="email"
           required
           placeholder="Correo"
+          aria-label="Correo"
           className={inputCls}
         />
       </div>
@@ -101,11 +103,13 @@ function ContactoForm() {
         <input
           name="telefono"
           placeholder="Teléfono (opcional)"
+          aria-label="Teléfono (opcional)"
           className={inputCls}
         />
         <input
           name="empresa"
           placeholder="Empresa / marca (opcional)"
+          aria-label="Empresa o marca (opcional)"
           className={inputCls}
         />
       </div>
@@ -113,6 +117,7 @@ function ContactoForm() {
         name="mensaje"
         rows={4}
         placeholder="Cuéntanos qué necesitas"
+        aria-label="Mensaje"
         className={`${inputCls} resize-none`}
       />
       {estado === "error" && <p className="text-sm text-[#FD6648]">{msg}</p>}
@@ -184,8 +189,16 @@ function VacanteForm() {
   return (
     <form ref={formRef} onSubmit={onSubmit} className="space-y-4">
       <div>
-        <label className="mb-1.5 block text-xs text-white/50">Puesto</label>
-        <select name="puesto" required defaultValue="" className={inputCls}>
+        <label htmlFor="puesto" className="mb-1.5 block text-xs text-white/60">
+          Puesto
+        </label>
+        <select
+          id="puesto"
+          name="puesto"
+          required
+          defaultValue=""
+          className={inputCls}
+        >
           <option value="" disabled>
             Selecciona un puesto…
           </option>
@@ -201,6 +214,7 @@ function VacanteForm() {
           name="nombre"
           required
           placeholder="Nombre completo"
+          aria-label="Nombre completo"
           className={inputCls}
         />
         <input
@@ -208,25 +222,29 @@ function VacanteForm() {
           type="email"
           required
           placeholder="Correo"
+          aria-label="Correo"
           className={inputCls}
         />
       </div>
       <input
         name="telefono"
         placeholder="Teléfono / WhatsApp (opcional)"
+        aria-label="Teléfono o WhatsApp (opcional)"
         className={inputCls}
       />
       <input
         name="enlaces"
         placeholder="Enlaces de trabajos (Behance, portfolio, IG…)"
+        aria-label="Enlaces de trabajos"
         className={inputCls}
       />
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label className="mb-1.5 block text-xs text-white/50">
+          <label htmlFor="cv" className="mb-1.5 block text-xs text-white/60">
             CV (PDF/imagen) *
           </label>
           <input
+            id="cv"
             name="cv"
             type="file"
             required
@@ -235,10 +253,14 @@ function VacanteForm() {
           />
         </div>
         <div>
-          <label className="mb-1.5 block text-xs text-white/50">
+          <label
+            htmlFor="portafolio"
+            className="mb-1.5 block text-xs text-white/60"
+          >
             Portafolio (si aplica)
           </label>
           <input
+            id="portafolio"
             name="portafolio"
             type="file"
             accept=".pdf,image/jpeg,image/png,image/webp"
@@ -255,7 +277,7 @@ function VacanteForm() {
       >
         {estado === "enviando" ? "Enviando…" : "Enviar postulación"}
       </LiquidButton>
-      <p className="text-center text-[11px] text-white/35">
+      <p className="text-center text-[11px] text-white/60">
         Tu información llega directo a nuestro equipo de RRHH.
       </p>
     </form>
@@ -347,7 +369,7 @@ export default function Contacto() {
         >
           @1bite.studio
         </a>
-        <span className="text-white/40">Maracaibo, Venezuela</span>
+        <span className="text-white/60">Maracaibo, Venezuela</span>
       </div>
     </section>
   );

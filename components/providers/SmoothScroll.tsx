@@ -13,6 +13,11 @@ export default function SmoothScroll({
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    // prefers-reduced-motion: scroll nativo, sin Lenis (ScrollTrigger funciona igual)
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return () => ScrollTrigger.getAll().forEach((s) => s.kill());
+    }
+
     // lerp 0.11: menos interpolación por frame que 0.09 (más barato) sin perder suavidad
     const lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 1 });
 

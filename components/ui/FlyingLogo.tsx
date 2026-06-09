@@ -59,6 +59,17 @@ export default function FlyingLogo() {
       };
       measure();
 
+      // prefers-reduced-motion: logo directo en el header (estado final), sin vuelo
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        gsap.set(el, {
+          x: geo.endX - geo.startX,
+          y: geo.endY - geo.startY,
+          scale: geo.scale,
+        });
+        gsap.set(".flying-bar", { opacity: 1 });
+        return;
+      }
+
       gsap.to(el, {
         scrollTrigger: {
           trigger: document.documentElement,
@@ -100,10 +111,17 @@ export default function FlyingLogo() {
   return (
     <div
       ref={ref}
-      role="link"
+      role="button"
+      tabIndex={0}
       aria-label="1bite inicio"
       data-cursor
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }}
       className="fixed z-[60] cursor-pointer will-change-transform"
       // estado inicial vía CSS para evitar flash gigante antes de que GSAP mida
       // (coincide con measure(): startW=min(56vw,560), centro en 50%/46vh)

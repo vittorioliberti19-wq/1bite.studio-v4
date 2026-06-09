@@ -98,6 +98,7 @@ function ReelTile({ m }: { m: Media }) {
       loop
       playsInline
       preload="none"
+      aria-label="Reel del portafolio de 1bite"
       className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
     />
   );
@@ -108,6 +109,7 @@ export default function GaleriaGrid() {
 
   return (
     <section className="mx-auto flex min-h-[140vh] w-full max-w-6xl flex-col items-center gap-10 px-6 pb-28 pt-36 md:pt-44">
+      <h1 className="sr-only">Galería de trabajos de 1bite Studio</h1>
       {/* control segmentado Todo / Fotos / Reels / Webs / Branding */}
       <div className="flex flex-wrap items-center justify-center gap-1 rounded-full border border-white/15 bg-white/[0.04] p-1.5 backdrop-blur">
         {TABS.map((t) => {
@@ -116,6 +118,7 @@ export default function GaleriaGrid() {
             <button
               key={t.value}
               data-cursor
+              aria-pressed={on}
               onClick={() => setActive(t.value)}
               className={`rounded-full px-5 py-2 text-sm font-medium uppercase tracking-[0.15em] transition ${
                 on
@@ -145,7 +148,9 @@ export default function GaleriaGrid() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={m.src}
-                  alt={m.cat}
+                  alt={`Trabajo de ${m.cat} del portafolio de 1bite`}
+                  width={540}
+                  height={960}
                   loading="lazy"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />

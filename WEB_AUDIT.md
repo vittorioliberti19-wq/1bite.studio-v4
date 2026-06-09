@@ -1,0 +1,89 @@
+# WEB_AUDIT.md — 1bite.studio
+
+**Fecha:** 2026-06-09 · **Alcance:** repo local `~/Projects/1bite.studio` + producción `https://1bite.studio` + pruebas live en navegador (localhost:4010, viewports 320–1440). Auditoría read-only, sin cambios de código.
+
+> **ESTADO 2026-06-09 (misma fecha, sesión de fixes):** aplicados y verificados (build verde, Playwright 4/4, live-test en navegador): C1 (hamburguesa móvil con trap de foco + Escape + cierre al click, anclas Planes/Contacto en footer), A1 (XCTO/XFO/Referrer-Policy/Permissions-Policy — CSP pendiente como mejora mayor), A2, A3, M1, M3, M4, M5 (width/height; sigue `<img>`), M7, M8, B1, B2, B3, B5, B7. Bonus: test "sin precios" tenía falso positivo (teléfono en JSON-LD contiene "690") — fix a `innerText`. **Descartados:** B4 (scroll-driven, no computa con tab oculto), B6 (env vars ya existían). **Pendientes:** M2 (H1 visible home = decisión de diseño, sigue sr-only), M6 (esperar Next 16.3+), B8 (warning GPU driver, cosmético), CSP completa.
+
+---
+
+## Resumen ejecutivo
+
+Sitio de marketing Next.js 16 (App Router) + React 19 + Tailwind v4 + GSAP/three.js, en estado **sólido**: SEO técnico muy completo (metadata por ruta, sitemap, robots con bots IA, JSON-LD Organization/Article/Service/FAQ), rendimiento excelente (CLS 0, LCP ~116ms en dev, WebP en todos los assets, guards de pausa offscreen en los loops WebGL), cero links rotos y formulario de contacto funcional con validación. Los problemas reales se concentran en tres frentes: **navegación móvil inexistente** (sin hamburguesa; Planes y Contacto inalcanzables por link en móvil), **accesibilidad de formularios/foco**, y **headers de seguridad ausentes** en producción (solo HSTS).
+
+---
+
+## Hallazgos
+
+### 🔴 Crítico
+
+| #   | Hallazgo                                                                                                                                                                                                                                                                                                                                                         | Ubicación                           | Impacto                                                                            | Fix sugerido                                                                                                |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| C1  | **Sin menú móvil.** En ≤768px el nav (Servicios/Planes/Trabajos/Contacto) se oculta (`hidden md:flex`) y no hay hamburguesa. Solo queda "Comienza". Planes y Contacto no están ni en el footer → en móvil no hay ruta directa a las dos secciones de conversión. Verificado live en 320/375px (screenshots `/tmp/audit_shots/header_375.png`, `footer_375.png`). | `components/sections/Nav.tsx:31-46` | Funnel de ventas mutilado en móvil (mayoría del tráfico esperable de IG/WhatsApp). | Hamburguesa con panel (trap de foco + Escape) o, mínimo, añadir anclas `/#planes` y `/#contacto` al footer. |
+
+### 🟠 Alto
+
+| #   | Hallazgo                                                                                                                                                                                                                                                                                                   | Ubicación                                                                              | Impacto                                                                        | Fix sugerido                                                                                                                            |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| A1  | **Headers de seguridad ausentes en prod.** `curl -I https://1bite.studio`: solo `strict-transport-security`. Faltan `Content-Security-Policy`, `X-Frame-Options`/`frame-ancestors`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`. Además `access-control-allow-origin: *` en el HTML. | `next.config.ts` (sin `headers()`)                                                     | Clickjacking, sniffing MIME, sin mitigación XSS por CSP.                       | Añadir `headers()` en `next.config.ts` (XCTO + XFO + Referrer-Policy + Permissions-Policy primero; CSP en report-only y luego enforce). |
+| A2  | **Inputs del formulario sin label asociado.** Nombre/email/teléfono/empresa dependen solo de `placeholder`; `<select>` con label visual no asociado (`htmlFor`/`id` ausentes).                                                                                                                             | `components/sections/Contacto.tsx:86-110, 188`                                         | Lectores de pantalla no anuncian el campo; placeholder desaparece al escribir. | `<label htmlFor>` + `id`, o `aria-label` por campo.                                                                                     |
+| A3  | **`outline-none` sin sustituto `focus-visible` en inputs y botones custom.** Links sí muestran foco (verificado live), pero inputs del form y `MetalButton` eliminan outline sin ring alternativo.                                                                                                         | `components/sections/Contacto.tsx:28`, `components/ui/liquid-glass-button.tsx:10, 285` | Navegación por teclado pierde el foco dentro del form (WCAG 2.4.7).            | `focus-visible:ring-2 ring-[--cyan]` en `inputCls` y variantes de botón.                                                                |
+
+### 🟡 Medio
+
+| #   | Hallazgo                                                                                                                                                               | Ubicación                                                               | Impacto                                                                              | Fix sugerido                                                                   |
+| --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| M1  | `/galeria` **sin H1** (Nav + grid directo, ninguna página renderiza encabezado principal).                                                                             | `app/galeria/page.tsx`                                                  | SEO/a11y: página sin tema declarado.                                                 | H1 visible o `sr-only` ("Galería de trabajos").                                |
+| M2  | **H1 de la home solo `sr-only`.** Aceptable, pero el contenido visible más fuerte queda en H2s.                                                                        | `components/sections/Hero.tsx:54`                                       | Señal SEO debilitada en la página principal.                                         | Evaluar H1 visible en el Hero (tagline ya está en pantalla).                   |
+| M3  | **Contraste insuficiente en texto pequeño:** `text-white/35` a `/50` sobre `#000` en textos de 11-12px (≈2.3–3.1:1, AA pide 4.5:1).                                    | `Contacto.tsx:187, 226, 238, 258, 296, 350`                             | Legibilidad WCAG AA falla en notas del form y labels.                                | Subir a `text-white/60`+ en texto < 18px.                                      |
+| M4  | **`prefers-reduced-motion` parcial:** shaders y órbita lo respetan ✓, pero **Lenis (SmoothScroll) y FlyingLogo no**.                                                   | `components/providers/SmoothScroll.tsx`, `components/ui/FlyingLogo.tsx` | Usuarios con sensibilidad al movimiento reciben scroll animado + logo volador igual. | Gate con `matchMedia("(prefers-reduced-motion: reduce)")` antes de instanciar. |
+| M5  | **`<img>` plano sin `width`/`height` en GaleriaGrid** (único componente fuera de `next/image`). Live no mostró CLS en home, pero galería queda sin reserva de espacio. | `components/sections/GaleriaGrid.tsx:146`                               | Riesgo CLS + sin optimización de formato/tamaño.                                     | `width/height` explícitos o migrar a `next/image` con `sizes`.                 |
+| M6  | **`npm audit`: 4 vulnerabilidades moderadas** (PostCSS <8.5.10, transitiva de Next 16.2.6; fix = upgrade de Next cuando salga estable).                                | `package.json`                                                          | XSS teórico en tooling CSS, no en runtime del sitio.                                 | Monitorear y subir Next en 16.3+.                                              |
+| M7  | **Filtros de galería y reels sin nombre accesible:** botones Todo/Fotos/… solo con label visual (aceptable), `<video>` de reels sin `aria-label`.                      | `components/sections/GaleriaGrid.tsx:113-151`                           | Lectores anuncian "video" sin contexto.                                              | `aria-label="Reel de {marca}"` por tile.                                       |
+| M8  | **Twitter Cards sin imagen explícita** (`twitter:image` ausente; depende del fallback `/opengraph-image`).                                                             | `app/layout.tsx:54-58`                                                  | Riesgo de card sin imagen en X según scraper.                                        | Declarar `twitter.images` apuntando al OG image.                               |
+
+### 🟢 Bajo
+
+| #   | Hallazgo                                                                                                                             | Ubicación                                         | Impacto                                       | Fix sugerido                                               |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------- |
+| B1  | 11 PNG legacy sin uso (~2.2MB) en `public/logos/` (`logo png_Mesa de trabajo…`). No se sirven al usuario, solo ensucian repo/deploy. | `public/logos/`                                   | Peso de repo.                                 | Borrar o mover a `assets/`.                                |
+| B2  | Nav renderizado sin `<header>` semántico (verificado live: `querySelector('header')` → null).                                        | `components/sections/Nav.tsx`                     | Landmark a11y menor.                          | Envolver en `<header>`.                                    |
+| B3  | `console.error/warn` en shaders (rutas de fallo WebGL). Legítimos, pero la regla del repo es cero console en prod.                   | `components/ui/shader-background.tsx:145,170,186` | Ruido en consola prod.                        | Condicionar a `NODE_ENV === 'development'`.                |
+| B4  | `container-scroll-animation.tsx` (Framer Motion) sin guard `visibilitychange` — única animación sin el patrón estándar del repo.     | `components/ui/container-scroll-animation.tsx`    | Interpolación con tab oculto (costo menor).   | Añadir guard si el componente se usa en rutas activas.     |
+| B5  | `FlyingLogo` clickeable como `div role="link"` con `window.scrollTo`.                                                                | `components/ui/FlyingLogo.tsx:103`                | Semántica: no operable con Enter por defecto. | `<button>` o `tabIndex={0}` + handler de teclado.          |
+| B6  | URL de Supabase Edge Function hardcodeada (project id visible). No es secreto (endpoint público por diseño), pero conviene env var.  | `components/sections/Contacto.tsx:7-13`           | Ninguno real; higiene.                        | `NEXT_PUBLIC_CONTACT_FN` en env.                           |
+| B7  | `brand-08.webp` 369KB — outlier del set de galería (resto ~100-150KB).                                                               | `public/galeria/branding/`                        | Peso marginal.                                | Recomprimir.                                               |
+| B8  | Warnings GPU en consola de la home: `GL Driver Message … GPU stall due to ReadPixels` (×4, shader del hero). No rompe nada.          | `components/ui/shader-background.tsx`             | Solo ruido/perf de driver.                    | Opcional: revisar uso de readPixels/preserveDrawingBuffer. |
+
+### Falsos positivos descartados
+
+- **Inter sin `display: swap`** — `next/font/google` aplica `swap` por defecto desde Next 13; no hay issue.
+- **`target="_blank"` inseguros** — todos llevan `rel="noopener"`. ✓
+- **Secrets expuestos** — grep completo: ninguno. `.env` ignorado, nada commiteado. ✓
+
+---
+
+## Lo que está bien (no tocar)
+
+- **SEO:** metadata + canonical por ruta (incl. `generateMetadata` en blog/servicios), `sitemap.ts` con todas las rutas y prioridades, `robots.ts` con whitelist de bots IA, OG image dinámica 1200×630, JSON-LD Organization/WebSite/Article/Service/FAQPage, dominio consistente, cero links a dominios viejos.
+- **Performance:** CLS 0 y LCP ~116ms (dev), 0 errores de consola fuera de la home, fondos/galería en WebP optimizado, 153 logos de clientes lazy con `next/image`, shaders con dpr cap + pausa offscreen + tab oculto, CustomCursor con idle-cancel, `priority` correcto en LCP image.
+- **Funcionalidad:** 10/10 links internos 200, galería 49 imágenes sin 404 y filtros operativos, form valida email (HTML5) y envía a Supabase Edge Function con 200 + mensaje de éxito.
+- **Seguridad base:** HTTPS + HSTS (max-age 2 años), sin mixed content, sin scripts de terceros más allá de Vercel Analytics/Speed Insights.
+
+---
+
+## Quick wins vs. mayor esfuerzo
+
+| Quick wins (≤1h c/u)                                                                                                          | Esfuerzo mayor                                                                                                |
+| ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Anclas `/#planes` y `/#contacto` en footer (mitiga C1 ya)                                                                     | **Menú hamburguesa móvil** completo con trap de foco (C1, fix real)                                           |
+| Headers `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` en `next.config.ts` (A1 parcial) | **CSP** completa (inventariar inline scripts JSON-LD, estilos, Vercel Analytics → report-only → enforce) (A1) |
+| `aria-label`/`htmlFor` en los 5 campos del form (A2)                                                                          | Migrar GaleriaGrid a `next/image` con `sizes` responsivos (M5)                                                |
+| `focus-visible:ring` en inputs y MetalButton (A3)                                                                             | `prefers-reduced-motion` en Lenis + FlyingLogo + revisión global de animaciones (M4)                          |
+| H1 en `/galeria` (M1)                                                                                                         | Upgrade Next 16.3+ cuando salga (M6)                                                                          |
+| Subir contraste de textos `/35-/50` a `/60`+ (M3)                                                                             |                                                                                                               |
+| `twitter.images` en layout (M8)                                                                                               |                                                                                                               |
+| Borrar 11 PNG legacy (B1) + `<header>` semántico (B2)                                                                         |                                                                                                               |
+
+---
+
+_Generado por auditoría automatizada (código + navegador). Screenshots live en `/tmp/audit_shots/`._

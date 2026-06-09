@@ -38,8 +38,9 @@ test("home: funnel completo, sin precios, sin errores de consola", async ({
     page.getByRole("heading", { name: "Tier Estratégico" }),
   ).toBeVisible();
 
-  // NINGÚN precio visible en el DOM
-  const body = (await page.textContent("body")) ?? "";
+  // NINGÚN precio visible en el DOM (innerText: solo texto renderizado,
+  // excluye <script> JSON-LD que contiene el teléfono +17869063354)
+  const body = await page.evaluate(() => document.body.innerText);
   for (const precio of [
     "$690",
     "$1,000",

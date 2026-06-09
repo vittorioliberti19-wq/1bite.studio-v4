@@ -142,7 +142,8 @@ const ShaderBackground = ({ className = "" }: ShaderBackgroundProps) => {
     gl.compileShader(shader);
 
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-      console.error("Shader compile error: ", gl.getShaderInfoLog(shader));
+      if (process.env.NODE_ENV === "development")
+        console.error("Shader compile error: ", gl.getShaderInfoLog(shader));
       gl.deleteShader(shader);
       return null;
     }
@@ -167,10 +168,11 @@ const ShaderBackground = ({ className = "" }: ShaderBackgroundProps) => {
     gl.linkProgram(shaderProgram);
 
     if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-      console.error(
-        "Shader program link error: ",
-        gl.getProgramInfoLog(shaderProgram),
-      );
+      if (process.env.NODE_ENV === "development")
+        console.error(
+          "Shader program link error: ",
+          gl.getProgramInfoLog(shaderProgram),
+        );
       return null;
     }
 
@@ -183,7 +185,8 @@ const ShaderBackground = ({ className = "" }: ShaderBackgroundProps) => {
 
     const gl = canvas.getContext("webgl");
     if (!gl) {
-      console.warn("WebGL not supported.");
+      if (process.env.NODE_ENV === "development")
+        console.warn("WebGL not supported.");
       return;
     }
 

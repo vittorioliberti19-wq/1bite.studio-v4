@@ -55,6 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "1bite — Concebimos experiencias indelebles",
     description: DESC,
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
