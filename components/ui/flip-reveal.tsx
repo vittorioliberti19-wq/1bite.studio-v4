@@ -55,7 +55,10 @@ export const FlipReveal = ({
         duration: 0.6,
         scale: true,
         ease: "power1.inOut",
-        stagger: 0.05,
+        // amount = stagger TOTAL repartido entre todos los items; un valor
+        // por-item (0.05) con 200+ tiles alargaba el flip ~12s y los tiles
+        // absolutos volaban sobre el CTA/footer.
+        stagger: { amount: 0.4 },
         absolute: true,
         onEnter: (elements) =>
           gsap.fromTo(
