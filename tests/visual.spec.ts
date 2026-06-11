@@ -63,12 +63,10 @@ test("home: funnel completo, sin precios, sin errores de consola", async ({
   expect(errors).toEqual([]);
 });
 
-test("trabajos: navega desde home y muestra grid", async ({
-  page,
-}, testInfo) => {
-  await page.goto("/");
-  await page.getByRole("link", { name: "Ver todos" }).click();
-  await expect(page).toHaveURL(/\/trabajos/);
+test("trabajos: muestra grid", async ({ page }, testInfo) => {
+  // la sección "Trabajos" del home (con su link "Ver todos") se eliminó;
+  // la página vive en el nav.
+  await page.goto("/trabajos");
   await expect(
     page.getByRole("heading", { level: 1, name: "Trabajos" }),
   ).toBeVisible();

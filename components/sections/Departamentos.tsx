@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { depts } from "@/lib/content";
@@ -107,23 +108,27 @@ export default function Departamentos() {
         </div>
 
         {depts.map((d, i) => (
-          <article
+          <Link
             key={d.id}
+            href="/galeria"
             data-cursor
             data-dept
-            className="group relative flex shrink-0 flex-col justify-between overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition hover:border-white/30 md:h-[62vh] md:w-[28vw] md:p-10"
+            aria-label={`${d.title} — ver galería de trabajos`}
+            className="hover-borde-firma group relative shrink-0 rounded-3xl bg-white/10 p-[1.5px] md:h-[62vh] md:w-[28vw]"
           >
-            {/* glow decorativo: hidden hasta hover para no pintar blur a opacity 0 */}
-            <div
-              className="absolute -inset-px -z-10 hidden opacity-0 blur-3xl transition duration-500 group-hover:block group-hover:opacity-30"
-              style={{ background: "var(--grad-firma)" }}
-            />
-            <span className="text-6xl font-bold text-white/15">0{i + 1}</span>
-            <div>
-              <h3 className="text-3xl font-bold md:text-4xl">{d.title}</h3>
-              <p className="mt-3 text-sm text-white/70">{d.desc}</p>
-            </div>
-          </article>
+            <article className="relative flex h-full min-h-[16rem] flex-col justify-between overflow-hidden rounded-[calc(1.5rem-1.5px)] bg-[#070707] p-8 md:p-10">
+              {/* glow decorativo: hidden hasta hover para no pintar blur a opacity 0 */}
+              <div
+                className="absolute -inset-px -z-10 hidden opacity-0 blur-3xl transition duration-500 group-hover:block group-hover:opacity-30"
+                style={{ background: "var(--grad-firma)" }}
+              />
+              <span className="text-6xl font-bold text-white/15">0{i + 1}</span>
+              <div>
+                <h3 className="text-3xl font-bold md:text-4xl">{d.title}</h3>
+                <p className="mt-3 text-sm text-white/70">{d.desc}</p>
+              </div>
+            </article>
+          </Link>
         ))}
 
         {/* cola final para que "Audiovisual" (5to) llegue al centro antes de soltar el pin */}

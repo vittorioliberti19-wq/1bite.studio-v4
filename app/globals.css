@@ -118,3 +118,39 @@ body {
     animation: none;
   }
 }
+
+/* ── Borde gradiente firma animado (planes + departamentos) ──
+   conic-gradient girando vía @property; el elemento es el "anillo"
+   (p-[1.5px]) y el hijo opaco tapa el centro. */
+@property --borde-angulo {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes borde-girar {
+  to {
+    --borde-angulo: 360deg;
+  }
+}
+
+.borde-firma-animado,
+.hover-borde-firma:hover {
+  background: conic-gradient(
+    from var(--borde-angulo),
+    var(--cyber-cyan),
+    var(--neon-pulse),
+    var(--synth-wave),
+    var(--hyper-pink),
+    var(--glitch-coral),
+    var(--cyber-cyan)
+  );
+  animation: borde-girar 3.5s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .borde-firma-animado,
+  .hover-borde-firma:hover {
+    animation: none;
+  }
+}
