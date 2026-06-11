@@ -6,6 +6,10 @@ export default function Footer() {
   return (
     <footer className="px-6 py-16">
       <GradientBar className="mb-8" />
+      <p className="mx-auto mb-10 max-w-xl text-center text-sm leading-relaxed text-white/50">
+        1bite es una agencia de marketing, branding y desarrollo web en
+        Maracaibo, Venezuela. Concebimos experiencias indelebles desde 2016.
+      </p>
       <nav className="mb-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs uppercase tracking-[0.2em] text-white/50">
         <Link href="/servicios" className="hover:text-white">
           Servicios
@@ -43,7 +47,7 @@ export default function Footer() {
             @1bite.studio
           </a>
           <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-            build v12
+            build v13
           </span>
         </div>
       </div>

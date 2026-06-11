@@ -6,7 +6,7 @@ import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/ui/Reveal";
 import { posts, getPost } from "@/lib/blog";
 import { WHATSAPP_URL } from "@/lib/content";
-import { articleJsonLd, SITE } from "@/lib/seo";
+import { articleJsonLd, breadcrumbJsonLd, SITE } from "@/lib/seo";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -43,12 +43,22 @@ export default async function BlogPost({
   const p = getPost(slug);
   if (!p) notFound();
 
-  const schema = articleJsonLd({
-    title: p.title,
-    description: p.description,
-    slug: p.slug,
-    date: p.date,
-  });
+  const schema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      articleJsonLd({
+        title: p.title,
+        description: p.description,
+        slug: p.slug,
+        date: p.date,
+      }),
+      breadcrumbJsonLd([
+        { name: "Inicio", url: SITE },
+        { name: "Blog", url: `${SITE}/blog` },
+        { name: p.title, url: `${SITE}/blog/${p.slug}` },
+      ]),
+    ],
+  };
 
   return (
     <main className="flex-1">

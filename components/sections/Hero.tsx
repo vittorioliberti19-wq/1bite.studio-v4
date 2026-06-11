@@ -75,6 +75,9 @@ export default function Hero() {
           1bite — Concebimos experiencias indelebles:{" "}
         </span>
         Branding · Social · Web · Apps · Audiovisual
+        <span className="mt-2 block text-[10px] tracking-[0.3em] text-white/50">
+          Agencia creativa en Maracaibo, Venezuela
+        </span>
       </h1>
     </section>
   );

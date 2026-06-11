@@ -6,7 +6,7 @@ import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/ui/Reveal";
 import { servicios, getServicio } from "@/lib/servicios";
 import { WHATSAPP_URL } from "@/lib/content";
-import { serviceJsonLd, faqJsonLd, SITE } from "@/lib/seo";
+import { serviceJsonLd, faqJsonLd, breadcrumbJsonLd, SITE } from "@/lib/seo";
 
 export function generateStaticParams() {
   return servicios.map((s) => ({ slug: s.slug }));
@@ -50,6 +50,11 @@ export default async function ServicioPage({
         slug: s.slug,
       }),
       faqJsonLd(s.faqs),
+      breadcrumbJsonLd([
+        { name: "Inicio", url: SITE },
+        { name: "Servicios", url: `${SITE}/servicios` },
+        { name: s.nombre, url: `${SITE}/servicios/${s.slug}` },
+      ]),
     ],
   };
 

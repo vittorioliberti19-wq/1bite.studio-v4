@@ -119,6 +119,154 @@ export const posts: Post[] = [
       },
     ],
   },
+  {
+    slug: "como-elegir-agencia-de-marketing-en-maracaibo",
+    title:
+      "Cómo elegir una agencia de marketing en Maracaibo (sin equivocarte)",
+    metaTitle: "Cómo elegir una agencia de marketing en Maracaibo",
+    description:
+      "Guía honesta para escoger agencia de marketing en Maracaibo: qué preguntar, qué señales de alerta mirar y cómo comparar propuestas antes de firmar.",
+    date: "2026-06-11",
+    dateLabel: "11 de junio, 2026",
+    readingMin: 5,
+    body: [
+      {
+        type: "p",
+        text: "En Maracaibo hay de todo: agencias con años de trayectoria, freelancers talentosos, y también gente que compró un celular con buena cámara la semana pasada y ya se llama agencia. El problema es que desde afuera todos se ven parecidos en Instagram. Esta guía es para que sepas qué mirar antes de entregarle tu marca (y tu plata) a alguien.",
+      },
+      { type: "h2", text: "Primero: define qué necesitas de verdad" },
+      {
+        type: "p",
+        text: "No es lo mismo necesitar contenido para redes que necesitar una marca completa o una página web que venda. Muchos negocios contratan “manejo de redes” cuando su problema real es que no tienen identidad de marca, y ningún post bonito arregla eso. Antes de cotizar, ten claro tu objetivo: ¿vender más? ¿verte profesional? ¿lanzar algo nuevo?",
+      },
+      { type: "h2", text: "Qué preguntarle a cualquier agencia" },
+      {
+        type: "ul",
+        items: [
+          "Pide casos reales de clientes en Maracaibo o Venezuela, con resultados, no solo diseños bonitos.",
+          "Pregunta quién va a producir tu contenido: ¿tienen equipo propio de foto y video o subcontratan?",
+          "Pide la propuesta por escrito, con entregables y frecuencia claros.",
+          "Pregunta qué pasa si quieres salirte: contratos eternos son una señal de alerta.",
+          "Verifica que sus propias redes y su propia web estén al nivel que te prometen.",
+        ],
+      },
+      { type: "h2", text: "Señales de alerta" },
+      {
+        type: "p",
+        text: "Desconfía de quien te promete resultados garantizados en semanas, de quien cobra demasiado barato (alguien termina pagando esa diferencia, y sueles ser tú con calidad), y de quien no te hace preguntas sobre tu negocio antes de cotizar. Una agencia seria primero entiende, después propone.",
+      },
+      { type: "h2", text: "Local vs. remoto: ¿importa que sea de Maracaibo?" },
+      {
+        type: "p",
+        text: "Para producción de contenido, sí: alguien tiene que ir a tu local, conocer tu producto y grabar. Una agencia con equipo en Maracaibo te resuelve eso sin logística complicada. Para web o branding puro, la distancia pesa menos, pero la cercanía sigue ayudando: las mejores marcas salen de conversaciones, no de formularios.",
+      },
+      {
+        type: "p",
+        text: "En 1bite llevamos desde 2016 construyendo marcas en Maracaibo, con más de 150 clientes y equipo propio de estrategia, producción audiovisual y desarrollo. Si estás comparando opciones, escríbenos: te damos una propuesta clara y tú decides.",
+      },
+    ],
+  },
+  {
+    slug: "cuanto-cuesta-un-logo-en-venezuela",
+    title:
+      "¿Cuánto cuesta un logo en Venezuela en 2026? (y cuándo necesitas más que un logo)",
+    metaTitle: "¿Cuánto cuesta un logo en Venezuela en 2026?",
+    description:
+      "Rangos reales de precio de un logo en Venezuela, por qué varían tanto, y cómo saber si lo que tu negocio necesita es un logo o una marca completa.",
+    date: "2026-06-11",
+    dateLabel: "11 de junio, 2026",
+    readingMin: 4,
+    body: [
+      {
+        type: "p",
+        text: "“¿Cuánto me cobras por un logo?” es de las preguntas que más recibimos. Y la respuesta corta es: en Venezuela un logo puede costar desde 20 dólares hasta varios miles. La diferencia no es capricho, es qué estás comprando realmente. Acá te lo desglosamos para que compares con criterio.",
+      },
+      { type: "h2", text: "Por qué los precios varían tanto" },
+      {
+        type: "ul",
+        items: [
+          "Un logo de 20-50 dólares suele ser una plantilla adaptada o un diseño sin investigación: rápido, pero genérico.",
+          "Un logo profesional (rango medio) incluye proceso: estudio de tu competencia, propuestas, revisiones y archivos finales en todos los formatos.",
+          "Un sistema de identidad completo incluye además paleta, tipografías, usos correctos e incorrectos y manual de marca: lo que hace que tu negocio se vea coherente en todos lados.",
+        ],
+      },
+      { type: "h2", text: "El error más caro: comprar el logo dos veces" },
+      {
+        type: "p",
+        text: "Lo vemos constantemente: un negocio paga un logo barato para salir del paso, crece, y al año tiene que pagar un rebranding completo porque aquel logo no funciona en redes, no se lee pequeño, o se parece al de la competencia. Lo barato terminó costando el doble, más el costo invisible de un año viéndose amateur.",
+      },
+      { type: "h2", text: "¿Logo o branding? Cómo saber cuál necesitas" },
+      {
+        type: "p",
+        text: "Si estás arrancando y solo necesitas identificarte, un buen logo con archivos correctos puede bastar. Pero si ya tienes un negocio andando, compites contra marcas establecidas o quieres cobrar más caro que el promedio, necesitas branding: el sistema completo que hace que te reconozcan y confíen en ti. Te lo explicamos a fondo en nuestro artículo de branding vs. logo.",
+      },
+      { type: "h2", text: "Qué exigir siempre, pagues lo que pagues" },
+      {
+        type: "ul",
+        items: [
+          "Archivos editables y en vectores (no solo un PNG).",
+          "Versiones para fondo claro y oscuro.",
+          "Cesión clara de los derechos del diseño.",
+          "Al menos una ronda de revisiones incluida.",
+        ],
+      },
+      {
+        type: "p",
+        text: "En 1bite diseñamos identidades de marca en Maracaibo desde 2016, desde la estrategia hasta el manual. Si quieres saber qué le conviene a tu negocio (y cuánto cuesta en tu caso), escríbenos y te orientamos sin compromiso.",
+      },
+    ],
+  },
+  {
+    slug: "redes-sociales-para-negocios-en-maracaibo",
+    title:
+      "Redes sociales para negocios en Maracaibo: qué está funcionando en 2026",
+    metaTitle: "Redes sociales para negocios en Maracaibo (2026)",
+    description:
+      "Qué tipo de contenido está vendiendo para negocios locales en Maracaibo en 2026, los errores más comunes y cuándo conviene delegar tus redes a una agencia.",
+    date: "2026-06-11",
+    dateLabel: "11 de junio, 2026",
+    readingMin: 5,
+    body: [
+      {
+        type: "p",
+        text: "En Maracaibo casi todo el mundo descubre negocios por Instagram y TikTok antes que por cualquier otro canal. Eso es una oportunidad enorme y a la vez una trampa: como todos publican, ya no basta con publicar. Esto es lo que estamos viendo que funciona (y lo que ya no) para negocios locales en 2026.",
+      },
+      { type: "h2", text: "Lo que ya no funciona" },
+      {
+        type: "ul",
+        items: [
+          "Publicar por publicar: el feed lleno de artes genéricos con frases motivacionales.",
+          "Solo flyers de promociones: la gente sigue cuentas que le aportan, no catálogos.",
+          "Comprar seguidores: los números inflados matan tu alcance real.",
+          "Copiar el contenido de la competencia sin una voz propia.",
+        ],
+      },
+      { type: "h2", text: "Lo que sí está vendiendo" },
+      {
+        type: "p",
+        text: "Video corto y real: el detrás de cámara de tu negocio, el producto usándose, el equipo hablando como habla la gente de verdad. Las cuentas locales que más crecen en Maracaibo son las que se sienten cercanas y se ven profesionales al mismo tiempo. Esa combinación —cercanía con calidad de producción— es exactamente lo difícil de lograr solo con un celular y buenas intenciones.",
+      },
+      { type: "h2", text: "La frecuencia importa menos que la consistencia" },
+      {
+        type: "p",
+        text: "Mejor tres publicaciones buenas por semana, todas las semanas, que diez una semana y silencio el mes siguiente. El algoritmo premia la constancia, y tu audiencia también: una cuenta abandonada transmite negocio abandonado.",
+      },
+      { type: "h2", text: "¿Cuándo conviene delegar a una agencia?" },
+      {
+        type: "ul",
+        items: [
+          "Cuando llevas meses publicando y no se traduce en clientes.",
+          "Cuando no tienes tiempo: el dueño atendiendo el negocio Y las redes termina haciendo mal las dos cosas.",
+          "Cuando tu marca se ve inconsistente: cada post parece de una empresa distinta.",
+          "Cuando vas a lanzar algo y necesitas que salga bien a la primera.",
+        ],
+      },
+      {
+        type: "p",
+        text: "En 1bite manejamos redes de negocios en Maracaibo con estrategia, producción audiovisual propia y un equipo que vive aquí y entiende cómo compra la gente aquí. Si quieres que tus redes vendan en serio, escríbenos y te armamos un plan.",
+      },
+    ],
+  },
 ];
 
 export function getPost(slug: string) {
