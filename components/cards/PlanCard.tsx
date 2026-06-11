@@ -14,7 +14,7 @@ export default function PlanCard({
   return (
     <div
       data-cursor
-      className={`relative h-full rounded-[2rem] p-[1.5px] transition duration-500 hover:scale-[1.02] ${
+      className={`relative h-full rounded-[2rem] p-[1.5px] transition duration-500 ${
         destacado ? "borde-firma-animado" : "bg-white/[0.12] hover-borde-firma"
       }`}
     >
