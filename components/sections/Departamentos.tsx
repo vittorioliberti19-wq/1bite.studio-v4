@@ -6,12 +6,62 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { depts } from "@/lib/content";
 
+// Velo para que número y texto sigan legibles sobre el fondo.
+const VELO = (
+  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/25" />
+);
+
+// Video de fondo: carga y reproduce solo en viewport (regla perf del proyecto).
+function DeptVideo({ src, poster }: { src: string; poster?: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          if (!el.src) {
+            el.src = src;
+            el.addEventListener("canplay", () => el.play().catch(() => {}), {
+              once: true,
+            });
+          }
+          el.play().catch(() => {});
+        } else {
+          el.pause();
+        }
+      },
+      { rootMargin: "200px", threshold: 0.1 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [src]);
+  return (
+    <>
+      <video
+        ref={ref}
+        poster={poster}
+        muted
+        loop
+        playsInline
+        preload="none"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      {VELO}
+    </>
+  );
+}
+
 // Fondo del card: imagen de trabajo real; con varias, crossfade cada 4s.
 function DeptMedia({
   images,
+  video,
+  poster,
   title,
 }: {
   images: readonly string[];
+  video?: string;
+  poster?: string;
   title: string;
 }) {
   const [idx, setIdx] = useState(0);
@@ -20,6 +70,7 @@ function DeptMedia({
     const id = setInterval(() => setIdx((i) => (i + 1) % images.length), 4000);
     return () => clearInterval(id);
   }, [images.length]);
+  if (video) return <DeptVideo src={video} poster={poster} />;
   if (!images.length) return null;
   return (
     <>
@@ -35,8 +86,7 @@ function DeptMedia({
           }`}
         />
       ))}
-      {/* velo para que número y texto sigan legibles sobre la imagen */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/25" />
+      {VELO}
     </>
   );
 }
@@ -157,7 +207,12 @@ export default function Departamentos() {
                 className="absolute -inset-px -z-10 hidden opacity-0 blur-3xl transition duration-500 group-hover:block group-hover:opacity-30"
                 style={{ background: "var(--grad-firma)" }}
               />
-              <DeptMedia images={d.images} title={d.title} />
+              <DeptMedia
+                images={d.images}
+                video={d.video}
+                poster={d.poster}
+                title={d.title}
+              />
               <span className="relative z-10 text-6xl font-bold text-white/25">
                 0{i + 1}
               </span>

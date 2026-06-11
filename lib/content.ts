@@ -4,7 +4,18 @@ export const waUrl = (mensaje: string) =>
 
 export const WHATSAPP_URL = waUrl("Hola 1bite, quiero empezar un proyecto.");
 
-export const depts = [
+export type Dept = {
+  id: string;
+  title: string;
+  desc: string;
+  /** fondos del card; con varias hace slideshow */
+  images: string[];
+  /** video de fondo del card (gana sobre images) */
+  video?: string;
+  poster?: string;
+};
+
+export const depts: Dept[] = [
   {
     id: "branding",
     title: "Branding",
@@ -19,6 +30,8 @@ export const depts = [
     title: "Social",
     desc: "Contenido que vende. Producción profesional + estrategia.",
     images: [],
+    video: "/galeria/reels/reel-04.mp4",
+    poster: "/galeria/posters/reel-04.webp",
   },
   {
     id: "web",
@@ -43,8 +56,10 @@ export const depts = [
     title: "Audiovisual",
     desc: "Video, fotografía y producción que cuenta tu historia.",
     images: [],
+    video: "/galeria/reels/reel-06.mp4",
+    poster: "/galeria/posters/reel-06.webp",
   },
-] as const;
+];
 
 export type Plan = {
   id: string;
