@@ -32,7 +32,7 @@ const REELS: Media[] = Array.from({ length: 60 }, (_, i) => {
   };
 });
 
-const WEBS: Media[] = Array.from({ length: 16 }, (_, i) => ({
+const WEBS: Media[] = Array.from({ length: 26 }, (_, i) => ({
   cat: "webs" as const,
   src: `/galeria/webs/web-${String(i + 1).padStart(2, "0")}.webp`,
 }));
