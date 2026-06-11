@@ -37,7 +37,7 @@ const WEBS: Media[] = Array.from({ length: 16 }, (_, i) => ({
   src: `/galeria/webs/web-${String(i + 1).padStart(2, "0")}.webp`,
 }));
 
-const BRANDING: Media[] = Array.from({ length: 24 }, (_, i) => ({
+const BRANDING: Media[] = Array.from({ length: 129 }, (_, i) => ({
   cat: "branding" as const,
   src: `/galeria/branding/brand-${String(i + 1).padStart(2, "0")}.webp`,
 }));
