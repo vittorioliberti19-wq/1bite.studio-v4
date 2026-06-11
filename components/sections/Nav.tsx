@@ -9,7 +9,7 @@ import { WHATSAPP_URL } from "@/lib/content";
 const LINKS = [
   { href: "/#departamentos", label: "Servicios" },
   { href: "/#planes", label: "Planes" },
-  { href: "/trabajos", label: "Trabajos" },
+  { href: "/galeria", label: "Our Work" },
   { href: "/blog", label: "Blog" },
   { href: "/#contacto", label: "Contacto" },
 ];
@@ -74,7 +74,7 @@ export default function Nav({ flyingLogo = false }: { flyingLogo?: boolean }) {
       >
         <Link href="/#departamentos">Servicios</Link>
         <Link href="/#planes">Planes</Link>
-        <Link href="/trabajos">Trabajos</Link>
+        <Link href="/galeria">Our Work</Link>
         <Link href="/#contacto">Contacto</Link>
       </nav>
       <div className="flex items-center gap-3">

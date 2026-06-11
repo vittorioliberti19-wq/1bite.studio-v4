@@ -23,8 +23,8 @@ export default function Footer() {
             {s.nombre}
           </Link>
         ))}
-        <Link href="/trabajos" className="hover:text-white">
-          Trabajos
+        <Link href="/galeria" className="hover:text-white">
+          Our Work
         </Link>
         <Link href="/blog" className="hover:text-white">
           Blog
@@ -47,7 +47,7 @@ export default function Footer() {
             @1bite.studio
           </a>
           <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-            build v17
+            build v18
           </span>
         </div>
       </div>
