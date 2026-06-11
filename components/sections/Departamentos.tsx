@@ -1,10 +1,45 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { depts } from "@/lib/content";
+
+// Fondo del card: imagen de trabajo real; con varias, crossfade cada 4s.
+function DeptMedia({
+  images,
+  title,
+}: {
+  images: readonly string[];
+  title: string;
+}) {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    if (images.length < 2) return;
+    const id = setInterval(() => setIdx((i) => (i + 1) % images.length), 4000);
+    return () => clearInterval(id);
+  }, [images.length]);
+  if (!images.length) return null;
+  return (
+    <>
+      {images.map((src, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={src}
+          src={src}
+          alt={`Trabajo de ${title} de 1bite`}
+          loading="lazy"
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+            i === idx ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
+      {/* velo para que número y texto sigan legibles sobre la imagen */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/25" />
+    </>
+  );
+}
 
 export default function Departamentos() {
   const root = useRef<HTMLDivElement>(null);
@@ -122,8 +157,11 @@ export default function Departamentos() {
                 className="absolute -inset-px -z-10 hidden opacity-0 blur-3xl transition duration-500 group-hover:block group-hover:opacity-30"
                 style={{ background: "var(--grad-firma)" }}
               />
-              <span className="text-6xl font-bold text-white/15">0{i + 1}</span>
-              <div>
+              <DeptMedia images={d.images} title={d.title} />
+              <span className="relative z-10 text-6xl font-bold text-white/25">
+                0{i + 1}
+              </span>
+              <div className="relative z-10">
                 <h3 className="text-3xl font-bold md:text-4xl">{d.title}</h3>
                 <p className="mt-3 text-sm text-white/70">{d.desc}</p>
               </div>

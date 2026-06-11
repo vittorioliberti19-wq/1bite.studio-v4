@@ -9,26 +9,40 @@ export const depts = [
     id: "branding",
     title: "Branding",
     desc: "Sistemas de marca estratégicos, memorables y coherentes.",
+    images: [
+      "/galeria/branding/brand-130.webp",
+      "/galeria/branding/brand-131.webp",
+    ],
   },
   {
     id: "social",
     title: "Social",
     desc: "Contenido que vende. Producción profesional + estrategia.",
+    images: [],
   },
   {
     id: "web",
     title: "Web",
     desc: "Sitios y experiencias digitales de alto impacto.",
+    images: [
+      "/galeria/webs/web-27.webp",
+      "/galeria/webs/web-28.webp",
+      "/galeria/webs/web-29.webp",
+      "/galeria/webs/web-30.webp",
+      "/galeria/webs/web-31.webp",
+    ],
   },
   {
     id: "apps",
     title: "Apps",
     desc: "Productos y automatizaciones a la medida.",
+    images: ["/galeria/webs/web-32.webp"],
   },
   {
     id: "audiovisual",
     title: "Audiovisual",
     desc: "Video, fotografía y producción que cuenta tu historia.",
+    images: [],
   },
 ] as const;
 

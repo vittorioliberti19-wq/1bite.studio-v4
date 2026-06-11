@@ -32,12 +32,12 @@ const REELS: Media[] = Array.from({ length: 60 }, (_, i) => {
   };
 });
 
-const WEBS: Media[] = Array.from({ length: 26 }, (_, i) => ({
+const WEBS: Media[] = Array.from({ length: 32 }, (_, i) => ({
   cat: "webs" as const,
   src: `/galeria/webs/web-${String(i + 1).padStart(2, "0")}.webp`,
 }));
 
-const BRANDING: Media[] = Array.from({ length: 129 }, (_, i) => ({
+const BRANDING: Media[] = Array.from({ length: 131 }, (_, i) => ({
   cat: "branding" as const,
   src: `/galeria/branding/brand-${String(i + 1).padStart(2, "0")}.webp`,
 }));
