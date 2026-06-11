@@ -26,26 +26,38 @@ test("home: funnel completo, sin precios, sin errores de consola", async ({
     page.getByText("Concebimos experiencias indelebles").first(),
   ).toBeVisible();
 
-  // 4 planes sin precio
-  await expect(page.getByRole("heading", { name: "Plan Élite" })).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Plan Enterprise" }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Tier Esencial" }),
-  ).toBeVisible();
-  await expect(
-    page.getByRole("heading", { name: "Tier Estratégico" }),
-  ).toBeVisible();
+  // planes por tab (selector de categorías) — un heading representativo por grupo
+  const planPorTab: [string, string][] = [
+    ["Social Media", "Plan Enterprise"],
+    ["Branding", "Tier Estratégico"],
+    ["Gastro", "Gastro Premium"],
+    ["Web", "E-commerce"],
+    ["Logo", "Logo + Naming"],
+  ];
+  await page
+    .getByRole("heading", { name: "Planes", exact: true })
+    .scrollIntoViewIfNeeded();
+  let textoPlanes = "";
+  for (const [tab, plan] of planPorTab) {
+    await page.getByRole("tab", { name: tab }).click();
+    await expect(
+      page.getByRole("heading", { name: plan, exact: true }),
+    ).toBeVisible();
+    textoPlanes += await page.evaluate(() => document.body.innerText);
+  }
 
   // NINGÚN precio visible en el DOM (innerText: solo texto renderizado,
   // excluye <script> JSON-LD que contiene el teléfono +17869063354)
-  const body = await page.evaluate(() => document.body.innerText);
   for (const precio of [
     "$690",
     "$1,000",
     "$1,200",
+    "$2,200",
     "$2,500",
+    "$2,800",
+    "$3,500",
+    "$300",
+    "$400",
     "690",
     "1000",
     "1200",
@@ -53,7 +65,9 @@ test("home: funnel completo, sin precios, sin errores de consola", async ({
     "1300",
     "900",
   ]) {
-    expect(body, `precio "${precio}" no debe aparecer`).not.toContain(precio);
+    expect(textoPlanes, `precio "${precio}" no debe aparecer`).not.toContain(
+      precio,
+    );
   }
 
   await page.screenshot({

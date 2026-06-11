@@ -1,5 +1,5 @@
-import { planes } from "@/lib/content";
-import PlanCard from "@/components/cards/PlanCard";
+import { garantias } from "@/lib/content";
+import PlanesGrid from "@/components/sections/PlanesGrid";
 import Reveal from "@/components/ui/Reveal";
 import FluidBackground from "@/components/ui/FluidBackground";
 import Parallax from "@/components/ui/Parallax";
@@ -24,14 +24,24 @@ export default function Planes() {
           </div>
         }
       >
-        <div className="grid h-full grid-cols-1 items-start gap-4 overflow-y-auto sm:grid-cols-2 lg:grid-cols-4">
-          {planes.map((p, i) => (
-            <Reveal key={p.id} delay={i * 0.08} className="h-full">
-              <PlanCard {...p} />
-            </Reveal>
-          ))}
-        </div>
+        <PlanesGrid />
       </ContainerScroll>
+
+      <Reveal>
+        <div className="mx-auto -mt-10 max-w-5xl px-6 pb-24">
+          <div className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-white/10 bg-white/[0.03] px-8 py-6 text-center md:flex-row md:gap-10">
+            {garantias.map((g) => (
+              <p
+                key={g}
+                className="flex items-center gap-2 text-sm text-white/75"
+              >
+                <span className="gradient-text font-bold">✓</span>
+                {g}
+              </p>
+            ))}
+          </div>
+        </div>
+      </Reveal>
     </section>
   );
 }

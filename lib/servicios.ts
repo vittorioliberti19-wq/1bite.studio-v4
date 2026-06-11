@@ -9,6 +9,8 @@ export type Servicio = {
   incluye: string[];
   resultados: string[];
   faqs: { q: string; a: string }[];
+  /** paquetes/tiers del servicio con sus entregables (sin precios) */
+  paquetes?: { nombre: string; desc: string; items: string[] }[];
 };
 
 export const servicios: Servicio[] = [
@@ -36,6 +38,30 @@ export const servicios: Servicio[] = [
       "Dejas de improvisar: todo tu equipo usa la misma imagen",
       "Subes el valor percibido y puedes cobrar lo que vales",
     ],
+    paquetes: [
+      {
+        nombre: "Tier Esencial",
+        desc: "Manual de identidad corporativa en 5 bloques.",
+        items: [
+          "Identidad visual base: logo (3 propuestas), colores, tipografías",
+          "Personalidad de marca: proposición de valor, voz y tono, lema",
+          "Papelería corporativa: tarjetas, hoja membretada, firma de correo",
+          "Aplicaciones físicas: uniforme, corpóreo, rotulado vehicular",
+          "Manual de comunicaciones para redes y correo",
+        ],
+      },
+      {
+        nombre: "Tier Estratégico",
+        desc: "Sistema de marca completo: el porqué, el qué, el cómo y la gobernanza.",
+        items: [
+          "Fundamentos estratégicos: propósito, posicionamiento, arquetipo y análisis competitivo",
+          "Personalidad verbal: voz, tono por contexto, mensajes clave por audiencia",
+          "Sistema visual completo con accesibilidad WCAG: logo, color, tipografía, iconografía, fotografía y movimiento",
+          "Aplicaciones digitales y físicas: web, RRSS, email, espacio físico, flota y merchandising",
+          "Gobernanza de marca: roles, aprobaciones, repositorio de assets y co-branding",
+        ],
+      },
+    ],
     faqs: [
       {
         q: "¿Cuánto tarda un proyecto de branding?",
@@ -48,6 +74,71 @@ export const servicios: Servicio[] = [
       {
         q: "¿Trabajan con negocios fuera de Maracaibo?",
         a: "Sí. Atendemos clientes en toda Venezuela y en el exterior de forma remota, con reuniones y entregas digitales.",
+      },
+    ],
+  },
+  {
+    slug: "branding-gastronomico",
+    nombre: "Branding Gastro",
+    metaTitle:
+      "Branding para restaurantes en Maracaibo | Identidad gastronómica",
+    metaDescription:
+      "Branding especializado para restaurantes, cafés y delivery en Maracaibo: identidad, menú, empaque de delivery, dirección fotográfica de platos y plantillas de Instagram.",
+    h1: "Branding para restaurantes que abren llenos desde el día uno",
+    lead: "Tu comida puede ser la mejor de Maracaibo, pero si la marca no antoja, el cliente no llega.",
+    intro: [
+      "Diseñamos marcas gastronómicas completas: desde el concepto y el logo hasta el menú, el empaque del delivery y las plantillas de Instagram. Todo pensado para el negocio real de un restaurante en Venezuela, donde Instagram es el canal #1 de adquisición y el delivery es parte de la experiencia.",
+      "No es un branding genérico adaptado a comida. Incluye lo que un restaurante necesita de verdad: carta con versión QR, señalética del local, uniformes, dirección fotográfica para que cada plato se vea como se merece, y un manual para que tu equipo mantenga la marca viva en redes.",
+    ],
+    incluye: [
+      "Concepto gastronómico, naming (si aplica) y personalidad de marca",
+      "Logotipo, paleta, tipografías y elementos gráficos",
+      "Menú físico + carta QR digital + carta de bebidas",
+      "Fachada, señalética, uniformes y empaque de delivery",
+      "Plantillas de Instagram, highlight covers y dirección fotográfica de platos",
+    ],
+    resultados: [
+      "Abres posicionado, no construyendo la marca sobre la marcha",
+      "Tu Instagram antoja y convierte seguidores en mesas y pedidos",
+      "El delivery llega con una experiencia de marca, no en una bolsa cualquiera",
+    ],
+    paquetes: [
+      {
+        nombre: "Gastro Esencial",
+        desc: "La identidad completa para abrir tu restaurante.",
+        items: [
+          "Identidad de marca + concepto gastronómico y lema",
+          "Sistema visual base: logotipo y variantes, paleta, tipografías",
+          "Menú principal, carta de bebidas y versión QR digital",
+          "Fachada/corpóreo, uniforme básico y señalética",
+          "6 plantillas de Instagram + 4 highlight covers + papelería básica",
+        ],
+      },
+      {
+        nombre: "Gastro Premium",
+        desc: "Para abrir bien posicionado: sala + delivery + Instagram como canal #1.",
+        items: [
+          "Todo lo del Gastro Esencial",
+          "Dirección fotográfica de platos completa (luz, encuadre, paleta)",
+          "Menú completo: delivery/take-away, especiales y carta de vinos",
+          "Empaque de delivery: bolsa, sticker de sellado y tarjeta de agradecimiento",
+          "12 plantillas de Instagram, Stories, Google My Business y gift card",
+          "Manual de uso: cómo publicar, responder reseñas y calendario sugerido",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "¿Por qué un branding especial para restaurantes?",
+        a: "Porque un restaurante vive de cosas que un branding corporativo no cubre: el menú, el empaque del delivery, la fotografía de los platos y un Instagram que antoje. Nuestros paquetes gastro incluyen exactamente eso.",
+      },
+      {
+        q: "¿Sirve si mi local todavía no abre?",
+        a: "Es el mejor momento. Diseñamos la marca completa antes de la apertura para que el día uno ya tengas menú, fachada, uniformes, redes y delivery alineados.",
+      },
+      {
+        q: "¿Incluye la fotografía de los platos?",
+        a: "Incluye la dirección fotográfica (cómo se deben ver tus platos: luz, encuadre, paleta). La sesión de fotos se puede sumar con nuestro equipo audiovisual y The Studio 4.",
       },
     ],
   },
@@ -113,6 +204,41 @@ export const servicios: Servicio[] = [
       "Apareces en Google cuando tu cliente te busca",
       "Carga en segundos, incluso desde el celular",
       "Conviertes visitas en mensajes y ventas reales",
+    ],
+    paquetes: [
+      {
+        nombre: "Landing Page",
+        desc: "Una sola página, un solo objetivo: lanzar, captar leads o validar una idea.",
+        items: [
+          "Hasta 8 secciones con scroll vertical",
+          "Formulario de contacto + SEO técnico básico",
+          "Performance Lighthouse 90+ y diseño responsive",
+          "Deploy con SSL incluido y código fuente tuyo",
+          "Entrega en 10 a 14 días",
+        ],
+      },
+      {
+        nombre: "Sitio Corporativo",
+        desc: "Presencia institucional con múltiples páginas para empresas de servicios.",
+        items: [
+          "Hasta 6 páginas: home, nosotros, servicios, casos, blog y contacto",
+          "SEO técnico completo + Google Analytics 4 + Search Console",
+          "CMS ligero opcional para que edites tu blog",
+          "Sistema de componentes a la medida de tu marca",
+          "Entrega en 18 a 25 días",
+        ],
+      },
+      {
+        nombre: "E-commerce",
+        desc: "Tienda online con carrito: checkout por WhatsApp para Venezuela o pasarela de pago internacional.",
+        items: [
+          "Catálogo con filtros + hasta 40 productos cargados por nosotros",
+          "Checkout manual (WhatsApp, sin comisiones) o automático con tarjeta",
+          "Inventario básico + SEO de producto (schema.org)",
+          "Emails de confirmación automáticos en modalidad con pasarela",
+          "Entrega en 25 a 40 días según modalidad",
+        ],
+      },
     ],
     faqs: [
       {

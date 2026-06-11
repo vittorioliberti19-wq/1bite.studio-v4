@@ -99,6 +99,33 @@ export default async function ServicioPage({
           </ul>
         </Reveal>
 
+        {s.paquetes && (
+          <Reveal>
+            <h2 className="mt-16 mb-6 text-2xl font-bold md:text-3xl">
+              Paquetes
+            </h2>
+            <div className="grid gap-5 md:grid-cols-2">
+              {s.paquetes.map((p) => (
+                <div
+                  key={p.nombre}
+                  className="rounded-3xl border border-white/10 bg-white/[0.03] p-6"
+                >
+                  <h3 className="text-xl font-bold">{p.nombre}</h3>
+                  <p className="mt-1 text-sm text-white/60">{p.desc}</p>
+                  <ul className="mt-4 space-y-2 text-sm text-white/80">
+                    {p.items.map((it) => (
+                      <li key={it} className="flex gap-2">
+                        <span className="gradient-text font-bold">›</span>
+                        <span>{it}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        )}
+
         <Reveal>
           <h2 className="mt-16 mb-6 text-2xl font-bold md:text-3xl">
             Lo que ganas

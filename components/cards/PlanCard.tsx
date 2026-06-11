@@ -2,7 +2,7 @@
 
 import GradientBar from "@/components/ui/GradientBar";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
-import { WHATSAPP_URL, type Plan } from "@/lib/content";
+import { waUrl, type Plan } from "@/lib/content";
 
 export default function PlanCard({
   cat,
@@ -10,6 +10,7 @@ export default function PlanCard({
   tagline,
   features,
   destacado,
+  badge,
 }: Plan) {
   return (
     <div
@@ -19,9 +20,17 @@ export default function PlanCard({
       }`}
     >
       <div className="flex h-full flex-col rounded-[2rem] bg-[color:var(--deep-code)] p-8">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-white/50">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/85">
           {cat}
         </p>
+        {badge && (
+          <p
+            className="mt-3 w-fit rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-black"
+            style={{ background: "var(--grad-firma)" }}
+          >
+            {badge}
+          </p>
+        )}
         <h3 className="mt-2 text-2xl font-bold">{name}</h3>
         <p className="mt-1 text-sm text-white/60">{tagline}</p>
         <GradientBar className="my-6" />
@@ -35,11 +44,32 @@ export default function PlanCard({
         </ul>
         <LiquidButton
           size="lg"
-          onClick={() => window.open(WHATSAPP_URL, "_blank", "noopener")}
+          onClick={() =>
+            window.open(
+              waUrl(`Hola 1bite, me interesa el plan ${name} (${cat}).`),
+              "_blank",
+              "noopener",
+            )
+          }
           className="mt-8 w-full font-medium text-white"
         >
           Quiero este plan
         </LiquidButton>
+        <button
+          data-cursor
+          onClick={() =>
+            window.open(
+              waUrl(
+                `Hola 1bite, ¿me envían el detalle completo del plan ${name} (${cat})?`,
+              ),
+              "_blank",
+              "noopener",
+            )
+          }
+          className="mt-3 text-xs text-white/50 underline-offset-4 transition hover:text-white hover:underline"
+        >
+          Pide el detalle completo
+        </button>
       </div>
     </div>
   );

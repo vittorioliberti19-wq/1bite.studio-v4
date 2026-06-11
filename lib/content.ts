@@ -1,7 +1,8 @@
 // Contacto — todos los CTA "Comienza" abren WhatsApp.
-export const WHATSAPP_URL =
-  "https://wa.me/17869063354?text=" +
-  encodeURIComponent("Hola 1bite, quiero empezar un proyecto.");
+export const waUrl = (mensaje: string) =>
+  "https://wa.me/17869063354?text=" + encodeURIComponent(mensaje);
+
+export const WHATSAPP_URL = waUrl("Hola 1bite, quiero empezar un proyecto.");
 
 export const depts = [
   {
@@ -34,18 +35,32 @@ export const depts = [
 export type Plan = {
   id: string;
   cat: string;
+  /** grupo del selector de Planes (tab) */
+  grupo: "social" | "branding" | "gastro" | "web" | "logo";
   name: string;
   tagline: string;
   features: string[];
   destacado?: boolean;
+  /** chip promocional (sin montos ni %) */
+  badge?: string;
 };
+
+export const grupoPlanes: { value: Plan["grupo"]; label: string }[] = [
+  { value: "social", label: "Social Media" },
+  { value: "branding", label: "Branding" },
+  { value: "gastro", label: "Gastro" },
+  { value: "web", label: "Web" },
+  { value: "logo", label: "Logo" },
+];
 
 export const planes: Plan[] = [
   {
     id: "elite",
     cat: "Social Media",
+    grupo: "social",
     name: "Plan Élite",
     tagline: "Para negocios listos a invertir en alto impacto.",
+    badge: "Descuento con suscripción · pregúntanos",
     features: [
       "8 publicaciones + 8 reels al mes",
       "30 historias diseñadas + 60 orgánicas",
@@ -57,9 +72,11 @@ export const planes: Plan[] = [
   {
     id: "enterprise",
     cat: "Social Media",
+    grupo: "social",
     name: "Plan Enterprise",
     tagline: "Estrategia profunda + automatización avanzada.",
     destacado: true,
+    badge: "Descuento con suscripción · pregúntanos",
     features: [
       "Todo lo del Plan Élite",
       "10–12 reels al mes + 8h de estudio",
@@ -71,6 +88,7 @@ export const planes: Plan[] = [
   {
     id: "esencial",
     cat: "Branding",
+    grupo: "branding",
     name: "Tier Esencial",
     tagline: "Manual de identidad corporativa.",
     features: [
@@ -84,6 +102,7 @@ export const planes: Plan[] = [
   {
     id: "estrategico",
     cat: "Branding",
+    grupo: "branding",
     name: "Tier Estratégico",
     tagline: "Sistema de marca completo en 5 bloques.",
     destacado: true,
@@ -95,6 +114,115 @@ export const planes: Plan[] = [
       "Gobernanza de marca",
     ],
   },
+  {
+    id: "gastro-esencial",
+    cat: "Branding Gastro",
+    grupo: "gastro",
+    name: "Gastro Esencial",
+    tagline: "La identidad completa para abrir tu restaurante.",
+    features: [
+      "Identidad de marca + concepto gastronómico",
+      "Logotipo, paleta y tipografías",
+      "Menú principal + carta de bebidas + versión QR",
+      "Fachada, uniforme y señalética básica",
+      "6 plantillas de Instagram + 4 highlight covers",
+    ],
+  },
+  {
+    id: "gastro-premium",
+    cat: "Branding Gastro",
+    grupo: "gastro",
+    name: "Gastro Premium",
+    tagline: "Para abrir posicionado: sala + delivery + Instagram.",
+    destacado: true,
+    features: [
+      "Todo lo del Gastro Esencial",
+      "Dirección fotográfica de platos completa",
+      "Menú completo: delivery, especiales y carta de vinos",
+      "Empaque de delivery: bolsa, sticker y tarjeta",
+      "12 plantillas IG + Stories + Google My Business",
+      "Manual de uso y calendario de publicaciones",
+    ],
+  },
+  {
+    id: "web-landing",
+    cat: "Web",
+    grupo: "web",
+    name: "Landing Page",
+    tagline: "Una sola página, un solo objetivo.",
+    features: [
+      "Hasta 8 secciones con scroll vertical",
+      "Formulario de contacto + SEO técnico básico",
+      "Performance Lighthouse 90+ y responsive",
+      "Deploy con SSL incluido",
+      "El código fuente es tuyo (repositorio Git)",
+    ],
+  },
+  {
+    id: "web-corporativo",
+    cat: "Web",
+    grupo: "web",
+    name: "Sitio Corporativo",
+    tagline: "Presencia institucional con múltiples secciones.",
+    destacado: true,
+    features: [
+      "Hasta 6 páginas: home, nosotros, servicios, casos, blog y contacto",
+      "SEO completo + Google Analytics + Search Console",
+      "CMS ligero opcional para editar tu blog",
+      "Sistema de componentes a tu marca",
+      "Deploy con SSL + código fuente tuyo",
+    ],
+  },
+  {
+    id: "web-ecommerce",
+    cat: "Web",
+    grupo: "web",
+    name: "E-commerce",
+    tagline: "Tienda online con carrito y proceso de compra.",
+    features: [
+      "Catálogo con filtros + hasta 40 productos cargados",
+      "Checkout por WhatsApp o con pasarela de pago",
+      "Inventario básico + SEO de producto (schema.org)",
+      "Emails de confirmación automáticos (pasarela)",
+      "Deploy con SSL + código fuente tuyo",
+    ],
+  },
+  {
+    id: "logo",
+    cat: "Identidad",
+    grupo: "logo",
+    name: "Logo",
+    tagline: "¿Solo necesitas el logo? Empieza por aquí.",
+    features: [
+      "3 propuestas de logotipo",
+      "Versión final en todos los formatos",
+      "Tarjetas de presentación",
+      "Pieza publicitaria adicional (valla, volante…)",
+      "Entrega en 10 días",
+    ],
+  },
+  {
+    id: "logo-naming",
+    cat: "Identidad",
+    grupo: "logo",
+    name: "Logo + Naming",
+    tagline: "Aún no tienes nombre: lo creamos contigo.",
+    destacado: true,
+    features: [
+      "Naming estratégico + validación conceptual",
+      "3 propuestas de logotipo",
+      "Versión final en todos los formatos",
+      "Tarjetas de presentación + pieza publicitaria",
+      "Entrega en 10 días",
+    ],
+  },
+];
+
+/** Garantías de trabajo (de la metodología 1bite) */
+export const garantias = [
+  "2 rondas de corrección incluidas en todo servicio",
+  "Presentación ejecutiva que sustenta cada decisión",
+  "Si no cumple tus expectativas, devolvemos el 70%",
 ];
 
 export type Trabajo = { id: string; marca: string; tipo: string; img: string };
