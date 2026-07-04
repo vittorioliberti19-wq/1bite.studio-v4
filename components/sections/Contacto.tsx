@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import { WHATSAPP_URL } from "@/lib/content";
 
 const SUPABASE_FN =
@@ -289,123 +290,133 @@ export default function Contacto() {
   return (
     <section
       id="contacto"
-      className="mx-auto w-full max-w-6xl scroll-mt-28 px-6 py-28 md:py-36"
+      className="relative isolate scroll-mt-28 overflow-hidden py-28 md:py-36"
     >
-      <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-        Contacto
-      </p>
-      <h2 className="mt-4 max-w-2xl text-4xl font-semibold leading-[1.05] text-white md:text-5xl">
-        Hablemos de tu{" "}
-        <span
-          className="bg-clip-text text-transparent"
-          style={{ backgroundImage: "var(--grad-firma)" }}
-        >
-          próximo proyecto
-        </span>
-      </h2>
+      <div className="absolute inset-0 -z-10">
+        <BackgroundGradientAnimation
+          interactive={false}
+          blendingValue="screen"
+        />
+        {/* velo suave para legibilidad sobre los blobs */}
+        <div className="absolute inset-0 bg-black/25" />
+      </div>
+      <div className="mx-auto w-full max-w-6xl px-6">
+        <p className="text-xs uppercase tracking-[0.3em] text-white/50">
+          Contacto
+        </p>
+        <h2 className="mt-4 max-w-2xl text-4xl font-semibold leading-[1.05] text-white md:text-5xl">
+          Hablemos de tu{" "}
+          <span
+            className="bg-clip-text text-transparent"
+            style={{ backgroundImage: "var(--grad-firma)" }}
+          >
+            próximo proyecto
+          </span>
+        </h2>
 
-      <div className="mt-12 grid gap-8 md:grid-cols-2">
-        {/* Contacto general */}
-        <div className="relative rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
-          <GlowingEffect
-            spread={40}
-            glow
-            disabled={false}
-            proximity={64}
-            inactiveZone={0.01}
-            borderWidth={4}
-          />
-          <h3 className="text-2xl font-semibold text-white">Escríbenos</h3>
-          <p className="mt-2 mb-6 text-sm text-white/55">
-            Cuéntanos sobre tu marca y armamos la propuesta.
-          </p>
-          <ContactoForm />
+        <div className="mt-12 grid gap-8 md:grid-cols-2">
+          {/* Contacto general */}
+          <div className="relative rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
+            <GlowingEffect
+              spread={40}
+              glow
+              disabled={false}
+              proximity={64}
+              inactiveZone={0.01}
+              borderWidth={4}
+            />
+            <h3 className="text-2xl font-semibold text-white">Escríbenos</h3>
+            <p className="mt-2 mb-6 text-sm text-white/55">
+              Cuéntanos sobre tu marca y armamos la propuesta.
+            </p>
+            <ContactoForm />
+          </div>
+
+          {/* Vacantes */}
+          <div className="relative rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
+            <GlowingEffect
+              spread={40}
+              glow
+              disabled={false}
+              proximity={64}
+              inactiveZone={0.01}
+              borderWidth={4}
+            />
+            <p className="text-xs uppercase tracking-[0.3em] text-white/50">
+              Vacantes
+            </p>
+            <h3 className="mt-3 text-2xl font-semibold text-white">
+              Únete al equipo
+            </h3>
+            <p className="mt-2 mb-6 text-sm text-white/55">
+              Elige el puesto y carga tu información. La revisamos con calma.
+            </p>
+            <VacanteForm />
+          </div>
         </div>
 
-        {/* Vacantes */}
-        <div className="relative rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
-          <GlowingEffect
-            spread={40}
-            glow
-            disabled={false}
-            proximity={64}
-            inactiveZone={0.01}
-            borderWidth={4}
-          />
-          <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-            Vacantes
-          </p>
-          <h3 className="mt-3 text-2xl font-semibold text-white">
-            Únete al equipo
-          </h3>
-          <p className="mt-2 mb-6 text-sm text-white/55">
-            Elige el puesto y carga tu información. La revisamos con calma.
-          </p>
-          <VacanteForm />
+        {/* Canales de contacto clickeables */}
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm">
+          <a
+            href="mailto:gerencia@1bite.studio"
+            data-cursor
+            className="text-white/70 transition hover:text-white"
+          >
+            gerencia@1bite.studio
+          </a>
+          <a
+            href="mailto:administracion@1bite.studio"
+            data-cursor
+            className="text-white/70 transition hover:text-white"
+          >
+            administracion@1bite.studio
+          </a>
+          <a
+            href={`tel:${TEL}`}
+            data-cursor
+            className="text-white/70 transition hover:text-white"
+          >
+            +1 786 906 3354
+          </a>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener"
+            data-cursor
+            className="text-white/70 transition hover:text-white"
+          >
+            WhatsApp
+          </a>
+          <a
+            href="https://instagram.com/1bite.studio"
+            target="_blank"
+            rel="noopener"
+            data-cursor
+            className="text-white/70 transition hover:text-white"
+          >
+            @1bite.studio
+          </a>
+          <span className="text-white/60">Maracaibo, Venezuela</span>
         </div>
-      </div>
 
-      {/* Canales de contacto clickeables */}
-      <div className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm">
-        <a
-          href="mailto:gerencia@1bite.studio"
-          data-cursor
-          className="text-white/70 transition hover:text-white"
-        >
-          gerencia@1bite.studio
-        </a>
-        <a
-          href="mailto:administracion@1bite.studio"
-          data-cursor
-          className="text-white/70 transition hover:text-white"
-        >
-          administracion@1bite.studio
-        </a>
-        <a
-          href={`tel:${TEL}`}
-          data-cursor
-          className="text-white/70 transition hover:text-white"
-        >
-          +1 786 906 3354
-        </a>
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener"
-          data-cursor
-          className="text-white/70 transition hover:text-white"
-        >
-          WhatsApp
-        </a>
-        <a
-          href="https://instagram.com/1bite.studio"
-          target="_blank"
-          rel="noopener"
-          data-cursor
-          className="text-white/70 transition hover:text-white"
-        >
-          @1bite.studio
-        </a>
-        <span className="text-white/60">Maracaibo, Venezuela</span>
-      </div>
-
-      {/* App Store — centrado, más grande que el del footer */}
-      <div className="mt-10 flex justify-center">
-        <a
-          href="https://apps.apple.com/us/app/1bite/id6782481903"
-          target="_blank"
-          rel="noopener noreferrer"
-          data-cursor
-          aria-label="Descarga 1bite en el App Store"
-          className="transition hover:opacity-80"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logos/app-store-badge.svg"
-            alt="Download on the App Store"
-            className="h-12 w-auto md:h-14"
-          />
-        </a>
+        {/* App Store — centrado, más grande que el del footer */}
+        <div className="mt-10 flex justify-center">
+          <a
+            href="https://apps.apple.com/us/app/1bite/id6782481903"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor
+            aria-label="Descarga 1bite en el App Store"
+            className="transition hover:opacity-80"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logos/app-store-badge.svg"
+              alt="Download on the App Store"
+              className="h-12 w-auto md:h-14"
+            />
+          </a>
+        </div>
       </div>
     </section>
   );
