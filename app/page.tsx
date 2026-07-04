@@ -9,6 +9,7 @@ import Proceso from "@/components/sections/Proceso";
 import CTAFinal from "@/components/sections/CTAFinal";
 import Contacto from "@/components/sections/Contacto";
 import Footer from "@/components/sections/Footer";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 export default function Home() {
   return (
@@ -21,8 +22,18 @@ export default function Home() {
       <Clientes />
       <Planes />
       <Proceso />
-      <CTAFinal />
-      <Contacto />
+      {/* CTA + Contacto comparten un solo fondo de blobs, sin corte */}
+      <div className="relative isolate overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <BackgroundGradientAnimation
+            interactive={false}
+            blendingValue="screen"
+          />
+          <div className="absolute inset-0 bg-black/25" />
+        </div>
+        <CTAFinal />
+        <Contacto />
+      </div>
       <Footer />
     </main>
   );

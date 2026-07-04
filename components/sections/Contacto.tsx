@@ -3,7 +3,6 @@
 import { useRef, useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import { WHATSAPP_URL } from "@/lib/content";
 
 const SUPABASE_FN =
@@ -288,18 +287,7 @@ function VacanteForm() {
 
 export default function Contacto() {
   return (
-    <section
-      id="contacto"
-      className="relative isolate scroll-mt-28 overflow-hidden py-28 md:py-36"
-    >
-      <div className="absolute inset-0 -z-10">
-        <BackgroundGradientAnimation
-          interactive={false}
-          blendingValue="screen"
-        />
-        {/* velo suave para legibilidad sobre los blobs */}
-        <div className="absolute inset-0 bg-black/25" />
-      </div>
+    <section id="contacto" className="relative scroll-mt-28 pt-10 pb-28 md:pt-12 md:pb-36">
       <div className="mx-auto w-full max-w-6xl px-6">
         <p className="text-xs uppercase tracking-[0.3em] text-white/50">
           Contacto
@@ -316,7 +304,7 @@ export default function Contacto() {
 
         <div className="mt-12 grid gap-8 md:grid-cols-2">
           {/* Contacto general */}
-          <div className="relative rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
+          <div className="relative rounded-3xl border border-white/20 bg-black/70 p-7 md:p-9">
             <GlowingEffect
               spread={40}
               glow
@@ -333,7 +321,7 @@ export default function Contacto() {
           </div>
 
           {/* Vacantes */}
-          <div className="relative rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
+          <div className="relative rounded-3xl border border-white/20 bg-black/70 p-7 md:p-9">
             <GlowingEffect
               spread={40}
               glow
