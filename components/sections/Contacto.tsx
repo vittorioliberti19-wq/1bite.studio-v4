@@ -371,6 +371,25 @@ export default function Contacto() {
         </a>
         <span className="text-white/60">Maracaibo, Venezuela</span>
       </div>
+
+      {/* App Store — centrado, más grande que el del footer */}
+      <div className="mt-10 flex justify-center">
+        <a
+          href="https://apps.apple.com/us/app/1bite/id6782481903"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cursor
+          aria-label="Descarga 1bite en el App Store"
+          className="transition hover:opacity-80"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logos/app-store-badge.svg"
+            alt="Download on the App Store"
+            className="h-12 w-auto md:h-14"
+          />
+        </a>
+      </div>
     </section>
   );
 }
