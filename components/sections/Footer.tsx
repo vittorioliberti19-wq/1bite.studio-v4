@@ -43,11 +43,25 @@ export default function Footer() {
           Branding · Social · Web · Apps · Audiovisual
         </p>
         <div className="flex items-center gap-4">
+          <a
+            href="https://apps.apple.com/us/app/1bite/id6782481903"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor
+            aria-label="Descarga 1bite en el App Store"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logos/app-store-badge.svg"
+              alt="Download on the App Store"
+              className="h-9 w-auto"
+            />
+          </a>
           <a href="https://instagram.com/1bite.studio" data-cursor>
             @1bite.studio
           </a>
           <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-            build v22
+            build v23
           </span>
         </div>
       </div>
