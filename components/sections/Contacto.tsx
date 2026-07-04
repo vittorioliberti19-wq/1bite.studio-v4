@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { WHATSAPP_URL } from "@/lib/content";
 
 const SUPABASE_FN =
@@ -305,7 +306,15 @@ export default function Contacto() {
 
       <div className="mt-12 grid gap-8 md:grid-cols-2">
         {/* Contacto general */}
-        <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
+        <div className="relative rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
+          <GlowingEffect
+            spread={40}
+            glow
+            disabled={false}
+            proximity={64}
+            inactiveZone={0.01}
+            borderWidth={4}
+          />
           <h3 className="text-2xl font-semibold text-white">Escríbenos</h3>
           <p className="mt-2 mb-6 text-sm text-white/55">
             Cuéntanos sobre tu marca y armamos la propuesta.
@@ -314,7 +323,15 @@ export default function Contacto() {
         </div>
 
         {/* Vacantes */}
-        <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
+        <div className="relative rounded-3xl border border-white/10 bg-white/[0.02] p-7 md:p-9">
+          <GlowingEffect
+            spread={40}
+            glow
+            disabled={false}
+            proximity={64}
+            inactiveZone={0.01}
+            borderWidth={4}
+          />
           <p className="text-xs uppercase tracking-[0.3em] text-white/50">
             Vacantes
           </p>

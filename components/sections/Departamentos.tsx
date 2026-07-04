@@ -5,6 +5,7 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { depts } from "@/lib/content";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 // Velo para que número y texto sigan legibles sobre el fondo.
 const VELO = (
@@ -167,7 +168,19 @@ export default function Departamentos() {
   }, []);
 
   return (
-    <section id="departamentos" ref={root} className="relative overflow-hidden">
+    <section
+      id="departamentos"
+      ref={root}
+      className="relative isolate overflow-hidden"
+    >
+      <div className="absolute inset-0 -z-10">
+        <BackgroundGradientAnimation
+          interactive={false}
+          blendingValue="screen"
+        />
+        {/* velo suave para legibilidad sobre los blobs */}
+        <div className="absolute inset-0 bg-black/25" />
+      </div>
       <div
         ref={track}
         className="flex flex-col gap-6 px-6 py-24 will-change-transform md:h-screen md:flex-row md:items-center md:gap-10 md:px-[8vw] md:py-0"

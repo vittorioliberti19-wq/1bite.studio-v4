@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ShaderBackground from "@/components/ui/shader-background";
+import { RadialShader } from "@/components/ui/raidal-2";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import { WHATSAPP_URL } from "@/lib/content";
 
@@ -51,7 +51,7 @@ export default function Hero() {
       ref={root}
       className="relative isolate flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
     >
-      <ShaderBackground className="hero-bg -z-10" />
+      <RadialShader className="hero-bg -z-10" />
 
       {/* espacio reservado: el FlyingLogo (fixed) arranca aquí y vuela al header */}
       <div
