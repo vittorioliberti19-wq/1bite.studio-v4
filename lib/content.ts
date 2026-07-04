@@ -287,8 +287,18 @@ export const proceso = [
   { n: "03", t: "Entrega", d: "Sistema entregado con presentación ejecutiva." },
 ] as const;
 
-// 153 logos de clientes (recoloreados a blanco, en /public/logos/clientes)
+// 153 logos de clientes (recoloreados a blanco, en /public/logos/clientes).
+// Los archivos vienen agrupados por marca (ej. Grupo Dar = 025-028), lo que
+// los dejaba pegados en el marquee. Permutación determinista con stride 22
+// (coprimo con 153) para dispersar las variantes de una misma marca.
+const TOTAL_CLIENTES = 153;
+// stride 149 (coprimo con 153, inverso 38) → variantes consecutivas de una
+// marca caen en filas distintas del marquee (~38 posiciones de separación).
+const STRIDE_CLIENTES = 149;
 export const clientes: string[] = Array.from(
-  { length: 153 },
-  (_, i) => `/logos/clientes/${String(i + 1).padStart(3, "0")}.webp`,
+  { length: TOTAL_CLIENTES },
+  (_, i) => {
+    const n = ((i * STRIDE_CLIENTES) % TOTAL_CLIENTES) + 1;
+    return `/logos/clientes/${String(n).padStart(3, "0")}.webp`;
+  },
 );
