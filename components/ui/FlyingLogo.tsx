@@ -34,7 +34,7 @@ export default function FlyingLogo() {
 
       const measure = () => {
         const w = window.innerWidth;
-        const startW = Math.min(w * 0.56, 560);
+        const startW = Math.min(w * 0.42, 420);
         const endW = w < 768 ? 78 : 104;
         const pad = w < 768 ? 24 : 48;
         const endH = endW * (1140 / 2872);
@@ -124,9 +124,9 @@ export default function FlyingLogo() {
       }}
       className="fixed z-[60] cursor-pointer will-change-transform"
       // estado inicial vía CSS para evitar flash gigante antes de que GSAP mida
-      // (coincide con measure(): startW=min(56vw,560), centro en 50%/46vh)
+      // (coincide con measure(): startW=min(42vw,420), centro en 50%/46vh)
       style={{
-        width: "min(56vw, 560px)",
+        width: "min(42vw, 420px)",
         left: "50%",
         top: "46vh",
         transform: "translate(-50%, -50%)",
