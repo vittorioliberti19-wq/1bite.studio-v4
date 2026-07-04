@@ -24,16 +24,16 @@ export default function Planes() {
       {/* anillo elíptico difuminado con la gama firma */}
       <div className="pointer-events-none absolute inset-x-0 top-[-114px] -z-10 h-[110vh] overflow-hidden">
         <div
-          className="absolute left-[-568px] right-[-568px] top-0 h-[2053px] rounded-full opacity-60"
+          className="absolute left-[-568px] right-[-568px] top-0 h-[2053px] rounded-full opacity-80"
           style={{
-            border: "200px solid #086BFC",
+            border: "200px solid #08E1F4",
             filter: "blur(92px)",
           }}
         />
         <div
-          className="absolute left-[-568px] right-[-568px] top-24 h-[2053px] rounded-full opacity-40"
+          className="absolute left-[-568px] right-[-568px] top-40 h-[2053px] rounded-full opacity-50"
           style={{
-            border: "160px solid #AC31FB",
+            border: "180px solid #AC31FB",
             filter: "blur(110px)",
           }}
         />
