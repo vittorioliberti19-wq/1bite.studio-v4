@@ -90,7 +90,8 @@ export default function QuizPlanes() {
       <button
         data-cursor
         onClick={() => setAbierto(true)}
-        className="text-xs text-white/60 underline-offset-4 transition hover:text-white hover:underline"
+        className="rounded-full px-7 py-3 text-sm font-semibold text-[color:var(--deep-code)] shadow-lg transition hover:scale-105"
+        style={{ background: "var(--grad-firma)" }}
       >
         ¿No sabes cuál elegir? Haz el test
       </button>

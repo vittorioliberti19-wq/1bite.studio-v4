@@ -11,7 +11,8 @@ export default function PlanesGrid() {
 
   return (
     <div className="flex h-full flex-col gap-6">
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-4">
+        <QuizPlanes />
         <div
           role="tablist"
           aria-label="Categorías de planes"
@@ -38,7 +39,6 @@ export default function PlanesGrid() {
             );
           })}
         </div>
-        <QuizPlanes />
       </div>
 
       <div className="flex flex-1 flex-wrap items-stretch justify-center gap-4 overflow-y-auto">
