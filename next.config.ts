@@ -41,6 +41,17 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
+  async redirects() {
+    // www → apex: evita contenido duplicado en Google (GSC 2026-07-18)
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.1bite.studio" }],
+        destination: "https://1bite.studio/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
