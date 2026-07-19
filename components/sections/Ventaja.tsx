@@ -77,7 +77,7 @@ function VentajaCard({ v }: { v: (typeof ventajas)[number] }) {
       {v.logo && (
         <Image
           src={v.logo}
-          alt="The Studio 4"
+          alt={v.title}
           width={140}
           height={52}
           className="mt-5 h-9 w-auto opacity-80"

@@ -266,6 +266,7 @@ export const ventajas: Ventaja[] = [
     desc: "Sigue tu proyecto desde tu teléfono: revisa avances, aprueba artes y descarga tus entregables en la app 1bite.",
     icon: "app",
     href: "https://apps.apple.com/us/app/1bite/id6782481903",
+    logo: "/logos/app-store-badge.svg",
   },
   {
     id: "studio",
