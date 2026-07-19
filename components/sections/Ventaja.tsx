@@ -140,7 +140,15 @@ export default function Ventaja() {
       <div className="mt-20 grid gap-6 md:grid-cols-3">
         {testimonios.map((t, i) => (
           <Reveal key={t.nombre} delay={i * 0.12} className="h-full">
-            <figure className="flex h-full flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-7">
+            <figure className="relative flex h-full flex-col rounded-3xl border border-white/20 bg-black/70 p-7">
+              <GlowingEffect
+                spread={40}
+                glow
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+                borderWidth={4}
+              />
               <span
                 className="text-5xl leading-none bg-clip-text text-transparent"
                 style={{ backgroundImage: "var(--grad-firma)" }}

@@ -61,7 +61,7 @@ export default function Footer() {
             @1bite.studio
           </a>
           <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-            build v37
+            build v38
           </span>
         </div>
       </div>
