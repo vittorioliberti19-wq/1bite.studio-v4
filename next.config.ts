@@ -7,7 +7,9 @@ const isDev = process.env.NODE_ENV === "development";
 const csp = [
   "default-src 'self'",
   // 'unsafe-inline': scripts inline de Next + JSON-LD; sin nonce hasta migrar a middleware
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com`,
+  // challenges.cloudflare.com: Turnstile (captcha forms contacto/vacantes)
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com https://challenges.cloudflare.com`,
+  "frame-src https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline'",
   // unsplash: placeholders de la categoría Fotos en /galeria
   "img-src 'self' data: blob: https://images.unsplash.com",
