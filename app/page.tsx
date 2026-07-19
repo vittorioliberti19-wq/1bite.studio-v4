@@ -4,6 +4,8 @@ import Hero from "@/components/sections/Hero";
 import Promesa from "@/components/sections/Promesa";
 import Departamentos from "@/components/sections/Departamentos";
 import Clientes from "@/components/sections/Clientes";
+import Ventaja from "@/components/sections/Ventaja";
+import BlogStrip from "@/components/sections/BlogStrip";
 import Planes from "@/components/sections/Planes";
 import Proceso from "@/components/sections/Proceso";
 import CTAFinal from "@/components/sections/CTAFinal";
@@ -20,6 +22,7 @@ export default function Home() {
       <Promesa />
       <Departamentos />
       <Clientes />
+      <Ventaja />
       <Planes />
       <Proceso />
       {/* CTA + Contacto comparten un solo fondo de blobs, sin corte */}
@@ -34,6 +37,7 @@ export default function Home() {
         <CTAFinal />
         <Contacto />
       </div>
+      <BlogStrip />
       <Footer />
     </main>
   );

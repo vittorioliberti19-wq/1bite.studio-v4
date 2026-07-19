@@ -108,7 +108,7 @@ export const planes: Plan[] = [
     badge: "Descuento con suscripción · pregúntanos",
     features: [
       "Todo lo del Plan Élite",
-      "10–12 reels al mes + 8h de estudio",
+      "10–12 reels al mes + 8h en The Studio 4",
       "Plan de Mercadeo 360 trimestral",
       "Automatización con ManyChat",
       "8 diseños de material POP al mes",
@@ -244,6 +244,80 @@ export const planes: Plan[] = [
       "Tarjetas de presentación + pieza publicitaria",
       "Entrega en 10 días",
     ],
+  },
+];
+
+/** Ventajas diferenciales (asesoría de mercadeo 2026-07) */
+export type Ventaja = {
+  id: string;
+  title: string;
+  desc: string;
+  icon: "app" | "studio" | "gear" | "shield";
+  /** link externo opcional (ej. The Studio 4) */
+  href?: string;
+  /** logo opcional dentro del card */
+  logo?: string;
+};
+
+export const ventajas: Ventaja[] = [
+  {
+    id: "app",
+    title: "App propia",
+    desc: "Sigue tu proyecto desde tu teléfono: revisa avances, aprueba artes y descarga tus entregables en la app 1bite.",
+    icon: "app",
+    href: "https://apps.apple.com/us/app/1bite/id6782481903",
+  },
+  {
+    id: "studio",
+    title: "Estudio propio",
+    desc: "The Studio 4: nuestro estudio de fotografía y producción audiovisual en Torre Delta, Bella Vista. Incluido en tus planes.",
+    icon: "studio",
+    href: "https://thestudio4.io",
+    logo: "/logos/studio4-white.png",
+  },
+  {
+    id: "gear",
+    title: "Equipos propios",
+    desc: "Cámaras, drone, iluminación y set propios. Producimos todo in-house, sin subcontratar ni depender de terceros.",
+    icon: "gear",
+  },
+  {
+    id: "garantia",
+    title: "Garantía real",
+    desc: "2 rondas de corrección en todo servicio y si el resultado no cumple tus expectativas, devolvemos el 70%.",
+    icon: "shield",
+  },
+];
+
+/** Testimonios reales (web 1bite anterior) */
+export type Testimonio = {
+  quote: string;
+  nombre: string;
+  cargo: string;
+  avatar: string;
+};
+
+export const testimonios: Testimonio[] = [
+  {
+    quote:
+      "En Innoven, donde la calidad y eficiencia son cruciales, 1bite Studio ha sido un aliado excepcional. Su habilidad para capturar nuestra esencia y comunicarla de forma efectiva ha sido clave para conectar con nuestros clientes.",
+    nombre: "Raúl Farías",
+    cargo: "Director, Innoven",
+    avatar: "/testimonios/raul.webp",
+  },
+  {
+    quote:
+      "Trabajar con 1bite Studio es siempre una experiencia excepcional. Como especialista en marketing digital, valoro su creatividad, profesionalismo y atención al detalle. Su habilidad para convertir ideas en soluciones impactantes es notable.",
+    nombre: "Zalo Kabche",
+    cargo: "CEO, Digital Warriors",
+    avatar: "/testimonios/zalo.webp",
+  },
+  {
+    quote:
+      "Trabajar con 1bite ha sido una experiencia increíble. Su equipo entiende cómo conectar con la audiencia de una manera auténtica y atractiva. ¡Altamente recomendados!",
+    nombre: "Patricia Muñoz",
+    cargo: "Gerente de Marketing, MaraPlus",
+    avatar: "/testimonios/patricia.webp",
   },
 ];
 
