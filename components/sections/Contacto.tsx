@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import Turnstile from "@/components/ui/Turnstile";
 import { WHATSAPP_URL } from "@/lib/content";
 
 const SUPABASE_FN =
@@ -121,6 +122,7 @@ function ContactoForm() {
         aria-label="Mensaje"
         className={`${inputCls} resize-none`}
       />
+      <Turnstile />
       {estado === "error" && <p className="text-sm text-[#FD6648]">{msg}</p>}
       <LiquidButton
         type="submit"
@@ -269,6 +271,7 @@ function VacanteForm() {
           />
         </div>
       </div>
+      <Turnstile />
       {estado === "error" && <p className="text-sm text-[#FD6648]">{msg}</p>}
       <LiquidButton
         type="submit"
@@ -287,7 +290,10 @@ function VacanteForm() {
 
 export default function Contacto() {
   return (
-    <section id="contacto" className="relative scroll-mt-28 pt-10 pb-28 md:pt-12 md:pb-36">
+    <section
+      id="contacto"
+      className="relative scroll-mt-28 pt-10 pb-28 md:pt-12 md:pb-36"
+    >
       <div className="mx-auto w-full max-w-6xl px-6">
         <p className="text-xs uppercase tracking-[0.3em] text-white/50">
           Contacto
