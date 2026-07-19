@@ -267,6 +267,8 @@ export const posts: Post[] = [
       },
     ],
   },
+  // __CRON_BLOG_INSERT__ — el cron de macgia (~/blog-1bite) inserta posts nuevos
+  // encima de esta línea. No borrar ni mover este marcador.
 ];
 
 export function getPost(slug: string) {
