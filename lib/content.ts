@@ -281,12 +281,6 @@ export const ventajas: Ventaja[] = [
     desc: "Cámaras, drone, iluminación y set propios. Producimos todo in-house, sin subcontratar ni depender de terceros.",
     icon: "gear",
   },
-  {
-    id: "garantia",
-    title: "Garantía real",
-    desc: "2 rondas de corrección en todo servicio y si el resultado no cumple tus expectativas, devolvemos el 70%.",
-    icon: "shield",
-  },
 ];
 
 /** Testimonios reales (web 1bite anterior) */

@@ -69,7 +69,7 @@ function VentajaCard({ v }: { v: (typeof ventajas)[number] }) {
         inactiveZone={0.01}
         borderWidth={4}
       />
-      <span className="gradient-text">{ICONS[v.icon]}</span>
+      <span style={{ color: "var(--cyber-cyan)" }}>{ICONS[v.icon]}</span>
       <h3 className="mt-4 text-xl font-bold">{v.title}</h3>
       <p className="mt-2 flex-1 text-sm leading-relaxed text-white/65">
         {v.desc}
@@ -109,8 +109,15 @@ export default function Ventaja() {
   return (
     <section className="mx-auto max-w-6xl px-6 py-24 md:py-32">
       <Reveal>
-        <p className="text-xs uppercase tracking-[0.3em] text-white/50">
-          La ventaja 1bite
+        <p className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/50">
+          La ventaja{" "}
+          <Image
+            src="/logos/1bite-white-nobar.png"
+            alt="1bite"
+            width={2872}
+            height={1140}
+            className="inline-block h-[0.9em] w-auto opacity-60"
+          />
         </p>
         <h2 className="mt-3 text-4xl font-bold md:text-5xl">
           Todo <span className="gradient-text">in-house</span>
@@ -121,7 +128,7 @@ export default function Ventaja() {
         </p>
       </Reveal>
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {ventajas.map((v, i) => (
           <Reveal key={v.id} delay={i * 0.1} className="h-full">
             <VentajaCard v={v} />
