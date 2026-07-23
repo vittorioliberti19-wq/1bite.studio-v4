@@ -57,11 +57,25 @@ export default function Footer() {
               className="h-9 w-auto"
             />
           </a>
+          <a
+            href="https://play.google.com/store/apps/details?id=studio.onebite.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor
+            aria-label="Descarga 1bite en Google Play"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logos/google-play-badge.svg"
+              alt="Get it on Google Play"
+              className="h-9 w-auto"
+            />
+          </a>
           <a href="https://instagram.com/1bite.studio" data-cursor>
             @1bite.studio
           </a>
           <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-            build v40
+            build v41
           </span>
         </div>
       </div>

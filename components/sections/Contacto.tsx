@@ -393,8 +393,8 @@ export default function Contacto() {
           <span className="text-white/60">Maracaibo, Venezuela</span>
         </div>
 
-        {/* App Store — centrado, más grande que el del footer */}
-        <div className="mt-10 flex justify-center">
+        {/* Badges de tiendas — centrados, más grandes que los del footer */}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href="https://apps.apple.com/us/app/1bite/id6782481903"
             target="_blank"
@@ -407,6 +407,21 @@ export default function Contacto() {
             <img
               src="/logos/app-store-badge.svg"
               alt="Download on the App Store"
+              className="h-12 w-auto md:h-14"
+            />
+          </a>
+          <a
+            href="https://play.google.com/store/apps/details?id=studio.onebite.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor
+            aria-label="Descarga 1bite en Google Play"
+            className="transition hover:opacity-80"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logos/google-play-badge.svg"
+              alt="Get it on Google Play"
               className="h-12 w-auto md:h-14"
             />
           </a>
