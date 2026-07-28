@@ -52,10 +52,25 @@ const nextConfig: NextConfig = {
         destination: "https://1bite.studio/:path*",
         permanent: true,
       },
-      // URL del sitio viejo indexada en Google (404 en GSC)
+      // URLs del sitio viejo indexadas en Google (404 en GSC)
       {
         source: "/nuestros-proyectos",
         destination: "/trabajos",
+        permanent: true,
+      },
+      {
+        source: "/1bitecircle",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/cv",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/hagamos-realidad-tus-ideas",
+        destination: "/",
         permanent: true,
       },
     ];
