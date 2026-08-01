@@ -116,6 +116,7 @@ export default function Ventaja() {
             alt="1bite"
             width={2872}
             height={1140}
+            sizes="48px"
             className="inline-block h-[0.9em] w-auto opacity-60"
           />
         </p>

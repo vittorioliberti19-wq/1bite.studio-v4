@@ -139,6 +139,7 @@ export default function FlyingLogo() {
         width={2872}
         height={1140}
         priority
+        sizes="(max-width: 1000px) 42vw, 420px"
         className="h-auto w-full"
       />
       <div
