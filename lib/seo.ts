@@ -45,7 +45,10 @@ export const organizationJsonLd = {
     availableLanguage: ["es", "en"],
     areaServed: "VE",
   },
-  sameAs: ["https://www.instagram.com/1bite.studio"],
+  sameAs: [
+    "https://www.instagram.com/1bite.studio",
+    "https://maps.google.com/?cid=6100888210430764415",
+  ],
   makesOffer: services.map((s) => ({
     "@type": "Offer",
     itemOffered: { "@type": "Service", name: s },
