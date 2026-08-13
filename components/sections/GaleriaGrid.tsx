@@ -62,50 +62,146 @@ const TABS: { value: string; label: string }[] = [
   { value: "branding", label: "Branding" },
 ];
 
-// Video que solo carga/reproduce cuando entra al viewport (perf: nada de 37 videos a la vez).
-function ReelTile({ m }: { m: Media }) {
+// El poster se pinta como <img> y el <video> solo se monta al entrar al
+// viewport. Antes el elemento LCP era un <video preload="none">, que el
+// navegador ni siquiera empieza a resolver hasta que es visible.
+function ReelTile({ m, prioridad }: { m: Media; prioridad: boolean }) {
+  const wrap = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = wrap.current;
+    if (!el || visible) return;
+
+    // Los videos esperan a que la página termine de cargar. Montarlos junto con
+    // el primer pintado retrasaba el LCP a ~19 s: el poster estaba descargado
+    // pero no llegaba a pintarse con el hilo ocupado en decodificar video.
+    let io: IntersectionObserver | undefined;
+    const armar = () => {
+      io = new IntersectionObserver(
+        ([e]) => {
+          if (e.isIntersecting) setVisible(true);
+        },
+        { rootMargin: "200px", threshold: 0.01 },
+      );
+      io.observe(el);
+    };
+
+    const cuandoHayaCalma = () => {
+      if (typeof window.requestIdleCallback === "function") {
+        window.requestIdleCallback(armar, { timeout: 3000 });
+      } else {
+        window.setTimeout(armar, 1000);
+      }
+    };
+
+    if (document.readyState === "complete") cuandoHayaCalma();
+    else window.addEventListener("load", cuandoHayaCalma, { once: true });
+
+    return () => {
+      io?.disconnect();
+      window.removeEventListener("load", cuandoHayaCalma);
+    };
+  }, [visible]);
+
+  return (
+    <div ref={wrap} className="h-full w-full">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={m.poster}
+        alt="Reel del portafolio de 1bite"
+        width={540}
+        height={960}
+        loading={prioridad ? "eager" : "lazy"}
+        fetchPriority={prioridad ? "high" : "auto"}
+        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+      />
+      {visible && <ReelVideo m={m} />}
+    </div>
+  );
+}
+
+// Se monta encima del poster una vez que el tile está en pantalla. Se pausa al
+// salir del viewport para no dejar decodificación de video corriendo de fondo.
+function ReelVideo({ m }: { m: Media }) {
   const ref = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const io = new IntersectionObserver(
       ([e]) => {
-        if (e.isIntersecting) {
-          // Fija src imperativo antes de play() — evita play sobre <video> sin fuente.
-          if (!el.src) {
-            el.src = m.src;
-            // play al tener datos (play() inmediato sobre src recién puesto se rechaza).
-            el.addEventListener("canplay", () => el.play().catch(() => {}), {
-              once: true,
-            });
-          }
-          el.play().catch(() => {});
-        } else {
-          el.pause();
-        }
+        if (e.isIntersecting) el.play().catch(() => {});
+        else el.pause();
       },
       { rootMargin: "200px", threshold: 0.1 },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [m.src]);
+  }, []);
 
   return (
     <video
       ref={ref}
+      src={m.src}
       poster={m.poster}
       muted
       loop
       playsInline
       preload="none"
-      aria-label="Reel del portafolio de 1bite"
-      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+      aria-hidden
+      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
     />
   );
 }
 
+// Montar los 231 tiles de una vez saturaba el hilo principal (Lighthouse no
+// llegaba a medir: el CPU nunca quedaba ocioso). Se renderizan por tandas y se
+// amplía al llegar al final del grid.
+const TANDA = 24;
+
 export default function GaleriaGrid() {
   const [active, setActive] = useState("all");
+  const [limite, setLimite] = useState(TANDA);
+  const centinela = useRef<HTMLDivElement>(null);
+
+  // Al cambiar de filtro se vuelve a la primera tanda.
+  useEffect(() => setLimite(TANDA), [active]);
+
+  // El centinela solo se arma después de que el usuario se mueva. Sin esta
+  // condición se dispara en cascada con la página quieta (la sección mide
+  // 140vh, así que el centinela nace dentro del margen) y termina bajando toda
+  // la galería sin que nadie la haya pedido.
+  const [huboScroll, setHuboScroll] = useState(false);
+  useEffect(() => {
+    if (huboScroll) return;
+    const marcar = () => setHuboScroll(true);
+    const opts = { once: true, passive: true } as const;
+    window.addEventListener("scroll", marcar, opts);
+    window.addEventListener("pointerdown", marcar, opts);
+    window.addEventListener("keydown", marcar, opts);
+    return () => {
+      window.removeEventListener("scroll", marcar);
+      window.removeEventListener("pointerdown", marcar);
+      window.removeEventListener("keydown", marcar);
+    };
+  }, [huboScroll]);
+
+  useEffect(() => {
+    const el = centinela.current;
+    if (!el || !huboScroll || limite >= MEDIA.length) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting)
+          setLimite((n) => Math.min(n + TANDA, MEDIA.length));
+      },
+      { rootMargin: "400px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [limite, huboScroll]);
+
+  const visibles = MEDIA.slice(0, limite);
 
   return (
     <section className="mx-auto flex min-h-[140vh] w-full max-w-6xl flex-col items-center gap-10 px-6 pb-28 pt-36 md:pt-44">
@@ -139,11 +235,11 @@ export default function GaleriaGrid() {
         showClass="block"
         hideClass="hidden"
       >
-        {MEDIA.map((m, i) => (
+        {visibles.map((m, i) => (
           <FlipRevealItem key={i} flipKey={m.cat}>
             <div className="group relative aspect-[9/16] w-full overflow-hidden rounded-2xl bg-white/5">
               {m.type === "video" ? (
-                <ReelTile m={m} />
+                <ReelTile m={m} prioridad={i === 0} />
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -151,7 +247,8 @@ export default function GaleriaGrid() {
                   alt={`Trabajo de ${m.cat} del portafolio de 1bite`}
                   width={540}
                   height={960}
-                  loading="lazy"
+                  loading={i === 0 ? "eager" : "lazy"}
+                  fetchPriority={i === 0 ? "high" : "auto"}
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
               )}
@@ -163,6 +260,10 @@ export default function GaleriaGrid() {
           </FlipRevealItem>
         ))}
       </FlipReveal>
+
+      {limite < MEDIA.length && (
+        <div ref={centinela} aria-hidden className="h-px w-full" />
+      )}
     </section>
   );
 }

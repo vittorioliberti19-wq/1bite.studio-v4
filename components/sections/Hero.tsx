@@ -70,12 +70,21 @@ export default function Hero() {
       </LiquidButton>
 
       {/* h1 visible (mismo diseño del strip); la marca completa queda en sr-only */}
+      {/* El h1 se extrae como texto plano concatenando sus nodos: cada tramo
+          cierra con puntuación y espacio para que la frase resultante sea
+          legible ("...indelebles. Branding · ... · Audiovisual. Agencia..."). */}
       <h1 className="hero-fade absolute bottom-8 text-xs font-normal uppercase tracking-[0.25em] text-white/70">
         <span className="sr-only">
-          1bite — Concebimos experiencias indelebles:{" "}
+          1bite. Concebimos experiencias indelebles.{" "}
         </span>
-        Branding · Social · Web · Apps · Audiovisual
-        <span className="mt-2 block text-[10px] tracking-[0.3em] text-white/50">
+        <span aria-hidden>Branding · Social · Web · Apps · Audiovisual</span>
+        {/* separador solo para el texto extraído: sin esto los dos tramos
+            visibles quedan pegados ("AudiovisualAgencia creativa..."). */}
+        <span className="sr-only">. </span>
+        <span
+          aria-hidden
+          className="mt-2 block text-[10px] tracking-[0.3em] text-white/50"
+        >
           Agencia creativa en Maracaibo, Venezuela
         </span>
       </h1>

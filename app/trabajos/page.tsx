@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   description:
     "Proyectos destacados de 1bite Studio: branding, redes sociales, páginas web, apps y producción audiovisual para marcas en Maracaibo y Venezuela.",
   alternates: { canonical: "/trabajos" },
+  // Huérfana (0 enlaces internos) y con ~37 palabras de contenido: indexarla
+  // manda una señal de contenido delgado. Quitar el noindex cuando la página
+  // tenga casos reales y esté enlazada desde el nav.
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Trabajos · 1bite",
     description: "Proyectos destacados de 1bite Studio.",

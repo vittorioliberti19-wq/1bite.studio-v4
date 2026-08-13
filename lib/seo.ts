@@ -2,6 +2,7 @@
 // (ChatGPT, Perplexity, Claude, Google AI Overviews leen este schema).
 export const SITE = "https://1bite.studio";
 const ORG_ID = `${SITE}/#organization`;
+const APP_STORE_URL = "https://apps.apple.com/us/app/1bite/id6782481903";
 
 const services = [
   "Branding e identidad de marca",
@@ -37,7 +38,7 @@ export const organizationJsonLd = {
     addressRegion: "Zulia",
     addressCountry: "VE",
   },
-  geo: { "@type": "GeoCoordinates", latitude: 10.6427, longitude: -71.6125 },
+  geo: { "@type": "GeoCoordinates", latitude: 10.64274, longitude: -71.61254 },
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "ventas",
@@ -48,6 +49,7 @@ export const organizationJsonLd = {
   sameAs: [
     "https://www.instagram.com/1bite.studio",
     "https://maps.google.com/?cid=6100888210430764415",
+    APP_STORE_URL,
   ],
   makesOffer: services.map((s) => ({
     "@type": "Offer",
@@ -73,6 +75,15 @@ export const jsonLd = {
       url: SITE,
       name: "1bite Studio",
       inLanguage: "es",
+      publisher: { "@id": ORG_ID },
+    },
+    {
+      "@type": "MobileApplication",
+      "@id": `${SITE}/#app`,
+      name: "1bite",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "iOS, Android",
+      url: APP_STORE_URL,
       publisher: { "@id": ORG_ID },
     },
   ],
@@ -133,13 +144,19 @@ export function articleJsonLd(opts: {
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    // BlogPosting (no Article genérico): es el tipo que Google espera para
+    // artículos de blog.
+    "@type": "BlogPosting",
     headline: opts.title,
     description: opts.description,
     datePublished: opts.date,
     dateModified: opts.date,
     inLanguage: "es",
     url: `${SITE}/blog/${opts.slug}`,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE}/blog/${opts.slug}`,
+    },
     image: `${SITE}/opengraph-image`,
     author: { "@id": ORG_ID },
     publisher: { "@id": ORG_ID },

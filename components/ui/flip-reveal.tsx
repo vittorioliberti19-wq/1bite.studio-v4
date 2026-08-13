@@ -29,6 +29,7 @@ export const FlipReveal = ({
   ...props
 }: FlipRevealProps) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const primeraVez = useRef(true);
 
   const isShow = (key: string | null) =>
     !!key && (keys.includes("all") || keys.includes(key));
@@ -50,6 +51,14 @@ export const FlipReveal = ({
           item.classList.add(hideClass);
         }
       });
+
+      // En el primer montaje no hay transición que animar: los tiles ya están
+      // donde deben. Animarlos igual disparaba `absolute: true`, que los saca
+      // del flujo, colapsa el alto del grid y genera todo el CLS de la página.
+      if (primeraVez.current) {
+        primeraVez.current = false;
+        return;
+      }
 
       Flip.from(state, {
         duration: 0.6,
