@@ -85,6 +85,21 @@ export default async function ServicioPage({
           </div>
         </Reveal>
 
+        {s.padre && (
+          <Reveal>
+            <p className="mt-8 rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-4 text-white/70">
+              {s.padre.nota}{" "}
+              <Link
+                href={`/servicios/${s.padre.slug}`}
+                className="text-white underline underline-offset-4 hover:opacity-80"
+              >
+                {s.padre.anchor}
+              </Link>
+              .
+            </p>
+          </Reveal>
+        )}
+
         <Reveal>
           <h2 className="mt-16 mb-6 text-2xl font-bold md:text-3xl">
             Qué incluye

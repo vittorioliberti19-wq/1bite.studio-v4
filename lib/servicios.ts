@@ -11,6 +11,12 @@ export type Servicio = {
   faqs: { q: string; a: string }[];
   /** paquetes/tiers del servicio con sus entregables (sin precios) */
   paquetes?: { nombre: string; desc: string; items: string[] }[];
+  /**
+   * Servicio madre del que este es una especialización. Marca la jerarquía
+   * del racimo para que Google sepa cuál es la página canónica del tema
+   * genérico y esta deje de competir por él.
+   */
+  padre?: { slug: string; anchor: string; nota: string };
 };
 
 export const servicios: Servicio[] = [
@@ -20,7 +26,7 @@ export const servicios: Servicio[] = [
     metaTitle: "Branding e identidad de marca en Maracaibo",
     metaDescription:
       "Creamos marcas con estrategia, no solo logos bonitos. Identidad visual, personalidad verbal y manual de marca para empresas en Maracaibo y toda Venezuela.",
-    h1: "Branding que tu negocio recuerda y tu cliente reconoce",
+    h1: "Branding en Maracaibo que tu negocio recuerda y tu cliente reconoce",
     lead: "Una marca no es un logo. Es la razón por la que te eligen a ti y no al de al lado.",
     intro: [
       "En 1bite construimos marcas desde la estrategia. Antes de dibujar una sola línea, entendemos qué vendes, a quién le hablas y qué te hace distinto. De ahí sale una identidad que se sostiene en el tiempo, no una moda que caduca en seis meses.",
@@ -86,6 +92,11 @@ export const servicios: Servicio[] = [
       "Branding especializado para restaurantes, cafés y delivery en Maracaibo: identidad, menú, empaque de delivery, dirección fotográfica de platos y plantillas de Instagram.",
     h1: "Branding para restaurantes que abren llenos desde el día uno",
     lead: "Tu comida puede ser la mejor de Maracaibo, pero si la marca no antoja, el cliente no llega.",
+    padre: {
+      slug: "branding",
+      anchor: "branding e identidad de marca en Maracaibo",
+      nota: "Esta es nuestra especialización para restaurantes, cafés y delivery. Si tu negocio no es gastronómico, lo tuyo es",
+    },
     intro: [
       "Diseñamos marcas gastronómicas completas: desde el concepto y el logo hasta el menú, el empaque del delivery y las plantillas de Instagram. Todo pensado para el negocio real de un restaurante en Venezuela, donde Instagram es el canal #1 de adquisición y el delivery es parte de la experiencia.",
       "No es un branding genérico adaptado a comida. Incluye lo que un restaurante necesita de verdad: carta con versión QR, señalética del local, uniformes, dirección fotográfica para que cada plato se vea como se merece, y un manual para que tu equipo mantenga la marca viva en redes.",

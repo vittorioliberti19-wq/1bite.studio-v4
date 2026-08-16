@@ -112,6 +112,29 @@ export default async function BlogPost({
           </div>
         </Reveal>
 
+        {p.servicios && p.servicios.length > 0 && (
+          <Reveal>
+            <div className="mt-16 border-t border-white/10 pt-8">
+              <p className="mb-4 text-xs uppercase tracking-[0.3em] text-white/40">
+                Servicio relacionado
+              </p>
+              <ul className="space-y-3 text-lg text-white/80">
+                {p.servicios.map((sv) => (
+                  <li key={sv.slug} className="flex gap-3">
+                    <span className="gradient-text font-bold">→</span>
+                    <Link
+                      href={`/servicios/${sv.slug}`}
+                      className="underline underline-offset-4 hover:text-white"
+                    >
+                      {sv.anchor}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        )}
+
         <Reveal>
           <div className="mt-16 rounded-2xl border border-white/10 p-8 text-center">
             <p className="text-xl font-bold md:text-2xl">

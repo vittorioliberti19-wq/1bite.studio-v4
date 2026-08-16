@@ -12,6 +12,8 @@ export type Post = {
   dateLabel: string;
   readingMin: number;
   body: Block[];
+  /** slugs de servicios a los que enlaza el post, con anchor descriptivo */
+  servicios?: { slug: string; anchor: string }[];
 };
 
 export const posts: Post[] = [
@@ -24,6 +26,9 @@ export const posts: Post[] = [
     date: "2026-06-04",
     dateLabel: "4 de junio, 2026",
     readingMin: 5,
+    servicios: [
+      { slug: "paginas-web", anchor: "diseño de páginas web en Maracaibo" },
+    ],
     body: [
       {
         type: "p",
@@ -80,6 +85,9 @@ export const posts: Post[] = [
     date: "2026-06-04",
     dateLabel: "4 de junio, 2026",
     readingMin: 4,
+    servicios: [
+      { slug: "branding", anchor: "branding e identidad de marca en Maracaibo" },
+    ],
     body: [
       {
         type: "p",
@@ -129,6 +137,10 @@ export const posts: Post[] = [
     date: "2026-06-11",
     dateLabel: "11 de junio, 2026",
     readingMin: 5,
+    servicios: [
+      { slug: "branding", anchor: "branding en Maracaibo" },
+      { slug: "redes-sociales", anchor: "gestión de redes sociales" },
+    ],
     body: [
       {
         type: "p",
@@ -176,6 +188,9 @@ export const posts: Post[] = [
     date: "2026-06-11",
     dateLabel: "11 de junio, 2026",
     readingMin: 4,
+    servicios: [
+      { slug: "branding", anchor: "branding e identidad de marca en Maracaibo" },
+    ],
     body: [
       {
         type: "p",
@@ -226,6 +241,9 @@ export const posts: Post[] = [
     date: "2026-06-11",
     dateLabel: "11 de junio, 2026",
     readingMin: 5,
+    servicios: [
+      { slug: "redes-sociales", anchor: "gestión de redes sociales para negocios" },
+    ],
     body: [
       {
         type: "p",
@@ -267,77 +285,81 @@ export const posts: Post[] = [
       },
     ],
   },
-    {
-    "slug": "cuanto-cuesta-un-video-corporativo-en-maracaibo",
-    "title": "¿Cuánto cuesta un video corporativo en Maracaibo en 2026?",
-    "metaTitle": "Cuánto cuesta un video corporativo en Maracaibo 2026",
-    "description": "Precios reales de producción audiovisual en Maracaibo: qué factores mueven el costo de un video corporativo y cómo evitar pagar de más.",
-    "date": "2026-07-19",
-    "dateLabel": "19 de julio, 2026",
-    "readingMin": 5,
-    "body": [
+  {
+    slug: "cuanto-cuesta-un-video-corporativo-en-maracaibo",
+    title: "¿Cuánto cuesta un video corporativo en Maracaibo en 2026?",
+    metaTitle: "Cuánto cuesta un video corporativo en Maracaibo 2026",
+    description:
+      "Precios reales de producción audiovisual en Maracaibo: qué factores mueven el costo de un video corporativo y cómo evitar pagar de más.",
+    date: "2026-07-19",
+    dateLabel: "19 de julio, 2026",
+    readingMin: 5,
+    servicios: [
+      { slug: "produccion-audiovisual", anchor: "producción audiovisual en Maracaibo" },
+    ],
+    body: [
       {
-        "type": "p",
-        "text": "Si ya pediste cotizaciones para un video corporativo en Maracaibo, seguro notaste algo raro: un freelancer te dice 80 dólares y una productora te dice 1200. Ninguno miente, pero casi ninguno te explica por qué. Este artículo te da los rangos reales del mercado venezolano y los factores que realmente mueven el precio."
+        type: "p",
+        text: "Si ya pediste cotizaciones para un video corporativo en Maracaibo, seguro notaste algo raro: un freelancer te dice 80 dólares y una productora te dice 1200. Ninguno miente, pero casi ninguno te explica por qué. Este artículo te da los rangos reales del mercado venezolano y los factores que realmente mueven el precio.",
       },
       {
-        "type": "h2",
-        "text": "Rangos de mercado en Venezuela"
+        type: "h2",
+        text: "Rangos de mercado en Venezuela",
       },
       {
-        "type": "p",
-        "text": "Para un video corporativo institucional o promocional de 1 a 3 minutos, con guion, grabación de un día y edición profesional, el mercado venezolano se mueve entre 150 y 600 dólares. Producciones más elaboradas —con actores, locaciones múltiples, dron, animación o varios días de rodaje— suben de 700 a 2000 dólares o más. Un video de testimoniales simples o entrevista a cámara fija puede quedar en 80-150 dólares si el cliente ya tiene guion y no necesita locación adicional. Estos números varían según si contratas freelancer, estudio pequeño o productora con equipo completo."
+        type: "p",
+        text: "Para un video corporativo institucional o promocional de 1 a 3 minutos, con guion, grabación de un día y edición profesional, el mercado venezolano se mueve entre 150 y 600 dólares. Producciones más elaboradas —con actores, locaciones múltiples, dron, animación o varios días de rodaje— suben de 700 a 2000 dólares o más. Un video de testimoniales simples o entrevista a cámara fija puede quedar en 80-150 dólares si el cliente ya tiene guion y no necesita locación adicional. Estos números varían según si contratas freelancer, estudio pequeño o productora con equipo completo.",
       },
       {
-        "type": "h2",
-        "text": "Qué mueve el precio de verdad"
+        type: "h2",
+        text: "Qué mueve el precio de verdad",
       },
       {
-        "type": "ul",
-        "items": [
+        type: "ul",
+        items: [
           "Días de rodaje: cada día extra de locación, equipo y talento suma directamente al costo total.",
           "Guion y pre-producción: un video improvisado sale barato pero se nota; guion trabajado con storyboard cuesta más pero rinde mejor.",
           "Equipo usado: cámara de celular bien iluminada no es lo mismo que cámara cinema con lentes, gimbal y dron.",
           "Edición y post-producción: color grading, motion graphics, animación 2D/3D y sonido diseñado suben el precio proporcional a las horas de edición.",
           "Talento en cámara: actores o presentadores profesionales agregan honorarios aparte de la producción.",
-          "Uso y distribución: un video solo para redes cuesta menos que uno pensado para pauta paga o para TV, porque cambian los formatos y entregables."
-        ]
+          "Uso y distribución: un video solo para redes cuesta menos que uno pensado para pauta paga o para TV, porque cambian los formatos y entregables.",
+        ],
       },
       {
-        "type": "h2",
-        "text": "Freelancer vs. productora vs. agencia"
+        type: "h2",
+        text: "Freelancer vs. productora vs. agencia",
       },
       {
-        "type": "p",
-        "text": "El freelancer suele ser la opción más económica: una sola persona graba, edita y a veces también dirige. Funciona bien para videos simples, testimoniales o contenido de redes sociales. El límite aparece cuando necesitas dirección de arte, guion trabajado o coordinación de varias personas en set — ahí un freelancer solo se satura y la calidad cae. La productora dedicada da equipo completo (director, camarógrafo, editor) y mejor control de calidad, pero cobra acorde. La agencia creativa como 1bite entra en un punto intermedio: coordina la producción audiovisual dentro de una estrategia de marca más amplia, así el video no queda suelto sino conectado con tu identidad visual y tus redes."
+        type: "p",
+        text: "El freelancer suele ser la opción más económica: una sola persona graba, edita y a veces también dirige. Funciona bien para videos simples, testimoniales o contenido de redes sociales. El límite aparece cuando necesitas dirección de arte, guion trabajado o coordinación de varias personas en set — ahí un freelancer solo se satura y la calidad cae. La productora dedicada da equipo completo (director, camarógrafo, editor) y mejor control de calidad, pero cobra acorde. La agencia creativa como 1bite entra en un punto intermedio: coordina la producción audiovisual dentro de una estrategia de marca más amplia, así el video no queda suelto sino conectado con tu identidad visual y tus redes.",
       },
       {
-        "type": "h2",
-        "text": "Errores comunes al presupuestar un video"
+        type: "h2",
+        text: "Errores comunes al presupuestar un video",
       },
       {
-        "type": "ul",
-        "items": [
+        type: "ul",
+        items: [
           "No pedir guion antes de grabar: sin guion se graba de más, se edita de más y el resultado se siente disperso.",
           "Comparar cotizaciones sin comparar entregables: un precio bajo puede no incluir corrección de color, música con licencia o formatos verticales para redes.",
           "Subestimar el tiempo de edición: un video de 1 minuto bien editado puede tomar más horas de post-producción que de rodaje.",
           "No preguntar por derechos de uso: música, stock footage y voces en off a veces tienen licencias limitadas que encarecen el uso comercial extendido.",
-          "Grabar sin pensar en el destino final: un video para Instagram Reels necesita otro encuadre y ritmo que uno para la web corporativa."
-        ]
+          "Grabar sin pensar en el destino final: un video para Instagram Reels necesita otro encuadre y ritmo que uno para la web corporativa.",
+        ],
       },
       {
-        "type": "h2",
-        "text": "Cómo saber si el precio que te dieron es justo"
+        type: "h2",
+        text: "Cómo saber si el precio que te dieron es justo",
       },
       {
-        "type": "p",
-        "text": "Pide siempre desglose: cuántos días de rodaje, qué equipo se usa, cuántas rondas de corrección incluye la edición y en qué formatos entregan el video final (horizontal, vertical, con o sin subtítulos). Si dos cotizaciones difieren mucho, casi siempre es porque una incluye pre-producción seria y la otra no. También pregunta si el precio incluye los derechos de la música y si puedes reutilizar el material en distintas plataformas sin costo adicional."
+        type: "p",
+        text: "Pide siempre desglose: cuántos días de rodaje, qué equipo se usa, cuántas rondas de corrección incluye la edición y en qué formatos entregan el video final (horizontal, vertical, con o sin subtítulos). Si dos cotizaciones difieren mucho, casi siempre es porque una incluye pre-producción seria y la otra no. También pregunta si el precio incluye los derechos de la música y si puedes reutilizar el material en distintas plataformas sin costo adicional.",
       },
       {
-        "type": "p",
-        "text": "Si estás por producir tu primer video corporativo o quieres uno que realmente conecte con tu marca y no quede como un video más, escríbele a 1bite — coordinamos la producción audiovisual completa, desde el guion hasta la edición final."
-      }
-    ]
+        type: "p",
+        text: "Si estás por producir tu primer video corporativo o quieres uno que realmente conecte con tu marca y no quede como un video más, escríbele a 1bite — coordinamos la producción audiovisual completa, desde el guion hasta la edición final.",
+      },
+    ],
   },
   // __CRON_BLOG_INSERT__ — el cron de macgia (~/blog-1bite) inserta posts nuevos
   // encima de esta línea. No borrar ni mover este marcador.
