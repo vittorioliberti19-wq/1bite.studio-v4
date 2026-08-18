@@ -20,11 +20,11 @@ const AI_BOTS = [
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: "*", allow: "/", disallow: ["/cuestionarioweb"] },
+      { userAgent: "*", allow: "/", disallow: ["/cuestionarioweb", "/cuestionarioapp"] },
       ...AI_BOTS.map((userAgent) => ({
         userAgent,
         allow: "/",
-        disallow: ["/cuestionarioweb"],
+        disallow: ["/cuestionarioweb", "/cuestionarioapp"],
       })),
     ],
     sitemap: "https://1bite.studio/sitemap.xml",

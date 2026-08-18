@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import CuestionarioWeb from "@/components/sections/CuestionarioWeb";
+import CuestionarioForm from "@/components/sections/CuestionarioForm";
+import { PREGUNTAS_WEB } from "@/lib/cuestionarios";
 
 // Ruta oculta: se comparte por WhatsApp, no debe indexarse ni salir en el sitemap.
 export const metadata: Metadata = {
@@ -12,7 +13,11 @@ export const metadata: Metadata = {
 export default function CuestionarioWebPage() {
   return (
     <main className="min-h-screen bg-deep-code text-white">
-      <CuestionarioWeb />
+      <CuestionarioForm
+        preguntas={PREGUNTAS_WEB}
+        titulo="Cotiza tu web"
+        tipo="web"
+      />
     </main>
   );
 }
