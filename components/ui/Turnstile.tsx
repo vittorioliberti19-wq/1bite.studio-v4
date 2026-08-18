@@ -10,6 +10,7 @@ declare global {
     turnstile?: {
       render: (el: HTMLElement, opts: Record<string, string>) => string;
       remove: (id: string) => void;
+      reset: (id?: string) => void;
     };
   }
 }
