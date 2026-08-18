@@ -4,6 +4,11 @@ import { useRef, useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import Turnstile from "@/components/ui/Turnstile";
+import { PERFILES } from "@/lib/perfiles";
+
+// El form corto no pide el detalle de "Otro" (la Edge Function lo exige):
+// ese caso se atiende en /oportunidades.
+const PUESTOS = PERFILES.filter((p) => p !== "Otro");
 import { WHATSAPP_URL } from "@/lib/content";
 
 const SUPABASE_FN =
@@ -14,13 +19,6 @@ const VACANTE_ENDPOINT =
 const CONTACTO_ENDPOINT =
   process.env.NEXT_PUBLIC_CONTACTO_ENDPOINT ?? `${SUPABASE_FN}/contacto-submit`;
 
-const PUESTOS = [
-  "Diseñador gráfico",
-  "Director de arte",
-  "Community manager",
-  "Audiovisual",
-  "Content creator",
-];
 
 const TEL = "+17869063354";
 
@@ -282,7 +280,15 @@ function VacanteForm() {
         {estado === "enviando" ? "Enviando…" : "Enviar postulación"}
       </LiquidButton>
       <p className="text-center text-[11px] text-white/60">
-        Tu información llega directo a nuestro equipo de RRHH.
+        Tu información llega directo a nuestro equipo de RRHH. ¿Quieres contarnos
+        más?{" "}
+        <a
+          href="/oportunidades"
+          className="text-[#08e1f4] underline underline-offset-2 transition hover:text-white"
+        >
+          Postúlate con el formulario completo
+        </a>
+        .
       </p>
     </form>
   );

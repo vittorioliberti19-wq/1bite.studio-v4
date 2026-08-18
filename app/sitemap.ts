@@ -11,6 +11,7 @@ const ACTUALIZADO = {
   home: "2026-07-19",
   servicios: "2026-06-11",
   galeria: "2026-07-04",
+  oportunidades: "2026-08-18",
 } as const;
 
 // El índice del blog se fecha con el post más reciente (el array no está ordenado).
@@ -38,6 +39,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ],
     },
     { url: `${SITE}/blog`, lastModified: new Date(ultimoPost) },
+    {
+      url: `${SITE}/oportunidades`,
+      lastModified: new Date(ACTUALIZADO.oportunidades),
+    },
   ];
 
   const serviceUrls: MetadataRoute.Sitemap = servicios.map((s) => ({
