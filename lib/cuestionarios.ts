@@ -2,7 +2,9 @@
    La UI vive en components/sections/CuestionarioForm.tsx: acá solo el contenido. */
 
 export type Campo =
-  | { t: "radio" | "check"; name: string; opciones: { v: string; l: string; d?: string }[] }
+  // `label` rotula el grupo cuando un bloque tiene dos listas seguidas y una
+  // pegada a la otra se leería como continuación de la anterior.
+  | { t: "radio" | "check"; name: string; label?: string; opciones: { v: string; l: string; d?: string }[] }
   | { t: "text"; name: string; ph: string; tipo?: string }
   | { t: "area"; name: string; ph: string };
 
@@ -286,6 +288,216 @@ export const PREGUNTAS_APP: Pregunta[] = [
           { v: "Prefiero que me propongan", l: "Prefiero que me propongan" },
         ],
       },
+    ],
+  },
+];
+
+
+/* Brief de arranque del Paquete 1 — Landing Page ($1.200).
+   No es un cuestionario de venta: el cliente ya compró. Cada bloque existe
+   para llenar un ítem del alcance vendido (8 secciones, 1 idioma, formulario
+   de 6 campos, 4 mockups) o para cubrir lo que el paquete NO incluye
+   (textos, dominio, sesión fotográfica), que es donde se traba la entrega. */
+export const PREGUNTAS_LANDING: Pregunta[] = [
+  {
+    n: "01",
+    titulo: "¿Qué vas a promocionar en esta landing?",
+    sub: "Una landing = un solo objetivo. Si son dos productos, son dos landings.",
+    campos: [
+      { t: "text", name: "Producto o servicio", ph: "Nombre exacto como quieres que aparezca" },
+      {
+        t: "area",
+        name: "De que se trata",
+        ph: "Ej: curso online de trading para principiantes, 6 semanas, arranca en octubre",
+      },
+    ],
+  },
+  {
+    n: "02",
+    titulo: "¿A quién le habla y qué quieres que haga?",
+    sub: "La página completa se diseña alrededor de esta acción.",
+    campos: [
+      {
+        t: "area",
+        name: "A quien le habla",
+        ph: "Ej: dueños de talleres en Maracaibo, 30 a 55 años, que ya compran repuestos por WhatsApp",
+      },
+      {
+        t: "radio",
+        name: "Accion principal",
+        opciones: [
+          { v: "Escribir por WhatsApp", l: "Que escriba por WhatsApp" },
+          { v: "Llenar el formulario", l: "Que llene el formulario y lo contactemos" },
+          { v: "Llamar por telefono", l: "Que llame por teléfono" },
+          { v: "Registrarse a un evento", l: "Que se registre a un evento o webinar" },
+          { v: "Pagar por un link externo", l: "Que pague", d: "por un link externo: Stripe, Zelle, pasarela" },
+          { v: "Descargar algo", l: "Que descargue algo", d: "catálogo, PDF, lista de precios" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "03",
+    titulo: "¿Qué secciones lleva?",
+    sub: "El paquete incluye hasta 8 secciones. Marca las que quieres.",
+    campos: [
+      {
+        t: "check",
+        name: "Secciones",
+        opciones: [
+          { v: "Hero con titular y boton", l: "Hero con titular y botón principal", d: "obligatoria" },
+          { v: "Problema o necesidad", l: "El problema que resuelves" },
+          { v: "Solucion o propuesta de valor", l: "Tu solución o propuesta de valor" },
+          { v: "Caracteristicas o beneficios", l: "Características o beneficios" },
+          { v: "Testimonios o casos de exito", l: "Testimonios, casos o pruebas sociales" },
+          { v: "Preguntas frecuentes", l: "Preguntas frecuentes" },
+          { v: "Precios o planes", l: "Precios o planes" },
+          { v: "Llamado a la accion final", l: "Llamado a la acción final" },
+          { v: "Galeria de fotos o productos", l: "Galería de fotos o productos" },
+          { v: "Mapa o direccion", l: "Mapa o dirección física" },
+          { v: "Footer con contacto y redes", l: "Footer con contacto y redes", d: "obligatoria" },
+        ],
+      },
+      {
+        t: "area",
+        name: "Seccion extra",
+        ph: "¿Falta alguna sección que no está en la lista? (opcional)",
+      },
+    ],
+  },
+  {
+    n: "04",
+    titulo: "Los textos, ¿quién los escribe?",
+    sub: "El paquete no incluye redacción: los textos los provees tú. Si no los tienes, lo cotizamos aparte.",
+    campos: [
+      {
+        t: "radio",
+        name: "Textos",
+        opciones: [
+          { v: "Ya los tengo listos", l: "Ya los tengo listos, los mando" },
+          { v: "Los escribo pero necesito la guia", l: "Los escribo yo, pero necesito que me digan qué va en cada sección" },
+          { v: "Quiero que 1bite los redacte", l: "Quiero que 1bite los redacte", d: "se cotiza aparte" },
+        ],
+      },
+      {
+        t: "area",
+        name: "Mensaje que no puede faltar",
+        ph: "¿Qué frase, dato o promesa NO puede faltar en la página?",
+      },
+    ],
+  },
+  {
+    n: "05",
+    titulo: "¿Qué material visual tienes?",
+    sub: "El paquete incluye hasta 4 mockups o renders integrados al diseño. La sesión fotográfica no está incluida.",
+    campos: [
+      {
+        t: "check",
+        name: "Material visual",
+        opciones: [
+          { v: "Fotos propias en buena calidad", l: "Fotos propias en buena calidad" },
+          { v: "Fotos de celular", l: "Fotos de celular nada más" },
+          { v: "Logo en vectorial (AI, SVG, EPS)", l: "Logo en vectorial", d: "AI, SVG, EPS o PDF editable" },
+          { v: "Video", l: "Video" },
+          { v: "Necesito mockups o renders", l: "Necesito que hagan los mockups o renders", d: "hasta 4 incluidos" },
+          { v: "No tengo nada", l: "No tengo nada todavía" },
+        ],
+      },
+      {
+        t: "text",
+        name: "Link al material",
+        ph: "Pega el link de Drive, Dropbox o WeTransfer con el material",
+        tipo: "url",
+      },
+    ],
+  },
+  {
+    n: "06",
+    titulo: "¿Cómo está tu marca?",
+    campos: [
+      {
+        t: "radio",
+        name: "Marca",
+        opciones: [
+          { v: "Manual de marca completo", l: "Manual de marca completo", d: "colores, tipografías, uso del logo" },
+          { v: "Logo y colores definidos", l: "Logo y colores definidos, sin manual" },
+          { v: "Solo el logo", l: "Solo el logo" },
+          { v: "Hay que armarla", l: "Hay que armarla", d: "se cotiza aparte" },
+        ],
+      },
+      {
+        t: "area",
+        name: "Referencias de estilo de marca",
+        ph: "Colores, tipografías o el tono que quieres transmitir (serio, cercano, premium, técnico...)",
+      },
+    ],
+  },
+  {
+    n: "07",
+    titulo: "El formulario de contacto",
+    sub: "El paquete incluye un formulario de hasta 6 campos. Marca cuáles quieres pedirle al visitante.",
+    campos: [
+      {
+        t: "check",
+        name: "Campos del formulario",
+        opciones: [
+          { v: "Nombre", l: "Nombre" },
+          { v: "Correo", l: "Correo" },
+          { v: "Telefono o WhatsApp", l: "Teléfono o WhatsApp" },
+          { v: "Empresa", l: "Empresa" },
+          { v: "Ciudad", l: "Ciudad" },
+          { v: "Producto o servicio de interes", l: "Producto o servicio de interés" },
+          { v: "Presupuesto", l: "Presupuesto" },
+          { v: "Mensaje libre", l: "Mensaje libre" },
+        ],
+      },
+      { t: "text", name: "Correo donde llegan los mensajes", ph: "¿A qué correo deben llegar los formularios?", tipo: "email" },
+      { t: "text", name: "WhatsApp del boton", ph: "Número de WhatsApp para el botón (con código de país)" },
+    ],
+  },
+  {
+    n: "08",
+    titulo: "Dominio e idioma",
+    sub: "El dominio anual corre por tu cuenta. El paquete incluye 1 idioma y el deploy con SSL.",
+    campos: [
+      { t: "text", name: "Dominio", ph: "El dominio que quieres: ejemplo.com" },
+      {
+        t: "radio",
+        name: "Estado del dominio",
+        label: "¿Ya tienes el dominio?",
+        opciones: [
+          { v: "Ya lo tengo comprado", l: "Ya lo tengo comprado" },
+          { v: "No lo tengo, necesito que me guien", l: "No lo tengo, necesito que me guíen para comprarlo" },
+          { v: "Lo tiene otra persona o proveedor", l: "Lo tiene otra persona o mi proveedor anterior" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Idioma",
+        label: "¿En qué idioma va la página?",
+        opciones: [
+          { v: "Espanol", l: "Español" },
+          { v: "Ingles", l: "Inglés" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "09",
+    titulo: "Referencias y fecha",
+    sub: "La entrega es de 10 a 14 días continuos desde que tengamos textos y material.",
+    campos: [
+      {
+        t: "area",
+        name: "Referencias que te gustan",
+        ph: "Pega 2 o 3 links de páginas que te gusten y di qué te gusta de cada una",
+      },
+      {
+        t: "area",
+        name: "Lo que NO quieres",
+        ph: "¿Algo que odies? Colores, estilos, páginas de la competencia que no quieres parecer",
+      },
+      { t: "text", name: "Fecha objetivo", ph: "¿Hay una fecha fija? (lanzamiento, evento, feria)" },
     ],
   },
 ];

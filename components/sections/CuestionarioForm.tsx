@@ -23,17 +23,34 @@ const optCls =
   "flex cursor-pointer items-start gap-3 rounded-xl border border-white/12 bg-white/[0.03] px-4 py-3.5 transition hover:border-white/30 has-[:checked]:border-[#08e1f4]/70 has-[:checked]:bg-[#08e1f4]/[0.07]";
 
 export type CuestionarioProps = {
-  /** Preguntas del bloque 01 al 08. El 09 (contacto) lo pone el motor. */
+  /** Bloques del contenido. El último bloque (contacto) lo pone el motor. */
   preguntas: Pregunta[];
   titulo: string;
   /** Va al CRM como origen: cuestionario_<tipo>. */
-  tipo: "web" | "app";
+  tipo: "web" | "app" | "landing";
+  /** Bajada bajo el título. Por defecto: "N preguntas. Menos de 2 minutos.". */
+  sub?: string;
+  /** Encabezado del último bloque. */
+  contactoTitulo?: string;
+  /** Texto del botón de envío. */
+  cta?: string;
+  /** Letra chica bajo el botón. */
+  notaFinal?: React.ReactNode;
+  /** Pantalla de confirmación. */
+  okTitulo?: string;
+  okTexto?: string;
 };
 
 export default function CuestionarioForm({
   preguntas,
   titulo,
   tipo,
+  sub,
+  contactoTitulo = "¿A quién le mandamos la propuesta?",
+  cta = "Enviar y recibir propuesta",
+  notaFinal,
+  okTitulo = "Recibido.",
+  okTexto = "Tenemos tu brief. Revisamos el alcance y te escribimos con una propuesta. Si el proyecto lo amerita, te proponemos una llamada de 20 minutos primero.",
 }: CuestionarioProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const [estado, setEstado] = useState<Estado>("idle");
@@ -109,11 +126,8 @@ export default function CuestionarioForm({
   if (estado === "ok") {
     return (
       <div className="mx-auto max-w-2xl px-5 py-32 text-center">
-        <p className="gradient-text text-3xl font-semibold">Recibido.</p>
-        <p className="mt-4 text-white/70">
-          Tenemos tu brief. Revisamos el alcance y te escribimos con una propuesta.
-          Si el proyecto lo amerita, te proponemos una llamada de 20 minutos primero.
-        </p>
+        <p className="gradient-text text-3xl font-semibold">{okTitulo}</p>
+        <p className="mt-4 text-white/70">{okTexto}</p>
         <a
           href="/"
           className="mt-8 inline-block text-sm text-[#08e1f4] transition hover:text-white"
@@ -154,7 +168,7 @@ export default function CuestionarioForm({
           {titulo}
         </h1>
         <p className="mt-3 text-sm text-white/60">
-          {preguntas.length + 1} preguntas. Menos de 2 minutos.
+          {sub ?? `${totalBloques} preguntas. Menos de 2 minutos.`}
         </p>
         <div className="mt-7 h-[2px] overflow-hidden rounded-full bg-white/10">
           <div
@@ -198,7 +212,7 @@ export default function CuestionarioForm({
                       className={inputCls}
                     />
                   );
-                return c.opciones.map((o) => (
+                const grupo = c.opciones.map((o) => (
                   <label key={o.v} className={optCls}>
                     <input
                       type={c.t === "check" ? "checkbox" : "radio"}
@@ -216,6 +230,15 @@ export default function CuestionarioForm({
                     </span>
                   </label>
                 ));
+                if (!c.label) return grupo;
+                return (
+                  <div key={c.name} className="grid gap-2.5">
+                    <p className="mt-2 text-[13px] font-medium text-white/70">
+                      {c.label}
+                    </p>
+                    {grupo}
+                  </div>
+                );
               })}
             </div>
           </section>
@@ -227,9 +250,11 @@ export default function CuestionarioForm({
           data-bloque-contacto
           className="border-b border-white/10 py-8"
         >
-          <p className="text-[11px] tracking-[0.2em] text-white/40">09</p>
+          <p className="text-[11px] tracking-[0.2em] text-white/40">
+            {String(totalBloques).padStart(2, "0")}
+          </p>
           <h2 className="mt-1.5 text-xl font-semibold tracking-tight">
-            ¿A quién le mandamos la propuesta?
+            {contactoTitulo}
           </h2>
           <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
             <input name="nombre" required placeholder="Tu nombre *" className={inputCls} />
@@ -261,12 +286,16 @@ export default function CuestionarioForm({
             disabled={estado === "enviando"}
             className="w-full"
           >
-            {estado === "enviando" ? "Enviando…" : "Enviar y recibir propuesta"}
+            {estado === "enviando" ? "Enviando…" : cta}
           </LiquidButton>
           <p className="mt-5 text-center text-[13px] leading-relaxed text-white/50">
-            Con esto te mandamos una propuesta con alcance y precio.
-            <br />
-            Si el proyecto es grande, te proponemos una llamada de 20 min primero.
+            {notaFinal ?? (
+              <>
+                Con esto te mandamos una propuesta con alcance y precio.
+                <br />
+                Si el proyecto es grande, te proponemos una llamada de 20 min primero.
+              </>
+            )}
           </p>
         </div>
       </form>
