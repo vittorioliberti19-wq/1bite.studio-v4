@@ -4,7 +4,15 @@
 export type Campo =
   // `label` rotula el grupo cuando un bloque tiene dos listas seguidas y una
   // pegada a la otra se leería como continuación de la anterior.
-  | { t: "radio" | "check"; name: string; label?: string; opciones: { v: string; l: string; d?: string }[] }
+  | {
+      t: "radio" | "check";
+      name: string;
+      label?: string;
+      /** Solo para `check`: tope de opciones marcables. Al llegar, el resto
+          se deshabilita. Sirve para que el cliente no pida más de lo vendido. */
+      max?: number;
+      opciones: { v: string; l: string; d?: string }[];
+    }
   | { t: "text"; name: string; ph: string; tipo?: string }
   | { t: "area"; name: string; ph: string };
 
@@ -344,6 +352,7 @@ export const PREGUNTAS_LANDING: Pregunta[] = [
       {
         t: "check",
         name: "Secciones",
+        max: 8,
         opciones: [
           { v: "Hero con titular y boton", l: "Hero con titular y botón principal", d: "obligatoria" },
           { v: "Problema o necesidad", l: "El problema que resuelves" },
@@ -478,7 +487,13 @@ export const PREGUNTAS_LANDING: Pregunta[] = [
         opciones: [
           { v: "Espanol", l: "Español" },
           { v: "Ingles", l: "Inglés" },
+          { v: "Otro idioma", l: "Otro", d: "escríbelo abajo" },
         ],
+      },
+      {
+        t: "text",
+        name: "Cual otro idioma",
+        ph: "Si marcaste Otro, ¿cuál idioma? (portugués, italiano, chino...)",
       },
     ],
   },

@@ -56,8 +56,20 @@ export default function CuestionarioForm({
   const [estado, setEstado] = useState<Estado>("idle");
   const [msg, setMsg] = useState("");
   const [avance, setAvance] = useState(0);
+  // Valores marcados de cada grupo con tope, leídos del DOM: los checkboxes
+  // no son controlados, pero necesitamos saber a cuál deshabilitar.
+  const [marcados, setMarcados] = useState<Record<string, string[]>>({});
 
   const totalBloques = useMemo(() => preguntas.length + 1, [preguntas]);
+
+  // Nombres de los grupos con tope de selección.
+  const grupoConTope = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const p of preguntas)
+      for (const c of p.campos)
+        if (c.t === "check" && c.max) m.set(c.name, c.max);
+    return m;
+  }, [preguntas]);
 
   function recalcular() {
     const form = formRef.current;
@@ -86,6 +98,18 @@ export default function CuestionarioForm({
       }
     }
     setAvance(Math.round((hechos / totalBloques) * 100));
+
+    if (grupoConTope.size) {
+      const next: Record<string, string[]> = {};
+      for (const name of grupoConTope.keys()) {
+        next[name] = [
+          ...form.querySelectorAll<HTMLInputElement>(
+            `input[type="checkbox"][name="${CSS.escape(name)}"]:checked`,
+          ),
+        ].map((c) => c.value);
+      }
+      setMarcados(next);
+    }
   }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -212,12 +236,22 @@ export default function CuestionarioForm({
                       className={inputCls}
                     />
                   );
-                const grupo = c.opciones.map((o) => (
-                  <label key={o.v} className={optCls}>
+                const tope = c.t === "check" ? c.max : undefined;
+                const puestos = marcados[c.name] ?? [];
+                const lleno = tope !== undefined && puestos.length >= tope;
+
+                const grupo = c.opciones.map((o) => {
+                  const bloqueada = lleno && !puestos.includes(o.v);
+                  return (
+                  <label
+                    key={o.v}
+                    className={`${optCls}${bloqueada ? " cursor-not-allowed opacity-40" : ""}`}
+                  >
                     <input
                       type={c.t === "check" ? "checkbox" : "radio"}
                       name={c.name}
                       value={o.v}
+                      disabled={bloqueada}
                       className="mt-[3px] h-4 w-4 shrink-0 accent-[#08e1f4]"
                     />
                     <span className="text-[15px] leading-snug">
@@ -229,13 +263,26 @@ export default function CuestionarioForm({
                       )}
                     </span>
                   </label>
-                ));
-                if (!c.label) return grupo;
+                  );
+                });
+
+                if (!c.label && tope === undefined) return grupo;
                 return (
                   <div key={c.name} className="grid gap-2.5">
-                    <p className="mt-2 text-[13px] font-medium text-white/70">
-                      {c.label}
-                    </p>
+                    {(c.label || tope !== undefined) && (
+                      <p className="mt-2 flex items-baseline justify-between gap-3 text-[13px] font-medium text-white/70">
+                        <span>{c.label}</span>
+                        {tope !== undefined && (
+                          <span
+                            className={
+                              lleno ? "text-[#08e1f4]" : "text-white/45"
+                            }
+                          >
+                            {puestos.length} de {tope}
+                          </span>
+                        )}
+                      </p>
+                    )}
                     {grupo}
                   </div>
                 );
