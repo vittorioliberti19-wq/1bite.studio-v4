@@ -516,3 +516,352 @@ export const PREGUNTAS_LANDING: Pregunta[] = [
     ],
   },
 ];
+
+
+/* Cuestionario de calificación para proyectos de ecommerce.
+   Más largo que el de web general a propósito: en una tienda el presupuesto
+   lo mueven el catálogo (variantes), el cobro, el envío y de dónde sale el
+   inventario. Cada bloque existe para cerrar una de esas cuatro incógnitas. */
+export const PREGUNTAS_ECOMMERCE: Pregunta[] = [
+  {
+    n: "01",
+    titulo: "¿Qué vendes?",
+    sub: "En una línea, como se lo dirías a un amigo.",
+    campos: [
+      {
+        t: "area",
+        name: "Que vende",
+        ph: "Ej: ropa de mujer al detal, marca propia, entrego en Maracaibo y envío al resto del país",
+      },
+      {
+        t: "radio",
+        name: "Tipo de tienda",
+        label: "¿Qué tipo de producto es?",
+        opciones: [
+          { v: "Ropa, calzado o accesorios", l: "Ropa, calzado o accesorios", d: "lleva tallas y colores" },
+          { v: "Productos fisicos sin variantes", l: "Productos físicos sin variantes", d: "cada producto es uno solo" },
+          { v: "Comida o bebida", l: "Comida o bebida", d: "menú, presentaciones, horarios" },
+          { v: "Repuestos, ferreteria o industrial", l: "Repuestos, ferretería o industrial", d: "catálogo grande, códigos" },
+          { v: "Servicios o citas", l: "Servicios o citas" },
+          { v: "Productos digitales", l: "Productos digitales", d: "cursos, PDF, licencias" },
+          { v: "Mezcla de varios", l: "Mezcla de varios" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "02",
+    titulo: "¿Qué tan grande es el catálogo?",
+    sub: "Aproximado está bien. Esto define cuánto pesa la carga inicial.",
+    campos: [
+      { t: "text", name: "Cantidad de productos", ph: "¿Cuántos productos aprox.? Ej: 120" },
+      { t: "text", name: "Cantidad de categorias", ph: "¿Cuántas categorías o líneas? Ej: 6" },
+      {
+        t: "radio",
+        name: "Quien carga el catalogo",
+        label: "¿Quién carga los productos al arrancar?",
+        opciones: [
+          { v: "Yo o mi equipo", l: "Yo o mi equipo, con el panel" },
+          { v: "Quiero que 1bite lo cargue", l: "Quiero que 1bite lo cargue", d: "se cotiza aparte por cantidad" },
+          { v: "Tengo un Excel o base para importar", l: "Tengo un Excel o base que se puede importar" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "03",
+    titulo: "¿Los productos tienen variantes?",
+    sub: "Talla, color, sabor, presentación. Es lo que más complica el inventario.",
+    campos: [
+      {
+        t: "check",
+        name: "Variantes",
+        opciones: [
+          { v: "Tallas", l: "Tallas", d: "S, M, L o numéricas" },
+          { v: "Colores", l: "Colores" },
+          { v: "Presentacion o tamano", l: "Presentación o tamaño", d: "250 ml, 1 kg, x12" },
+          { v: "Sabor o modelo", l: "Sabor, modelo o acabado" },
+          { v: "Personalizacion del cliente", l: "El cliente personaliza", d: "grabado, nombre, medida a pedido" },
+          { v: "Sin variantes", l: "Sin variantes" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Stock por variante",
+        label: "¿Necesitas llevar el stock separado por cada variante?",
+        opciones: [
+          { v: "Si, stock por talla y color", l: "Sí, quiero saber cuántas quedan de cada talla y color" },
+          { v: "Solo stock general del producto", l: "Solo el stock general del producto" },
+          { v: "No manejo stock en la web", l: "No manejo stock en la web" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "04",
+    titulo: "¿Cómo quieres cobrar?",
+    sub: "Marca todo lo que aplique. Esto es lo que más mueve el presupuesto.",
+    campos: [
+      {
+        t: "check",
+        name: "Cobro",
+        opciones: [
+          { v: "Pedido por WhatsApp, pago manual", l: "Pedido por WhatsApp", d: "el carrito arma el mensaje, el pago se coordina aparte" },
+          { v: "Tarjeta internacional (Stripe)", l: "Tarjeta internacional con Stripe", d: "requiere empresa o cuenta en USA/Panamá" },
+          { v: "Pago movil o transferencia venezolana", l: "Pago móvil o transferencia venezolana", d: "el cliente sube el comprobante" },
+          { v: "Zelle", l: "Zelle" },
+          { v: "Binance o cripto", l: "Binance o cripto" },
+          { v: "Punto de venta o efectivo en tienda", l: "Punto de venta o efectivo al retirar" },
+          { v: "Pago contra entrega", l: "Pago contra entrega" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Confirmacion del pago",
+        label: "Cuando entra un pago manual, ¿quién lo confirma?",
+        opciones: [
+          { v: "Yo lo reviso y apruebo en el panel", l: "Yo lo reviso y lo apruebo en el panel" },
+          { v: "Quiero que se verifique automatico", l: "Quiero que se verifique automático", d: "conexión con el banco, se cotiza aparte" },
+          { v: "No aplica, todo es con tarjeta", l: "No aplica, todo va con tarjeta" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "05",
+    titulo: "¿Cómo entregas?",
+    campos: [
+      {
+        t: "check",
+        name: "Entrega",
+        opciones: [
+          { v: "Delivery propio en mi ciudad", l: "Delivery propio en mi ciudad" },
+          { v: "Envio nacional por agencia", l: "Envío nacional por agencia", d: "Zoom, MRW, Tealca, Domesa" },
+          { v: "Envio internacional", l: "Envío internacional" },
+          { v: "Retiro en tienda", l: "Retiro en tienda" },
+          { v: "Producto digital, se descarga", l: "Producto digital, se descarga o se manda por correo" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Costo de envio",
+        label: "¿Cómo se calcula el costo del envío?",
+        opciones: [
+          { v: "Tarifa fija", l: "Tarifa fija" },
+          { v: "Por zona o ciudad", l: "Por zona o ciudad" },
+          { v: "Por peso o tamano", l: "Por peso o tamaño" },
+          { v: "Gratis sobre cierto monto", l: "Gratis sobre cierto monto" },
+          { v: "Se cotiza aparte con el cliente", l: "Se cotiza aparte con el cliente" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "06",
+    titulo: "Precios y moneda",
+    campos: [
+      {
+        t: "radio",
+        name: "Moneda",
+        opciones: [
+          { v: "Solo dolares", l: "Solo dólares" },
+          { v: "Solo bolivares", l: "Solo bolívares" },
+          { v: "Dolares con conversion a bolivares", l: "Dólares con conversión a bolívares", d: "tasa BCV automática" },
+        ],
+      },
+      {
+        t: "check",
+        name: "Reglas de precio",
+        label: "¿Algo de esto aplica?",
+        opciones: [
+          { v: "IVA", l: "Hay que mostrar o calcular IVA" },
+          { v: "Precio mayorista y detal", l: "Precio distinto para mayoristas y detal" },
+          { v: "Cupones o codigos de descuento", l: "Cupones o códigos de descuento" },
+          { v: "Ofertas y precios tachados", l: "Ofertas con precio tachado" },
+          { v: "Cantidad minima de compra", l: "Cantidad mínima de compra" },
+          { v: "Nada de esto", l: "Nada de esto" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "07",
+    titulo: "¿Dónde vive tu inventario hoy?",
+    sub: "Conectar con un sistema existente es lo que más alarga el proyecto.",
+    campos: [
+      {
+        t: "radio",
+        name: "Inventario actual",
+        opciones: [
+          { v: "En Excel o Google Sheets", l: "En Excel o Google Sheets" },
+          { v: "En un sistema administrativo", l: "En un sistema administrativo", d: "Profit, Saint, Odoo, ERP propio" },
+          { v: "En un punto de venta", l: "En un punto de venta" },
+          { v: "Ya uso el sistema de 1bite", l: "Ya uso el sistema de 1bite", d: "el ERP donde llevas caja, inventario y cierres" },
+          { v: "En la cabeza o en un cuaderno", l: "En la cabeza o en un cuaderno" },
+          { v: "No manejo inventario", l: "No manejo inventario" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Sincronizacion",
+        label: "¿La web tiene que sincronizarse con eso?",
+        opciones: [
+          { v: "Si, en tiempo real", l: "Sí, en tiempo real" },
+          { v: "Si, una carga periodica basta", l: "Sí, pero una carga periódica basta" },
+          { v: "No, la web maneja su propio inventario", l: "No, la web maneja su propio inventario" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "08",
+    titulo: "¿Qué más tiene que hacer la tienda?",
+    sub: "Marca todo lo que aplique.",
+    campos: [
+      {
+        t: "check",
+        name: "Funciones",
+        opciones: [
+          { v: "Cuentas de cliente e historial de pedidos", l: "Cuentas de cliente con historial de pedidos" },
+          { v: "Favoritos o lista de deseos", l: "Favoritos o lista de deseos" },
+          { v: "Resenas y calificaciones", l: "Reseñas y calificaciones" },
+          { v: "Buscador con filtros", l: "Buscador con filtros", d: "por talla, color, precio, categoría" },
+          { v: "Correos automaticos de pedido", l: "Correos automáticos de confirmación y despacho" },
+          { v: "Aviso del pedido por WhatsApp", l: "Aviso del pedido por WhatsApp" },
+          { v: "Rastreo del pedido", l: "Que el cliente rastree su pedido" },
+          { v: "Reportes de ventas", l: "Reportes de ventas y productos más vendidos" },
+          { v: "Blog o contenido", l: "Blog o contenido" },
+          { v: "Version en ingles u otro idioma", l: "Versión en inglés u otro idioma" },
+          { v: "Varios usuarios administradores", l: "Varios usuarios administradores con permisos distintos" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "09",
+    titulo: "¿Ya vendes por algún lado?",
+    campos: [
+      {
+        t: "check",
+        name: "Canales actuales",
+        opciones: [
+          { v: "Instagram o WhatsApp nada mas", l: "Instagram o WhatsApp nada más" },
+          { v: "Tienda fisica", l: "Tienda física" },
+          { v: "Shopify, WooCommerce o similar", l: "Ya tengo tienda online", d: "Shopify, WooCommerce, Wix, Tiendanube" },
+          { v: "Marketplace", l: "Marketplace", d: "Mercado Libre, Amazon, TikTok Shop" },
+        ],
+      },
+      { t: "text", name: "Tienda o perfil actual", ph: "Pega el link de tu tienda o tu Instagram" },
+      {
+        t: "radio",
+        name: "Migracion",
+        label: "Si ya tienes tienda, ¿qué quieres hacer?",
+        opciones: [
+          { v: "Migrar todo a la nueva", l: "Migrar productos y clientes a la nueva" },
+          { v: "Empezar limpio", l: "Empezar limpio, sin migrar nada" },
+          { v: "No aplica", l: "No aplica" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "10",
+    titulo: "Fotos de producto y marca",
+    sub: "En una tienda las fotos son la mitad del resultado. Es lo que más traba la entrega.",
+    campos: [
+      {
+        t: "radio",
+        name: "Fotos de producto",
+        opciones: [
+          { v: "Todas listas y en buena calidad", l: "Todas listas y en buena calidad" },
+          { v: "Tengo algunas, faltan varias", l: "Tengo algunas, faltan varias" },
+          { v: "Solo fotos de celular", l: "Solo fotos de celular" },
+          { v: "Necesito sesion fotografica", l: "Necesito sesión fotográfica", d: "se cotiza aparte" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Marca",
+        label: "¿Cómo está tu marca?",
+        opciones: [
+          { v: "Logo y manual listos", l: "Logo y manual de marca listos" },
+          { v: "Tengo logo, nada mas", l: "Tengo logo, nada más" },
+          { v: "El logo esta debil", l: "El logo está débil, hay que rehacerlo" },
+          { v: "No tengo marca todavia", l: "No tengo marca todavía" },
+        ],
+      },
+      { t: "text", name: "Link al material", ph: "Link de Drive o Dropbox con fotos y logo", tipo: "url" },
+    ],
+  },
+  {
+    n: "11",
+    titulo: "¿Quieres que la tienda venga con sistema de gestión por detrás?",
+    sub: "1bite ya tiene un ERP funcionando en tiendas reales (La Piu: inventario por talla, caja, cierre diario). La tienda web puede montarse encima en vez de arrancar de cero.",
+    campos: [
+      {
+        t: "radio",
+        name: "Backend de gestion",
+        opciones: [
+          { v: "Si, quiero el sistema completo", l: "Sí, quiero el sistema completo", d: "la web y la administración del negocio en un solo lugar" },
+          { v: "Solo la tienda, sin sistema", l: "Solo la tienda web, sin sistema de gestión" },
+          { v: "Ya uso el sistema de 1bite", l: "Ya uso el sistema de 1bite", d: "solo hay que conectarle la tienda" },
+          { v: "No se, quiero que me expliquen", l: "No sé, quiero que me expliquen la diferencia" },
+        ],
+      },
+      {
+        t: "check",
+        name: "Modulos de gestion",
+        label: "Si te interesa el sistema, ¿qué partes usarías?",
+        opciones: [
+          { v: "Inventario con tallas y fotos", l: "Inventario con tallas, colores y foto por producto", d: "ya existe, funcionando en tienda" },
+          { v: "Caja o punto de venta en tienda fisica", l: "Caja o punto de venta en la tienda física", d: "descuenta el stock de la talla vendida" },
+          { v: "Cierre de caja diario", l: "Cierre de caja diario", d: "cuánto entró, en qué moneda, quién vendió" },
+          { v: "Clientes y su historial", l: "Ficha de clientes y su historial de compras" },
+          { v: "Cuentas por cobrar", l: "Cuentas por cobrar", d: "ventas a crédito, abonos, quién debe" },
+          { v: "Gastos y cuentas por pagar", l: "Gastos y cuentas por pagar" },
+          { v: "Contabilidad y estados financieros", l: "Contabilidad y estados financieros", d: "libro mayor, ganancia real del mes" },
+          { v: "Nomina y comisiones de vendedores", l: "Nómina y comisiones de vendedores" },
+          { v: "Tasa BCV o Binance automatica", l: "Tasa BCV o Binance automática" },
+          { v: "Reportes y objetivos de venta", l: "Reportes y objetivos de venta" },
+          { v: "Varias sucursales o negocios", l: "Varias sucursales o negocios en un mismo panel" },
+          { v: "Ninguno por ahora", l: "Ninguno por ahora" },
+        ],
+      },
+      {
+        t: "text",
+        name: "Personas que usarian el sistema",
+        ph: "¿Cuántas personas lo usarían? (cajeras, vendedores, administración)",
+      },
+    ],
+  },
+  {
+    n: "12",
+    titulo: "¿Para cuándo la necesitas?",
+    campos: [
+      {
+        t: "radio",
+        name: "Urgencia",
+        opciones: [
+          { v: "Ya, lo antes posible", l: "Ya, lo antes posible" },
+          { v: "Proximo mes o dos", l: "Próximo mes o dos" },
+          { v: "Fecha fija (temporada, lanzamiento)", l: "Tengo fecha fija", d: "temporada, lanzamiento, diciembre" },
+          { v: "Sin apuro, estoy cotizando", l: "Sin apuro, estoy cotizando" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Presupuesto",
+        opciones: [
+          { v: "Quiero arrancar con lo minimo y crecer", l: "Arrancar con lo mínimo y crecer" },
+          { v: "Tengo presupuesto asignado", l: "Tengo presupuesto asignado" },
+          { v: "Prefiero que me propongan", l: "Prefiero que me propongan" },
+        ],
+      },
+      {
+        t: "area",
+        name: "Referencias que te gustan",
+        ph: "Pega 2 o 3 links de tiendas que te gusten y di qué te gusta de cada una (opcional)",
+      },
+    ],
+  },
+];

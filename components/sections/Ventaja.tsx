@@ -83,9 +83,32 @@ function VentajaCard({ v }: { v: (typeof ventajas)[number] }) {
           className="mt-5 h-9 w-auto opacity-80"
         />
       )}
+      {v.stores && (
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          {v.stores.map((s) => (
+            <a
+              key={s.href}
+              data-cursor
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={s.alt}
+              className="opacity-80 transition hover:opacity-100"
+            >
+              <Image
+                src={s.src}
+                alt={s.alt}
+                width={140}
+                height={52}
+                className="h-10 w-auto"
+              />
+            </a>
+          ))}
+        </div>
+      )}
       {v.href && (
         <p className="mt-3 text-xs text-white/50 underline-offset-4 group-hover:text-white group-hover:underline">
-          {v.id === "app" ? "Descárgala en el App Store →" : "Conócelo →"}
+          Conócelo →
         </p>
       )}
     </div>

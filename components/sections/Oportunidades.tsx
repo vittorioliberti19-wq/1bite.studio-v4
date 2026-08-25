@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import Turnstile from "@/components/ui/Turnstile";
+import GradientBar from "@/components/ui/GradientBar";
 import {
   DISPONIBILIDADES,
   EXPERIENCIAS,
@@ -54,6 +56,7 @@ export default function Oportunidades() {
   const [estado, setEstado] = useState<Estado>("idle");
   const [msg, setMsg] = useState("");
   const [perfil, setPerfil] = useState("");
+  const [enlaces, setEnlaces] = useState<string[]>([""]);
 
   const herramientas = perfil ? (HERRAMIENTAS[perfil] ?? []) : [];
 
@@ -70,6 +73,7 @@ export default function Oportunidades() {
       setEstado("ok");
       formRef.current?.reset();
       setPerfil("");
+      setEnlaces([""]);
     } catch (err) {
       setEstado("error");
       setMsg(err instanceof Error ? err.message : "Error inesperado.");
@@ -109,10 +113,29 @@ export default function Oportunidades() {
   return (
     <div className="mx-auto max-w-2xl px-5 pb-32">
       <header className="border-b border-white/10 py-12 text-center">
-        <p className="text-[11px] uppercase tracking-[0.34em] text-white/45">
-          1bite studio
-        </p>
-        <h1 className="gradient-text mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+        {/* Lockup: wordmark sin barra + GradientBar del sistema.
+            No se usa 1bite-white-tagline.png porque su barra trae tapas
+            blancas en los extremos. */}
+        <a
+          href="/"
+          aria-label="1bite Studio"
+          data-cursor
+          className="mx-auto block w-[236px] sm:w-[268px]"
+        >
+          <Image
+            src="/logos/1bite-white-nobar.png"
+            alt="1bite"
+            width={2872}
+            height={1140}
+            priority
+            className="h-auto w-full"
+          />
+          <GradientBar className="mt-3" />
+          <p className="mt-2.5 whitespace-nowrap text-center text-[9.5px] uppercase tracking-[0.22em] text-white/85">
+            Branding · Social · Web · Apps
+          </p>
+        </a>
+        <h1 className="gradient-text mt-10 text-4xl font-semibold tracking-tight sm:text-5xl">
           Trabaja con nosotros
         </h1>
         <p className="mt-3 text-sm text-white/60">
@@ -308,12 +331,53 @@ export default function Oportunidades() {
               />
             </div>
           </div>
-          <input
-            name="enlaces"
-            placeholder="Enlaces: Behance, Drive, IG, LinkedIn, GitHub…"
-            aria-label="Enlaces de trabajos"
-            className={inputCls}
-          />
+          <div className="grid gap-2.5">
+            <p className="text-xs text-white/60">
+              Enlaces a tu trabajo. Agrega los que quieras: Behance, Drive,
+              YouTube, Vimeo, TikTok, IG, LinkedIn, GitHub…
+            </p>
+            {enlaces.map((valor, i) => (
+              <div key={i} className="flex items-center gap-2">
+                <input
+                  name="enlaces"
+                  value={valor}
+                  onChange={(e) =>
+                    setEnlaces((prev) =>
+                      prev.map((v, j) => (j === i ? e.target.value : v)),
+                    )
+                  }
+                  placeholder={
+                    i === 0
+                      ? "https://behance.net/tu-perfil"
+                      : "https://youtube.com/watch?v=…"
+                  }
+                  aria-label={`Enlace ${i + 1}`}
+                  className={inputCls}
+                />
+                {enlaces.length > 1 && (
+                  <button
+                    type="button"
+                    data-cursor
+                    aria-label={`Quitar enlace ${i + 1}`}
+                    onClick={() =>
+                      setEnlaces((prev) => prev.filter((_, j) => j !== i))
+                    }
+                    className="shrink-0 rounded-lg border border-white/15 px-3 py-2.5 text-sm text-white/60 transition hover:border-white/35 hover:text-white"
+                  >
+                    ×
+                  </button>
+                )}
+              </div>
+            ))}
+            <button
+              type="button"
+              data-cursor
+              onClick={() => setEnlaces((prev) => [...prev, ""])}
+              className="justify-self-start text-sm text-[#08e1f4] transition hover:text-white"
+            >
+              + Agregar otro enlace
+            </button>
+          </div>
         </Bloque>
 
         <Bloque

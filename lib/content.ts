@@ -257,6 +257,8 @@ export type Ventaja = {
   href?: string;
   /** logo opcional dentro del card */
   logo?: string;
+  /** badges de tienda: cada uno con su propio link (no anida <a>) */
+  stores?: { src: string; href: string; alt: string }[];
 };
 
 export const ventajas: Ventaja[] = [
@@ -265,8 +267,18 @@ export const ventajas: Ventaja[] = [
     title: "App propia",
     desc: "Sigue tu proyecto desde tu teléfono: revisa avances, aprueba artes y descarga tus entregables en la app 1bite.",
     icon: "app",
-    href: "https://apps.apple.com/us/app/1bite/id6782481903",
-    logo: "/logos/app-store-badge.svg",
+    stores: [
+      {
+        src: "/logos/app-store-badge.svg",
+        href: "https://apps.apple.com/us/app/1bite/id6782481903",
+        alt: "Descárgala en el App Store",
+      },
+      {
+        src: "/logos/google-play-badge.svg",
+        href: "https://play.google.com/store/apps/details?id=studio.onebite.app",
+        alt: "Disponible en Google Play",
+      },
+    ],
   },
   {
     id: "studio",

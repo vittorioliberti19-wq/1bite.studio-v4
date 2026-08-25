@@ -15,6 +15,9 @@ export const PERFILES = [
   "Content creator",
   "Copywriter",
   "Paid media / Ads",
+  "Mercadeo",
+  "Estratega de marca",
+  "Project manager",
   "Desarrollo web",
   "Administración / contabilidad",
   "Ventas",
@@ -44,6 +47,34 @@ const GENERALES = ["Notion", "Trello / ClickUp", "Google Workspace", "Canva"];
 
 /** Herramientas sugeridas por perfil. Se muestran al elegir el puesto. */
 export const HERRAMIENTAS: Record<string, string[]> = {
+  Mercadeo: [
+    "Meta Business Suite",
+    "Google Analytics",
+    "Google Ads",
+    "Metricool",
+    "HubSpot",
+    "Mailchimp / email marketing",
+    "Excel / Sheets avanzado",
+    ...GENERALES,
+  ],
+  "Estratega de marca": [
+    "Investigación de mercado",
+    "Buyer persona / arquetipos",
+    "Brand book / manual de marca",
+    "Plan de contenido",
+    "Miro / FigJam",
+    "Google Analytics",
+    ...GENERALES,
+  ],
+  "Project manager": [
+    "ClickUp",
+    "Asana",
+    "Monday",
+    "Jira",
+    "Slack",
+    "Gantt / cronogramas",
+    ...GENERALES,
+  ],
   "Community manager": [
     "Meta Business Suite",
     "Metricool",
