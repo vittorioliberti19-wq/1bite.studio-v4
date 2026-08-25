@@ -27,7 +27,7 @@ export type CuestionarioProps = {
   preguntas: Pregunta[];
   titulo: string;
   /** Va al CRM como origen: cuestionario_<tipo>. */
-  tipo: "web" | "app" | "landing" | "ecommerce";
+  tipo: "web" | "app" | "landing" | "ecommerce" | "isp";
   /** Bajada bajo el título. Por defecto: "N preguntas. Menos de 2 minutos.". */
   sub?: string;
   /** Encabezado del último bloque. */

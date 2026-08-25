@@ -865,3 +865,399 @@ export const PREGUNTAS_ECOMMERCE: Pregunta[] = [
     ],
   },
 ];
+
+
+/* Cuestionario para operadores de internet y TV (ISP).
+   Un ISP no se cotiza como una web: el trabajo real está en el portal del
+   suscriptor (pagar, reportar fallas, ver su plan), en pegarse al sistema de
+   gestión que ya opera la red (NeoGisp, Mikrowisp, Splynx…) y, si hay TV, en
+   una app por cada plataforma de televisor. Cada bloque cierra una de esas. */
+export const PREGUNTAS_ISP: Pregunta[] = [
+  {
+    n: "01",
+    titulo: "¿Qué servicios presta la empresa?",
+    campos: [
+      {
+        t: "check",
+        name: "Servicios",
+        opciones: [
+          { v: "Fibra optica al hogar (FTTH)", l: "Fibra óptica al hogar (FTTH)" },
+          { v: "Radio enlaces / inalambrico", l: "Radio enlaces o inalámbrico" },
+          { v: "Satelite", l: "Satélite" },
+          { v: "Laser optico (FSO)", l: "Láser óptico (FSO)" },
+          { v: "Enlaces dedicados corporativos", l: "Enlaces dedicados corporativos" },
+          { v: "Television o streaming", l: "Televisión o streaming" },
+          { v: "Telefonia o VoIP", l: "Telefonía o VoIP" },
+          { v: "Datacenter, hosting o nube", l: "Datacenter, hosting o nube" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Tipo de cliente",
+        label: "¿A quién le vendes principalmente?",
+        opciones: [
+          { v: "Residencial", l: "Residencial" },
+          { v: "Corporativo", l: "Corporativo" },
+          { v: "Ambos", l: "Ambos" },
+        ],
+      },
+      { t: "text", name: "Cobertura", ph: "¿En qué ciudades o países operas?" },
+      { t: "text", name: "Cantidad de suscriptores", ph: "¿Cuántos suscriptores activos aprox.?" },
+    ],
+  },
+  {
+    n: "02",
+    titulo: "¿Qué necesitas de nosotros?",
+    sub: "Marca todo lo que aplique. Después vemos por dónde arrancar.",
+    campos: [
+      {
+        t: "check",
+        name: "Objetivo",
+        opciones: [
+          { v: "Marca nueva o rediseno de imagen", l: "Marca nueva o rediseño de imagen" },
+          { v: "Sitio web corporativo", l: "Sitio web corporativo" },
+          { v: "Portal de autogestion del cliente", l: "Portal donde el cliente se autogestiona", d: "ver factura, pagar, reportar fallas" },
+          { v: "App movil para los suscriptores", l: "App móvil para los suscriptores" },
+          { v: "App de television (OTT)", l: "App de televisión (OTT)" },
+          { v: "Manejo de redes sociales", l: "Manejo de redes sociales" },
+          { v: "Senaletica y material de oficinas", l: "Señalética y material de oficinas" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "03",
+    titulo: "¿Qué sistema opera la red hoy?",
+    sub: "Esto define si el portal lee datos reales o hay que cargarlos a mano. Es la pregunta más importante del cuestionario.",
+    campos: [
+      {
+        t: "radio",
+        name: "Sistema de gestion",
+        opciones: [
+          { v: "NeoGisp", l: "NeoGisp" },
+          { v: "Mikrowisp", l: "Mikrowisp" },
+          { v: "Splynx", l: "Splynx" },
+          { v: "Smartolt", l: "Smartolt" },
+          { v: "Sistema propio", l: "Un sistema propio" },
+          { v: "Excel o manual", l: "Excel o manual" },
+          { v: "Otro", l: "Otro", d: "escríbelo abajo" },
+        ],
+      },
+      { t: "text", name: "Cual sistema", ph: "Si marcaste Otro o propio, ¿cuál es?" },
+      {
+        t: "radio",
+        name: "Estado del sistema",
+        label: "¿Ya está funcionando o están migrando?",
+        opciones: [
+          { v: "Ya esta en produccion", l: "Ya está en producción" },
+          { v: "Estamos migrando ahora", l: "Estamos migrando ahora mismo" },
+          { v: "Todavia lo estamos evaluando", l: "Todavía lo estamos evaluando" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "API disponible",
+        label: "¿Ese sistema tiene API para conectarse?",
+        opciones: [
+          { v: "Si, con documentacion", l: "Sí, y tenemos la documentación" },
+          { v: "Si, pero sin documentacion a mano", l: "Sí, pero no tengo la documentación a mano" },
+          { v: "No se, hay que preguntarle al proveedor", l: "No sé, hay que preguntarle al proveedor" },
+          { v: "No tiene API", l: "No tiene API" },
+        ],
+      },
+      {
+        t: "text",
+        name: "Link de la API",
+        ph: "Si tienes el link de la documentación de la API, pégalo",
+        tipo: "url",
+      },
+    ],
+  },
+  {
+    n: "04",
+    titulo: "¿Qué tiene que poder hacer el cliente solo?",
+    sub: "Todo lo que marques aquí es una llamada menos al soporte.",
+    campos: [
+      {
+        t: "check",
+        name: "Autogestion",
+        opciones: [
+          { v: "Ver su factura y su saldo", l: "Ver su factura y su saldo" },
+          { v: "Pagar en linea", l: "Pagar en línea" },
+          { v: "Subir el comprobante de pago", l: "Subir el comprobante de una transferencia" },
+          { v: "Ver su plan y su consumo", l: "Ver su plan contratado y su consumo" },
+          { v: "Subir o cambiar de plan", l: "Subir o cambiar de plan" },
+          { v: "Reportar una falla y ver el estado", l: "Reportar una falla y seguir el estado" },
+          { v: "Agendar visita tecnica", l: "Agendar una visita técnica" },
+          { v: "Cambiar la clave del wifi", l: "Cambiar la clave de su wifi" },
+          { v: "Historial de pagos y facturas", l: "Descargar su historial de pagos" },
+          { v: "Programa de referidos", l: "Programa de referidos" },
+          { v: "Contratar el servicio desde cero", l: "Contratar el servicio desde cero", d: "cliente nuevo, sin llamar" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "05",
+    titulo: "¿Cómo cobras la mensualidad?",
+    campos: [
+      {
+        t: "check",
+        name: "Cobro",
+        opciones: [
+          { v: "Transferencia o pago movil con comprobante", l: "Transferencia o pago móvil", d: "el cliente sube el comprobante" },
+          { v: "Tarjeta internacional (Stripe)", l: "Tarjeta internacional", d: "Stripe u otra pasarela" },
+          { v: "Zelle", l: "Zelle" },
+          { v: "Cripto o Binance", l: "Cripto o Binance" },
+          { v: "Domiciliacion o debito automatico", l: "Domiciliación o débito automático" },
+          { v: "Efectivo en oficina o con el cobrador", l: "Efectivo en oficina o con un cobrador" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Validacion de pagos",
+        label: "Cuando entra una transferencia, ¿cómo se valida hoy?",
+        opciones: [
+          { v: "Una persona la revisa a mano", l: "Una persona la revisa a mano" },
+          { v: "El sistema de gestion la valida", l: "El sistema de gestión la valida", d: "NeoGisp u otro" },
+          { v: "Queremos que se valide automatico", l: "Queremos que se valide automático", d: "conciliación contra el banco" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Corte por mora",
+        label: "¿El corte y la reconexión son automáticos?",
+        opciones: [
+          { v: "Si, el sistema corta y reconecta solo", l: "Sí, el sistema corta y reconecta solo" },
+          { v: "Se hace a mano", l: "Se hace a mano" },
+          { v: "Queremos automatizarlo", l: "Queremos automatizarlo" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "06",
+    titulo: "Facturación",
+    campos: [
+      {
+        t: "radio",
+        name: "Moneda",
+        opciones: [
+          { v: "Dolares", l: "Dólares" },
+          { v: "Bolivares", l: "Bolívares" },
+          { v: "Dolares con conversion a bolivares", l: "Dólares con conversión a bolívares", d: "tasa BCV" },
+          { v: "Otra moneda", l: "Otra moneda" },
+        ],
+      },
+      {
+        t: "check",
+        name: "Reglas de facturacion",
+        label: "¿Algo de esto aplica?",
+        opciones: [
+          { v: "Factura fiscal legal", l: "Hay que emitir factura fiscal legal" },
+          { v: "IVA", l: "IVA" },
+          { v: "Prorrateo al instalar a mitad de mes", l: "Prorrateo cuando se instala a mitad de mes" },
+          { v: "Planes con permanencia o contrato", l: "Planes con permanencia o contrato" },
+          { v: "Descuentos, promociones o combos", l: "Descuentos, promociones o combos" },
+          { v: "Cobro de instalacion o equipos", l: "Cobro aparte de instalación o equipos" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "07",
+    titulo: "Atención al cliente",
+    campos: [
+      {
+        t: "check",
+        name: "Atencion",
+        opciones: [
+          { v: "Tickets de soporte", l: "Sistema de tickets de soporte" },
+          { v: "WhatsApp integrado", l: "WhatsApp integrado", d: "que el mensaje entre al sistema, no a un celular" },
+          { v: "Chatbot con inteligencia artificial", l: "Chatbot con inteligencia artificial" },
+          { v: "Base de conocimiento o preguntas frecuentes", l: "Base de conocimiento o preguntas frecuentes" },
+          { v: "Avisos de corte o mantenimiento", l: "Avisos de corte o mantenimiento programado" },
+          { v: "Mapa de estado de la red", l: "Mapa del estado de la red" },
+          { v: "Encuestas de satisfaccion", l: "Encuestas de satisfacción" },
+          { v: "Panel para los tecnicos en calle", l: "Panel para los técnicos en calle" },
+        ],
+      },
+      { t: "text", name: "Personas en atencion", ph: "¿Cuántas personas atienden clientes hoy?" },
+    ],
+  },
+  {
+    n: "08",
+    titulo: "La app móvil de los suscriptores",
+    sub: "Si no va a haber app, salta al bloque 09.",
+    campos: [
+      {
+        t: "check",
+        name: "Plataformas app",
+        opciones: [
+          { v: "iPhone (App Store)", l: "iPhone", d: "publicada en el App Store" },
+          { v: "Android (Play Store)", l: "Android", d: "publicada en Google Play" },
+          { v: "No va a haber app movil", l: "No va a haber app móvil" },
+        ],
+      },
+      {
+        t: "check",
+        name: "Funciones de la app",
+        label: "¿Qué tiene que hacer la app?",
+        opciones: [
+          { v: "Login y ver su cuenta", l: "Entrar y ver su cuenta" },
+          { v: "Pagar desde la app", l: "Pagar desde la app" },
+          { v: "Reportar fallas", l: "Reportar fallas" },
+          { v: "Notificaciones push", l: "Notificaciones push", d: "cortes, vencimiento, pago recibido" },
+          { v: "Test de velocidad", l: "Test de velocidad" },
+          { v: "Control del router o wifi", l: "Control del router o del wifi" },
+          { v: "Ver la television dentro de la app", l: "Ver la televisión dentro de la misma app" },
+        ],
+      },
+      {
+        t: "text",
+        name: "App actual",
+        ph: "Si ya tienen una app publicada, pega el link o el nombre en la tienda",
+      },
+    ],
+  },
+  {
+    n: "09",
+    titulo: "El servicio de televisión (OTT)",
+    sub: "Cada plataforma de televisor es un desarrollo y una cuenta de publicación aparte. Marca solo las que de verdad necesitas.",
+    campos: [
+      {
+        t: "check",
+        name: "Plataformas TV",
+        opciones: [
+          { v: "Android TV y Google TV", l: "Android TV y Google TV" },
+          { v: "Apple TV (tvOS)", l: "Apple TV" },
+          { v: "Samsung (Tizen)", l: "Samsung", d: "sistema Tizen" },
+          { v: "LG (webOS)", l: "LG", d: "sistema webOS" },
+          { v: "Roku", l: "Roku" },
+          { v: "Amazon Fire TV", l: "Amazon Fire TV" },
+          { v: "Navegador web", l: "Verlo por el navegador" },
+          { v: "Celular y tablet", l: "Celular y tablet" },
+          { v: "No vamos a hacer TV", l: "No vamos a hacer TV" },
+        ],
+      },
+      {
+        t: "check",
+        name: "Contenido TV",
+        label: "¿Qué se va a ver?",
+        opciones: [
+          { v: "Canales en vivo", l: "Canales en vivo" },
+          { v: "Catalogo bajo demanda", l: "Catálogo bajo demanda", d: "películas y series" },
+          { v: "Grabacion o volver atras", l: "Grabar o volver atrás en el canal", d: "DVR, catch-up" },
+          { v: "Canal propio de la empresa", l: "Canal propio de la empresa" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Origen de la senal",
+        label: "¿Quién provee la señal y el sistema de video?",
+        opciones: [
+          { v: "Ya tenemos proveedor de señal", l: "Ya tenemos proveedor de señal y plataforma" },
+          { v: "Tenemos la senal, falta la plataforma", l: "Tenemos la señal, falta la plataforma" },
+          { v: "No tenemos nada, necesitamos asesoria", l: "No tenemos nada, necesitamos asesoría" },
+        ],
+      },
+      {
+        t: "text",
+        name: "Proveedor de senal",
+        ph: "Si ya tienen proveedor de señal, middleware o CDN, ¿cuál es?",
+      },
+    ],
+  },
+  {
+    n: "10",
+    titulo: "Ventas y clientes nuevos",
+    campos: [
+      {
+        t: "check",
+        name: "Ventas",
+        opciones: [
+          { v: "Mapa de cobertura", l: "Mapa de cobertura en la web" },
+          { v: "Verificar factibilidad por direccion", l: "Verificar si hay servicio en una dirección" },
+          { v: "Solicitud de instalacion en linea", l: "Solicitud de instalación en línea" },
+          { v: "Contrato digital firmado", l: "Contrato digital firmado" },
+          { v: "Comparador de planes", l: "Comparador de planes" },
+          { v: "Cotizador para empresas", l: "Cotizador para clientes corporativos" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "11",
+    titulo: "Marca y contenido",
+    sub: "Si están en pleno rebrand, dinos en qué punto va.",
+    campos: [
+      {
+        t: "radio",
+        name: "Marca",
+        opciones: [
+          { v: "Manual de marca completo", l: "Manual de marca completo" },
+          { v: "Logo y colores definidos", l: "Logo y colores definidos, sin manual" },
+          { v: "Rebrand en curso", l: "Estamos en pleno rebrand" },
+          { v: "Hay que armarla", l: "Hay que armarla desde cero" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Contenido",
+        label: "¿Textos y fotos?",
+        opciones: [
+          { v: "Todo listo", l: "Todo listo: textos y fotos" },
+          { v: "Parcial", l: "Tenemos parte, falta lo demás" },
+          { v: "No tenemos nada", l: "No tenemos nada, necesitamos ayuda" },
+        ],
+      },
+      { t: "text", name: "Web actual", ph: "Si tienen web, pega el link: https://", tipo: "url" },
+      {
+        t: "radio",
+        name: "Idiomas",
+        label: "¿En cuántos idiomas?",
+        opciones: [
+          { v: "Solo espanol", l: "Solo español" },
+          { v: "Espanol e ingles", l: "Español e inglés" },
+          { v: "Mas de dos idiomas", l: "Más de dos idiomas" },
+        ],
+      },
+    ],
+  },
+  {
+    n: "12",
+    titulo: "¿Para cuándo y con qué prioridad?",
+    sub: "Un proyecto así se entrega por fases. Dinos qué necesitas primero.",
+    campos: [
+      {
+        t: "area",
+        name: "Que va primero",
+        ph: "¿Qué tiene que estar listo primero? Ej: la imagen nueva y la web, y el portal después",
+      },
+      {
+        t: "radio",
+        name: "Urgencia",
+        opciones: [
+          { v: "Ya, lo antes posible", l: "Ya, lo antes posible" },
+          { v: "En los proximos 3 meses", l: "En los próximos 3 meses" },
+          { v: "Fecha fija (lanzamiento de la nueva imagen)", l: "Tenemos fecha fija", d: "lanzamiento de la nueva imagen, feria, apertura" },
+          { v: "Sin apuro, estamos evaluando", l: "Sin apuro, estamos evaluando" },
+        ],
+      },
+      {
+        t: "radio",
+        name: "Presupuesto",
+        opciones: [
+          { v: "Quiero arrancar con lo minimo y crecer", l: "Arrancar por fases y crecer" },
+          { v: "Tengo presupuesto asignado", l: "Tenemos presupuesto asignado" },
+          { v: "Prefiero que me propongan", l: "Prefiero que nos propongan" },
+        ],
+      },
+      {
+        t: "area",
+        name: "Referencias que te gustan",
+        ph: "¿Hay algún operador cuya web o app te guste? Pega 2 o 3 links (opcional)",
+      },
+    ],
+  },
+];
