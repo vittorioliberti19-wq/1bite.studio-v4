@@ -35,6 +35,9 @@ export default function Footer() {
         <Link href="/#contacto" className="hover:text-white">
           Contacto
         </Link>
+        <Link href="/privacidad" className="hover:text-white">
+          Privacidad
+        </Link>
       </nav>
       <div className="relative flex flex-col items-center gap-4 text-sm text-white/60 md:flex-row md:justify-between">
         <p>© 2026 1bite Studio · Maracaibo, Venezuela</p>

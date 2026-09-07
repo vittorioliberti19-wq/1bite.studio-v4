@@ -236,7 +236,11 @@ export default function GaleriaGrid() {
         hideClass="hidden"
       >
         {visibles.map((m, i) => (
-          <FlipRevealItem key={i} flipKey={m.cat}>
+          <FlipRevealItem
+            key={i}
+            flipKey={m.cat}
+            className={active === "all" || active === m.cat ? "block" : "hidden"}
+          >
             <div className="group relative aspect-[9/16] w-full overflow-hidden rounded-2xl bg-white/5">
               {m.type === "video" ? (
                 <ReelTile m={m} prioridad={i === 0} />

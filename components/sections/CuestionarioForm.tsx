@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import Turnstile, { TURNSTILE_SITE_KEY } from "@/components/ui/Turnstile";
@@ -61,6 +62,13 @@ export default function CuestionarioForm({
   const [marcados, setMarcados] = useState<Record<string, string[]>>({});
 
   const totalBloques = useMemo(() => preguntas.length + 1, [preguntas]);
+  const camposUrl = useMemo(
+    () =>
+      preguntas.flatMap((p) =>
+        p.campos.filter((c) => c.t === "text" && c.tipo === "url").map((c) => c.name),
+      ),
+    [preguntas],
+  );
 
   // Nombres de los grupos con tope de selección.
   const grupoConTope = useMemo(() => {
@@ -116,6 +124,10 @@ export default function CuestionarioForm({
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     fd.set("tipo", tipo);
+    for (const name of camposUrl) {
+      const v = String(fd.get(name) ?? "").trim();
+      if (v && !/^https?:\/\//i.test(v)) fd.set(name, `https://${v}`);
+    }
 
     // Sin token no vale la pena el round-trip: el backend lo rechaza y el
     // usuario perdía el contexto. Se avisa en el sitio sin tocar el formulario.
@@ -152,12 +164,12 @@ export default function CuestionarioForm({
       <div className="mx-auto max-w-2xl px-5 py-32 text-center">
         <p className="gradient-text text-3xl font-semibold">{okTitulo}</p>
         <p className="mt-4 text-white/70">{okTexto}</p>
-        <a
+        <Link
           href="/"
           className="mt-8 inline-block text-sm text-[#08e1f4] transition hover:text-white"
         >
           Volver a 1bite.studio
-        </a>
+        </Link>
       </div>
     );
   }
@@ -169,7 +181,7 @@ export default function CuestionarioForm({
         {/* Lockup: wordmark sin barra + GradientBar del sistema + servicios.
             No se usa 1bite-white-tagline.png porque su barra trae tapas
             blancas en los extremos. */}
-        <a
+        <Link
           href="/"
           aria-label="1bite Studio"
           data-cursor
@@ -187,7 +199,7 @@ export default function CuestionarioForm({
           <p className="mt-2.5 whitespace-nowrap text-center text-[9.5px] uppercase tracking-[0.22em] text-white/85">
             Branding · Social · Web · Apps
           </p>
-        </a>
+        </Link>
         <h1 className="gradient-text mt-10 text-4xl font-semibold tracking-tight sm:text-5xl">
           {titulo}
         </h1>
@@ -230,7 +242,11 @@ export default function CuestionarioForm({
                   return (
                     <input
                       key={c.name}
-                      type={c.tipo ?? "text"}
+                      // Sin type="url": la validación nativa bloqueaba el
+                      // submit en silencio si faltaba https://. Se normaliza
+                      // en onSubmit.
+                      type={c.tipo === "url" ? "text" : (c.tipo ?? "text")}
+                      inputMode={c.tipo === "url" ? "url" : undefined}
                       name={c.name}
                       placeholder={c.ph}
                       className={inputCls}

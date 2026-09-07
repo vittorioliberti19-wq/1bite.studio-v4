@@ -47,27 +47,29 @@ export default function CustomCursor() {
       // reanuda el loop solo si está detenido
       if (!raf) raf = requestAnimationFrame(render);
     };
-    const grow = () => el.classList.add("cursor--grow");
-    const shrink = () => el.classList.remove("cursor--grow");
+    // Delegación en document: cubre elementos creados después del montaje
+    // (menú móvil, modales, tiles paginados, navegación cliente).
+    const SEL = "a, button, [data-cursor]";
+    const over = (e: MouseEvent) => {
+      if ((e.target as Element | null)?.closest?.(SEL)) el.classList.add("cursor--grow");
+    };
+    const out = (e: MouseEvent) => {
+      const from = (e.target as Element | null)?.closest?.(SEL);
+      if (!from) return;
+      const to = e.relatedTarget as Element | null;
+      if (!to || !from.contains(to)) el.classList.remove("cursor--grow");
+    };
 
     window.addEventListener("mousemove", move);
+    document.addEventListener("mouseover", over);
+    document.addEventListener("mouseout", out);
     raf = requestAnimationFrame(render);
-
-    const targets = Array.from(
-      document.querySelectorAll<HTMLElement>("a, button, [data-cursor]"),
-    );
-    targets.forEach((n) => {
-      n.addEventListener("mouseenter", grow);
-      n.addEventListener("mouseleave", shrink);
-    });
 
     return () => {
       window.removeEventListener("mousemove", move);
+      document.removeEventListener("mouseover", over);
+      document.removeEventListener("mouseout", out);
       cancelAnimationFrame(raf);
-      targets.forEach((n) => {
-        n.removeEventListener("mouseenter", grow);
-        n.removeEventListener("mouseleave", shrink);
-      });
     };
   }, []);
 

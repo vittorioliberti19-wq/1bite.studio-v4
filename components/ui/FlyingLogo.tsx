@@ -21,6 +21,7 @@ export default function FlyingLogo() {
     // El elemento se dimensiona en su tamaño inicial (startW) vía CSS width fijo
     // y SOLO animamos transform (translate + scale). Nunca tocamos layout props.
 
+    let measure = () => {};
     const ctx = gsap.context(() => {
       // estado de geometría calculado en refresh; el tween lee de aquí por frame
       const geo = {
@@ -32,7 +33,7 @@ export default function FlyingLogo() {
         scale: 1, // endW / startW
       };
 
-      const measure = () => {
+      measure = () => {
         const w = window.innerWidth;
         const startW = Math.min(w * 0.42, 420);
         const endW = w < 768 ? 78 : 104;
@@ -105,7 +106,11 @@ export default function FlyingLogo() {
       ScrollTrigger.addEventListener("refreshInit", measure);
     }, ref);
 
-    return () => ctx.revert();
+    return () => {
+      // ctx.revert() no toca el bus global de ScrollTrigger.
+      ScrollTrigger.removeEventListener("refreshInit", measure);
+      ctx.revert();
+    };
   }, []);
 
   return (

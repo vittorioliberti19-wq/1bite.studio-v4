@@ -449,6 +449,7 @@ export const PREGUNTAS_LANDING: Pregunta[] = [
       {
         t: "check",
         name: "Campos del formulario",
+        max: 6,
         opciones: [
           { v: "Nombre", l: "Nombre" },
           { v: "Correo", l: "Correo" },

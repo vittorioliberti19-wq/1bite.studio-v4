@@ -43,6 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE}/oportunidades`,
       lastModified: new Date(ACTUALIZADO.oportunidades),
     },
+    { url: `${SITE}/privacidad`, lastModified: new Date(ACTUALIZADO.home) },
   ];
 
   const serviceUrls: MetadataRoute.Sitemap = servicios.map((s) => ({

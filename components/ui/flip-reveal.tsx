@@ -84,7 +84,9 @@ export const FlipReveal = ({
       });
     },
 
-    { scope: wrapperRef, dependencies: [keys] },
+    // `keys` suele llegar como literal nuevo en cada render; depender del
+    // contenido evita re-disparar Flip (absolute:true colapsa el grid).
+    { scope: wrapperRef, dependencies: keys },
   );
 
   return <div {...props} ref={wrapperRef} />;

@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import Turnstile from "@/components/ui/Turnstile";
+import Turnstile, { TURNSTILE_SITE_KEY } from "@/components/ui/Turnstile";
 import { PERFILES } from "@/lib/perfiles";
 
 // El form corto no pide el detalle de "Otro" (la Edge Function lo exige):
@@ -35,10 +35,15 @@ function ContactoForm() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    if (TURNSTILE_SITE_KEY && !String(fd.get("cf-turnstile-response") ?? "").trim()) {
+      setEstado("error");
+      setMsg("Falta la verificación de seguridad. Espera unos segundos a que termine y vuelve a enviar.");
+      return;
+    }
     setEstado("enviando");
     setMsg("");
     try {
-      const fd = new FormData(e.currentTarget);
       const res = await fetch(CONTACTO_ENDPOINT, { method: "POST", body: fd });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || data?.error)
@@ -47,7 +52,15 @@ function ContactoForm() {
       formRef.current?.reset();
     } catch (err) {
       setEstado("error");
-      setMsg(err instanceof Error ? err.message : "Error inesperado.");
+      // El token de Turnstile es de un solo uso: sin reset el reintento
+      // muere con timeout-or-duplicate hasta recargar.
+      window.turnstile?.reset?.();
+      const bruto = err instanceof Error ? err.message : "Error inesperado.";
+      setMsg(
+        bruto.includes("anti-bot")
+          ? "La verificación de seguridad expiró. Se reinició sola: espera un momento y vuelve a enviar."
+          : bruto,
+      );
     }
   }
 
@@ -142,10 +155,15 @@ function VacanteForm() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    if (TURNSTILE_SITE_KEY && !String(fd.get("cf-turnstile-response") ?? "").trim()) {
+      setEstado("error");
+      setMsg("Falta la verificación de seguridad. Espera unos segundos a que termine y vuelve a enviar.");
+      return;
+    }
     setEstado("enviando");
     setMsg("");
     try {
-      const fd = new FormData(e.currentTarget);
       const res = await fetch(VACANTE_ENDPOINT, { method: "POST", body: fd });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || data?.error)
@@ -154,7 +172,15 @@ function VacanteForm() {
       formRef.current?.reset();
     } catch (err) {
       setEstado("error");
-      setMsg(err instanceof Error ? err.message : "Error inesperado.");
+      // El token de Turnstile es de un solo uso: sin reset el reintento
+      // muere con timeout-or-duplicate hasta recargar.
+      window.turnstile?.reset?.();
+      const bruto = err instanceof Error ? err.message : "Error inesperado.";
+      setMsg(
+        bruto.includes("anti-bot")
+          ? "La verificación de seguridad expiró. Se reinició sola: espera un momento y vuelve a enviar."
+          : bruto,
+      );
     }
   }
 

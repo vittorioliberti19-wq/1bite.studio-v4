@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
-import Turnstile from "@/components/ui/Turnstile";
+import Turnstile, { TURNSTILE_SITE_KEY } from "@/components/ui/Turnstile";
 import GradientBar from "@/components/ui/GradientBar";
 import {
   DISPONIBILIDADES,
@@ -62,10 +63,15 @@ export default function Oportunidades() {
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const fd = new FormData(e.currentTarget);
+    if (TURNSTILE_SITE_KEY && !String(fd.get("cf-turnstile-response") ?? "").trim()) {
+      setEstado("error");
+      setMsg("Falta la verificación de seguridad. Espera unos segundos a que termine y vuelve a enviar.");
+      return;
+    }
     setEstado("enviando");
     setMsg("");
     try {
-      const fd = new FormData(e.currentTarget);
       const res = await fetch(VACANTE_ENDPOINT, { method: "POST", body: fd });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || data?.error)
@@ -76,7 +82,15 @@ export default function Oportunidades() {
       setEnlaces([""]);
     } catch (err) {
       setEstado("error");
-      setMsg(err instanceof Error ? err.message : "Error inesperado.");
+      // El token de Turnstile es de un solo uso: sin reset el reintento
+      // muere con timeout-or-duplicate hasta recargar.
+      window.turnstile?.reset?.();
+      const bruto = err instanceof Error ? err.message : "Error inesperado.";
+      setMsg(
+        bruto.includes("anti-bot")
+          ? "La verificación de seguridad expiró. Se reinició sola: espera un momento y vuelve a enviar."
+          : bruto,
+      );
     }
   }
 
@@ -99,12 +113,12 @@ export default function Oportunidades() {
           >
             Enviar otra postulación
           </button>
-          <a
+          <Link
             href="/"
             className="text-sm text-[#08e1f4] transition hover:text-white"
           >
             Volver a 1bite.studio
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -116,7 +130,7 @@ export default function Oportunidades() {
         {/* Lockup: wordmark sin barra + GradientBar del sistema.
             No se usa 1bite-white-tagline.png porque su barra trae tapas
             blancas en los extremos. */}
-        <a
+        <Link
           href="/"
           aria-label="1bite Studio"
           data-cursor
@@ -134,7 +148,7 @@ export default function Oportunidades() {
           <p className="mt-2.5 whitespace-nowrap text-center text-[9.5px] uppercase tracking-[0.22em] text-white/85">
             Branding · Social · Web · Apps
           </p>
-        </a>
+        </Link>
         <h1 className="gradient-text mt-10 text-4xl font-semibold tracking-tight sm:text-5xl">
           Trabaja con nosotros
         </h1>
