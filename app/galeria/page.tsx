@@ -6,13 +6,13 @@ import GaleriaGrid from "@/components/sections/GaleriaGrid";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 export const metadata: Metadata = {
-  title: "Galería",
+  title: "Portafolio de branding, web y audiovisual en Maracaibo",
   description:
-    "Fotos, reels, páginas web y branding de 1bite Studio. Una muestra del trabajo creativo de la agencia en Maracaibo.",
+    "Portafolio de branding, páginas web y producción audiovisual de 1bite Studio en Maracaibo, Venezuela. Explora nuestra selección de trabajos.",
   alternates: { canonical: "/galeria" },
   openGraph: {
     title: "Galería · 1bite",
-    description: "Fotos, reels, webs y branding de 1bite Studio.",
+    description: "Branding, páginas web y producción audiovisual de 1bite Studio en Maracaibo.",
     url: "https://1bite.studio/galeria",
   },
 };

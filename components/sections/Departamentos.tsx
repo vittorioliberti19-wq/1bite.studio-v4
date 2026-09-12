@@ -208,10 +208,10 @@ export default function Departamentos() {
         {depts.map((d, i) => (
           <Link
             key={d.id}
-            href="/galeria"
+            href={d.href}
             data-cursor
             data-dept
-            aria-label={`${d.title} — ver galería de trabajos`}
+            aria-label={`${d.title} — conocer el servicio`}
             className="hover-borde-firma group relative shrink-0 rounded-3xl bg-white/10 p-[1.5px] md:h-[62vh] md:w-[28vw]"
           >
             <article className="relative flex h-full min-h-[16rem] flex-col justify-between overflow-hidden rounded-[calc(1.5rem-1.5px)] bg-[#070707] p-8 md:p-10">

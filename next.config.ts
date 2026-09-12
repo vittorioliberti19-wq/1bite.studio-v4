@@ -11,8 +11,7 @@ const csp = [
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com https://challenges.cloudflare.com`,
   "frame-src https://challenges.cloudflare.com",
   "style-src 'self' 'unsafe-inline'",
-  // unsplash: placeholders de la categoría Fotos en /galeria
-  "img-src 'self' data: blob: https://images.unsplash.com",
+  "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "media-src 'self'",
   // supabase: forms de contacto/vacantes; vitals: Speed Insights
@@ -52,10 +51,11 @@ const nextConfig: NextConfig = {
         destination: "https://1bite.studio/:path*",
         permanent: true,
       },
+      { source: "/opengraph-image", destination: "/opengraph-image.png", permanent: true },
       // URLs del sitio viejo indexadas en Google (404 en GSC)
       {
         source: "/nuestros-proyectos",
-        destination: "/trabajos",
+        destination: "/galeria",
         permanent: true,
       },
       {
@@ -65,7 +65,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/cv",
-        destination: "/",
+        destination: "/oportunidades",
         permanent: true,
       },
       {

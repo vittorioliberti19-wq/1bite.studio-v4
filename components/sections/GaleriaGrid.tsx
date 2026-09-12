@@ -1,25 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FlipReveal, FlipRevealItem } from "@/components/ui/flip-reveal";
 
-type Cat = "fotos" | "reels" | "webs" | "branding";
+type Cat = "reels" | "webs" | "branding";
 type Media = { cat: Cat; src: string; type?: "video"; poster?: string };
-
-// Placeholders verticales (9:16) de Unsplash para FOTOS — Vitto los reemplaza luego.
-const U = (id: string) =>
-  `https://images.unsplash.com/photo-${id}?q=80&w=540&h=960&fit=crop`;
-
-const FOTOS: Media[] = [
-  "1696086152504-4843b2106ab4",
-  "1583656346517-4716a62e27b7",
-  "1684790369514-f292d2dffc11",
-  "1696086152508-1711cc7bcc9d",
-  "1632168844625-b22d7b1053c0",
-  "1740711152088-88a009e877bb",
-  "1631984564919-1f6b2313a71c",
-  "1648688135643-2716ec8f4b24",
-].map((id) => ({ cat: "fotos" as const, src: U(id) }));
 
 // reel-01 (supermercado) retirado. 02..37 = 1bite, 38..61 = thestudio4 + 1pixel.
 const REELS: Media[] = Array.from({ length: 60 }, (_, i) => {
@@ -52,11 +38,10 @@ function interleave(...lists: Media[][]): Media[] {
   return out;
 }
 
-const MEDIA = interleave(REELS, BRANDING, WEBS, FOTOS);
+const MEDIA = interleave(REELS, BRANDING, WEBS);
 
 const TABS: { value: string; label: string }[] = [
   { value: "all", label: "Todo" },
-  { value: "fotos", label: "Fotos" },
   { value: "reels", label: "Reels" },
   { value: "webs", label: "Webs" },
   { value: "branding", label: "Branding" },
@@ -205,8 +190,19 @@ export default function GaleriaGrid() {
 
   return (
     <section className="mx-auto flex min-h-[140vh] w-full max-w-6xl flex-col items-center gap-10 px-6 pb-28 pt-36 md:pt-44">
-      <h1 className="sr-only">Galería de trabajos de 1bite Studio</h1>
-      {/* control segmentado Todo / Fotos / Reels / Webs / Branding */}
+      <header className="max-w-2xl text-center">
+        <h1 className="text-3xl font-bold md:text-5xl">Trabajos de 1bite Studio</h1>
+        <p className="mt-5 text-base leading-relaxed text-white/70">
+          Explora nuestra selección de branding, diseño web y producción audiovisual.
+          Desde Maracaibo, Venezuela, conectamos la identidad de cada marca con sus experiencias digitales y su contenido.
+        </p>
+        <nav aria-label="Servicios de la galería" className="mt-5 flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm text-white/80 underline underline-offset-4">
+          <Link href="/servicios/branding">Identidad de marca</Link>
+          <Link href="/servicios/paginas-web">Diseño de páginas web</Link>
+          <Link href="/servicios/produccion-audiovisual">Producción audiovisual</Link>
+        </nav>
+      </header>
+      {/* control segmentado Todo / Reels / Webs / Branding */}
       <div className="flex flex-wrap items-center justify-center gap-1 rounded-full border border-white/15 bg-white/[0.04] p-1.5 backdrop-blur">
         {TABS.map((t) => {
           const on = active === t.value;

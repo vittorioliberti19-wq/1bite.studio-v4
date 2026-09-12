@@ -20,7 +20,7 @@ export const organizationJsonLd = {
   alternateName: "1bite",
   url: SITE,
   logo: `${SITE}/logos/1bite-white.png`,
-  image: `${SITE}/opengraph-image`,
+  image: `${SITE}/opengraph-image.png`,
   slogan: "Concebimos experiencias indelebles",
   description:
     "Agencia creativa en Maracaibo: branding, redes sociales, páginas web, apps, sistemas operativos y producción audiovisual.",
@@ -141,6 +141,7 @@ export function articleJsonLd(opts: {
   description: string;
   slug: string;
   date: string;
+  modified?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -150,14 +151,14 @@ export function articleJsonLd(opts: {
     headline: opts.title,
     description: opts.description,
     datePublished: opts.date,
-    dateModified: opts.date,
+    dateModified: opts.modified ?? opts.date,
     inLanguage: "es",
     url: `${SITE}/blog/${opts.slug}`,
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": `${SITE}/blog/${opts.slug}`,
     },
-    image: `${SITE}/opengraph-image`,
+    image: `${SITE}/opengraph-image.png`,
     author: { "@id": ORG_ID },
     publisher: { "@id": ORG_ID },
   };

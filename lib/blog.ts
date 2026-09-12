@@ -9,6 +9,7 @@ export type Post = {
   metaTitle: string;
   description: string;
   date: string; // ISO
+  modified?: string; // Fecha de revisión sustancial; conserva la publicación original
   dateLabel: string;
   readingMin: number;
   body: Block[];
@@ -19,10 +20,11 @@ export type Post = {
 export const posts: Post[] = [
   {
     slug: "cuanto-cuesta-una-pagina-web-en-venezuela",
+    modified: "2026-09-12",
     title: "¿Cuánto cuesta una página web en Venezuela en 2026?",
     metaTitle: "¿Cuánto cuesta una página web en Venezuela en 2026?",
     description:
-      "Te explicamos de qué depende el precio de una página web en Venezuela, los rangos reales según el tipo de sitio y cómo evitar pagar de más o de menos.",
+      "Qué determina el costo de una página web en Venezuela: alcance, diseño, pagos, contenido y mantenimiento. Guía para comparar cotizaciones.",
     date: "2026-06-04",
     dateLabel: "4 de junio, 2026",
     readingMin: 5,
@@ -49,7 +51,7 @@ export const posts: Post[] = [
           "El SEO técnico y la optimización de velocidad desde el día uno.",
         ],
       },
-      { type: "h2", text: "Rangos reales por tipo de sitio" },
+      { type: "h2", text: "Cómo cambia el presupuesto según el tipo de sitio" },
       {
         type: "p",
         text: "Una landing page de una sola sección, pensada para una campaña, es la opción más económica. Un sitio corporativo con varias páginas, blog y formularios sube de precio porque hay más diseño y más estructura. Una tienda en línea con pagos y manejo de inventario es la inversión más alta, porque es prácticamente un sistema. Lo importante: pide siempre una propuesta detallada, no un número suelto.",
@@ -57,7 +59,7 @@ export const posts: Post[] = [
       { type: "h2", text: "Cuidado con lo barato (y con lo carísimo)" },
       {
         type: "p",
-        text: "Una web de 50 dólares hecha en un fin de semana casi siempre sale cara: lenta, sin aparecer en Google y sin nadie que te responda cuando se cae. Del otro lado, pagar miles por funciones que no vas a usar tampoco tiene sentido. Lo correcto es invertir en lo que tu negocio realmente necesita hoy, sobre una base que pueda crecer mañana.",
+        text: "El precio por sí solo no demuestra calidad. Compara el alcance, las pruebas, la propiedad del código y el soporte incluidos. Pide que separen la inversión inicial de dominio, alojamiento, servicios externos y mantenimiento, para conocer el costo de operar la web.",
       },
       { type: "h2", text: "Qué deberías exigir siempre" },
       {
@@ -287,10 +289,11 @@ export const posts: Post[] = [
   },
   {
     slug: "cuanto-cuesta-un-video-corporativo-en-maracaibo",
+    modified: "2026-09-12",
     title: "¿Cuánto cuesta un video corporativo en Maracaibo en 2026?",
     metaTitle: "Cuánto cuesta un video corporativo en Maracaibo 2026",
     description:
-      "Precios reales de producción audiovisual en Maracaibo: qué factores mueven el costo de un video corporativo y cómo evitar pagar de más.",
+      "Cómo cotizar un video corporativo en Maracaibo: guion, rodaje, edición, derechos de uso y entregables que debes comparar antes de contratar.",
     date: "2026-07-19",
     dateLabel: "19 de julio, 2026",
     readingMin: 5,
@@ -300,15 +303,15 @@ export const posts: Post[] = [
     body: [
       {
         type: "p",
-        text: "Si ya pediste cotizaciones para un video corporativo en Maracaibo, seguro notaste algo raro: un freelancer te dice 80 dólares y una productora te dice 1200. Ninguno miente, pero casi ninguno te explica por qué. Este artículo te da los rangos reales del mercado venezolano y los factores que realmente mueven el precio.",
+        text: "El costo de un video corporativo depende del alcance de producción. Para comparar propuestas en Maracaibo, solicita el mismo guion o brief, duración, jornadas de rodaje y formatos de entrega. Esta guía explica qué debe incluir una cotización; no presenta una tarifa universal ni un estudio de precios del mercado.",
       },
       {
         type: "h2",
-        text: "Rangos de mercado en Venezuela",
+        text: "Define el alcance antes de pedir precio",
       },
       {
         type: "p",
-        text: "Para un video corporativo institucional o promocional de 1 a 3 minutos, con guion, grabación de un día y edición profesional, el mercado venezolano se mueve entre 150 y 600 dólares. Producciones más elaboradas —con actores, locaciones múltiples, dron, animación o varios días de rodaje— suben de 700 a 2000 dólares o más. Un video de testimoniales simples o entrevista a cámara fija puede quedar en 80-150 dólares si el cliente ya tiene guion y no necesita locación adicional. Estos números varían según si contratas freelancer, estudio pequeño o productora con equipo completo.",
+        text: "Una entrevista, un recorrido de instalaciones y una campaña con actores requieren equipos y tiempos distintos. Define duración final, cantidad de piezas, locaciones, jornadas, participantes y versiones verticales u horizontales. Solicita el desglose de preproducción, rodaje, edición, música y derechos de uso para comparar propuestas equivalentes.",
       },
       {
         type: "h2",
@@ -363,33 +366,35 @@ export const posts: Post[] = [
   },
     {
     "slug": "cuanto-cuesta-una-app-movil-en-venezuela",
+    modified: "2026-09-12",
+    servicios: [{ slug: "desarrollo-apps", anchor: "Desarrollo de apps en Maracaibo" }],
     "title": "¿Cuánto cuesta una app móvil en Venezuela en 2026?",
     "metaTitle": "Cuánto cuesta una app móvil en Venezuela 2026",
-    "description": "Precios reales de desarrollo de apps móviles en Venezuela: rangos por tipo de app, factores que suben el costo y cómo evitar sobrepagar.",
+    "description": "Guía para cotizar una app móvil en Venezuela: funcionalidades, integraciones, pruebas, publicación y mantenimiento que determinan el presupuesto.",
     "date": "2026-08-24",
     "dateLabel": "24 de agosto, 2026",
     "readingMin": 6,
     "body": [
       {
         "type": "p",
-        "text": "Si estás cotizando una app móvil en Venezuela, seguro ya notaste algo raro: unos te cobran 800 dólares, otros 15,000, y ninguno explica por qué. La diferencia no es magia, es alcance. Aquí te desglosamos qué determina el precio real de una app en el mercado venezolano de 2026."
+        "text": "Para cotizar una app móvil en Venezuela necesitas definir qué hará, quién la usará y con qué sistemas se conectará. Aquí explicamos cómo preparar ese alcance y comparar propuestas. El presupuesto se calcula por proyecto; estas orientaciones no representan un estudio de tarifas del mercado."
       },
       {
         "type": "h2",
-        "text": "Rangos de precio según tipo de app"
+        "text": "Alcance según el tipo de app"
       },
       {
         "type": "ul",
         "items": [
-          "App simple (catálogo, portafolio, informativa sin backend complejo): USD 1,500 – 4,000",
-          "App con backend propio (login, base de datos, notificaciones push): USD 4,000 – 10,000",
-          "App tipo marketplace o delivery (pagos, geolocalización, múltiples roles de usuario): USD 10,000 – 25,000+",
-          "App enterprise o con integraciones complejas (ERP, IA, múltiples plataformas de pago): desde USD 20,000 en adelante"
+          "App informativa: define las pantallas, el contenido y si necesita funcionar sin conexión.",
+          "App con cuentas de usuario: incluye autenticación, base de datos, permisos y notificaciones en el alcance.",
+          "Marketplace o delivery: especifica pagos, geolocalización, roles, pedidos y panel de administración.",
+          "App empresarial: documenta las integraciones con ERP, requisitos de seguridad, migraciones y soporte."
         ]
       },
       {
         "type": "p",
-        "text": "Estos rangos son de mercado general en Latinoamérica ajustado a Venezuela, donde los costos de desarrollo suelen ser más bajos que en EE.UU. o Europa pero el nivel de calidad varía muchísimo entre proveedores."
+        "text": "Solicita una propuesta que separe diseño, desarrollo, pruebas, publicación y costos recurrentes. Compara también los criterios de aceptación, la propiedad del código y las condiciones de soporte."
       },
       {
         "type": "h2",
@@ -411,7 +416,7 @@ export const posts: Post[] = [
       },
       {
         "type": "p",
-        "text": "El más caro es no tener un alcance definido antes de pedir cotización: si le pides precio a tres desarrolladores sin un documento de funcionalidades, cada uno asume cosas distintas y las cifras no son comparables. Otro error es elegir al más barato sin revisar apps que ya haya publicado — hay muchos freelancers cobrando poco que entregan apps sin pruebas, que se caen con la primera actualización de iOS o Android. También pasa mucho que el cliente no presupuesta el mantenimiento: una app que nadie actualiza deja de funcionar en 12 a 18 meses cuando Apple o Google cambian sus requisitos."
+        "text": "Sin un documento de funcionalidades, cada proveedor asume algo distinto y las cotizaciones no son comparables. Revisa trabajos publicados, solicita pruebas y acuerda quién mantendrá la app. Los cambios de los sistemas operativos y de las tiendas pueden exigir actualizaciones; no hay un plazo universal en el que una app deje de funcionar."
       },
       {
         "type": "h2",

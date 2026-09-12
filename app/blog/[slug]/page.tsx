@@ -30,6 +30,7 @@ export async function generateMetadata({
       description: p.description,
       url: `${SITE}/blog/${p.slug}`,
       publishedTime: p.date,
+      modifiedTime: p.modified ?? p.date,
     },
   };
 }
@@ -51,6 +52,7 @@ export default async function BlogPost({
         description: p.description,
         slug: p.slug,
         date: p.date,
+        modified: p.modified,
       }),
       breadcrumbJsonLd([
         { name: "Inicio", url: SITE },
@@ -77,8 +79,9 @@ export default async function BlogPost({
             ← Blog
           </Link>
           <p className="mt-6 text-xs uppercase tracking-[0.2em] text-white/40">
-            {p.dateLabel} · {p.readingMin} min de lectura
+            <time dateTime={p.date}>{p.dateLabel}</time> · {p.readingMin} min de lectura
           </p>
+          <p className="mt-3 text-sm text-white/60">Por <Link href="/" className="underline underline-offset-4">Equipo 1bite Studio</Link>{p.modified && <> · Actualizado el <time dateTime={p.modified}>{new Intl.DateTimeFormat("es-VE", { dateStyle: "long", timeZone: "UTC" }).format(new Date(p.modified))}</time></>}</p>
           <h1 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
             {p.title}
           </h1>

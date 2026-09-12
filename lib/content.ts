@@ -5,6 +5,7 @@ export const waUrl = (mensaje: string) =>
 export const WHATSAPP_URL = waUrl("Hola 1bite, quiero empezar un proyecto.");
 
 export type Dept = {
+  href: string;
   id: string;
   title: string;
   desc: string;
@@ -18,6 +19,7 @@ export type Dept = {
 export const depts: Dept[] = [
   {
     id: "branding",
+    href: "/servicios/branding",
     title: "Branding",
     desc: "Sistemas de marca estratégicos, memorables y coherentes.",
     images: [
@@ -27,6 +29,7 @@ export const depts: Dept[] = [
   },
   {
     id: "social",
+    href: "/servicios/redes-sociales",
     title: "Social",
     desc: "Contenido que vende. Producción profesional + estrategia.",
     images: [],
@@ -35,6 +38,7 @@ export const depts: Dept[] = [
   },
   {
     id: "web",
+    href: "/servicios/paginas-web",
     title: "Web",
     desc: "Sitios y experiencias digitales de alto impacto.",
     images: [
@@ -47,12 +51,14 @@ export const depts: Dept[] = [
   },
   {
     id: "apps",
+    href: "/servicios/desarrollo-apps",
     title: "Apps",
     desc: "Productos y automatizaciones a la medida.",
     images: ["/galeria/webs/web-32.webp"],
   },
   {
     id: "audiovisual",
+    href: "/servicios/produccion-audiovisual",
     title: "Audiovisual",
     desc: "Video, fotografía y producción que cuenta tu historia.",
     images: [],

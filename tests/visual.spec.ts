@@ -1,5 +1,15 @@
 import { test, expect } from "@playwright/test";
 
+// Vercel serves analytics at the edge; localhost has no such endpoints.
+// These visual tests do not submit forms or validate third-party telemetry/CAPTCHA.
+test.beforeEach(async ({ page, baseURL }) => {
+  if (!baseURL?.startsWith("http://localhost:")) return;
+  for (const path of ["/_vercel/insights/script.js", "/_vercel/speed-insights/script.js"]) {
+    await page.route(`${baseURL}${path}*`, route => route.fulfill({ contentType: "application/javascript", body: "" }));
+  }
+  await page.route("https://challenges.cloudflare.com/turnstile/**", route => route.fulfill({ contentType: "application/javascript", body: "" }));
+});
+
 test("home: funnel completo, sin precios, sin errores de consola", async ({
   page,
 }, testInfo) => {

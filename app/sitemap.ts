@@ -8,15 +8,15 @@ const SITE = "https://1bite.studio";
 // un timestamp de build idéntico en 12 URLs hace que Google descarte el lastmod
 // como señal. Actualizar a mano cuando se edite el contenido de la ruta.
 const ACTUALIZADO = {
-  home: "2026-07-19",
+  home: "2026-09-12",
   servicios: "2026-06-11",
-  galeria: "2026-07-04",
+  galeria: "2026-09-12",
   oportunidades: "2026-08-18",
 } as const;
 
 // El índice del blog se fecha con el post más reciente (el array no está ordenado).
 const ultimoPost = posts.reduce(
-  (max, p) => (p.date > max ? p.date : max),
+  (max, p) => ((p.modified ?? p.date) > max ? (p.modified ?? p.date) : max),
   posts[0].date,
 );
 
@@ -26,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: SITE,
       lastModified: new Date(ACTUALIZADO.home),
-      images: [`${SITE}/opengraph-image`],
+      images: [`${SITE}/opengraph-image.png`],
     },
     { url: `${SITE}/servicios`, lastModified: new Date(ACTUALIZADO.servicios) },
     {
@@ -43,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE}/oportunidades`,
       lastModified: new Date(ACTUALIZADO.oportunidades),
     },
-    { url: `${SITE}/privacidad`, lastModified: new Date(ACTUALIZADO.home) },
+    { url: `${SITE}/privacidad`, lastModified: new Date("2026-07-19") },
   ];
 
   const serviceUrls: MetadataRoute.Sitemap = servicios.map((s) => ({
@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const postUrls: MetadataRoute.Sitemap = posts.map((p) => ({
     url: `${SITE}/blog/${p.slug}`,
-    lastModified: new Date(p.date),
+    lastModified: new Date(p.modified ?? p.date),
   }));
 
   return [...base, ...serviceUrls, ...postUrls];
