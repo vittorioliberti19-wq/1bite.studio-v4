@@ -66,6 +66,7 @@ export default function PlanCard({
         </ul>
         <LiquidButton
           size="lg"
+          data-whatsapp-click
           onClick={() =>
             window.open(
               waUrl(`Hola 1bite, me interesa el plan ${name} (${cat}).`),
@@ -79,6 +80,7 @@ export default function PlanCard({
         </LiquidButton>
         <button
           data-cursor
+          data-whatsapp-click
           onClick={() =>
             window.open(
               waUrl(

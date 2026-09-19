@@ -18,6 +18,7 @@ export default function CTAFinal() {
       <LiquidButton
         size="xxl"
         data-cursor
+        data-whatsapp-click
         onClick={() => window.open(WHATSAPP_URL, "_blank", "noopener")}
         className="mt-12 font-medium text-white"
       >

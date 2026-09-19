@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
+import WhatsAppClickTracking from "@/components/providers/WhatsAppClickTracking";
 import { jsonLd } from "@/lib/seo";
 
 const inter = Inter({
@@ -84,6 +85,7 @@ export default function RootLayout({
         />
         <CustomCursor />
         <SmoothScroll>{children}</SmoothScroll>
+        <WhatsAppClickTracking sendTo="AW-18462653397/I0IRCOji_v0cENX31uNE" />
         <Script id="google-tag-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];

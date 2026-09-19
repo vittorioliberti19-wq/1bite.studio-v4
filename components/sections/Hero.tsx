@@ -63,6 +63,7 @@ export default function Hero() {
       <LiquidButton
         size="xl"
         data-cursor
+        data-whatsapp-click
         onClick={() => window.open(WHATSAPP_URL, "_blank", "noopener")}
         className="hero-tag hero-fade mt-12 font-medium text-white"
       >

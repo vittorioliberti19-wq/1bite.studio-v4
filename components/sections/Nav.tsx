@@ -81,6 +81,7 @@ export default function Nav({ flyingLogo = false }: { flyingLogo?: boolean }) {
         <LiquidButton
           size="sm"
           data-cursor
+          data-whatsapp-click
           onClick={() => window.open(WHATSAPP_URL, "_blank", "noopener")}
           className="text-white"
         >
