@@ -8,14 +8,15 @@ const csp = [
   "default-src 'self'",
   // 'unsafe-inline': scripts inline de Next + JSON-LD; sin nonce hasta migrar a middleware
   // challenges.cloudflare.com: Turnstile (captcha forms contacto/vacantes)
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com https://challenges.cloudflare.com`,
-  "frame-src https://challenges.cloudflare.com",
+  // Google Ads base tag: https://developers.google.com/tag-platform/security/guides/csp
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com https://challenges.cloudflare.com https://www.googletagmanager.com https://www.googleadservices.com https://www.google.com https://googleads.g.doubleclick.net`,
+  "frame-src https://challenges.cloudflare.com https://www.googletagmanager.com",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://www.google.co.ve",
   "font-src 'self' data:",
   "media-src 'self'",
   // supabase: forms de contacto/vacantes; vitals: Speed Insights
-  "connect-src 'self' https://atxmxihxboswsewdbdgz.supabase.co https://vitals.vercel-insights.com",
+  "connect-src 'self' https://atxmxihxboswsewdbdgz.supabase.co https://vitals.vercel-insights.com https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://www.google.co.ve https://ad.doubleclick.net",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
