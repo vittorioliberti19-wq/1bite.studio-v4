@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import SmoothScroll from "@/components/providers/SmoothScroll";
+import WhatsAppFloat from "@/components/ui/WhatsAppFloat";
 import CustomCursor from "@/components/ui/CustomCursor";
 import SiteMeasurement from "@/components/providers/SiteMeasurement";
 import { jsonLd } from "@/lib/seo";
@@ -83,6 +84,7 @@ export default function RootLayout({
         />
         <CustomCursor />
         <SmoothScroll>{children}</SmoothScroll>
+        <WhatsAppFloat />
         <Suspense fallback={null}><SiteMeasurement /></Suspense>
       </body>
     </html>
