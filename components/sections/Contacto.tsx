@@ -49,6 +49,7 @@ function ContactoForm() {
       if (!res.ok || data?.error)
         throw new Error(data?.error || "No se pudo enviar. Intenta de nuevo.");
       setEstado("ok");
+      window.dispatchEvent(new Event("site-lead-success"));
       formRef.current?.reset();
     } catch (err) {
       setEstado("error");

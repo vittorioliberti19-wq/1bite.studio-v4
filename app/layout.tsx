@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Suspense } from "react";
 import "./globals.css";
 import SmoothScroll from "@/components/providers/SmoothScroll";
 import CustomCursor from "@/components/ui/CustomCursor";
-import WhatsAppClickTracking from "@/components/providers/WhatsAppClickTracking";
+import SiteMeasurement from "@/components/providers/SiteMeasurement";
 import { jsonLd } from "@/lib/seo";
 
 const inter = Inter({
@@ -85,21 +83,7 @@ export default function RootLayout({
         />
         <CustomCursor />
         <SmoothScroll>{children}</SmoothScroll>
-        <WhatsAppClickTracking sendTo="AW-18462653397/I0IRCOji_v0cENX31uNE" />
-        <Script id="google-tag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-18462653397');
-          `}
-        </Script>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-18462653397"
-          strategy="afterInteractive"
-        />
-        <Analytics />
-        <SpeedInsights />
+        <Suspense fallback={null}><SiteMeasurement /></Suspense>
       </body>
     </html>
   );

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-const UPDATED = "20 de junio de 2026";
+const UPDATED = "19 de septiembre de 2026";
 
 export default function Privacidad() {
   return (
@@ -33,6 +33,42 @@ export default function Privacidad() {
         </p>
 
         <div className="space-y-10 text-white/80 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-white [&_li]:mb-1 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-6">
+          <section>
+            <h2>Privacidad de la web 1bite.studio</h2>
+            <p>
+              Con tu permiso, la web utiliza Google Analytics para medir visitas,
+              páginas y contactos, y Google Ads para atribuir resultados de los
+              anuncios. Puedes aceptar, rechazar o elegir cada categoría en el
+              botón Cookies. La elección se guarda en este navegador por 180 días.
+              Las etiquetas opcionales no se cargan antes de tu elección.
+            </p>
+            <p>
+              Analytics puede procesar identificadores de cookies, datos del
+              navegador y ubicación aproximada. Limitamos sus cookies a 180 días.
+              Medimos clics en WhatsApp, teléfono y correo, y formularios de
+              contacto que confirman su envío. No enviamos a Analytics nombres,
+              correos, teléfonos ni contenido de mensajes. Un clic no confirma
+              una conversación o una venta. No activamos personalización de
+              anuncios, Google Signals ni grabaciones de sesiones.
+            </p>
+            <p>
+              Puedes retirar el permiso desde Cookies; se eliminan las cookies
+              de medición accesibles y se recarga la página para detener las
+              etiquetas. Esto no elimina automáticamente datos ya recibidos por
+              Google. Consulta{" "}
+              <a className="underline" href="https://policies.google.com/technologies/partner-sites">
+                cómo Google usa la información de sitios que utilizan sus servicios
+              </a>.
+            </p>
+            <p>
+              Los datos que envías en formularios se procesan para responder tu
+              solicitud. Supabase recibe esos formularios, Cloudflare Turnstile
+              ayuda a prevenir abuso y Vercel aloja la web. Esas funciones
+              necesarias siguen disponibles aunque rechaces la medición opcional.
+              Para solicitudes de acceso o eliminación, escribe a
+              gerencia@1bite.studio. La política de la app se detalla a continuación.
+            </p>
+          </section>
           <section>
             <p>
               Esta política de privacidad describe cómo Liberti Global Corp,
