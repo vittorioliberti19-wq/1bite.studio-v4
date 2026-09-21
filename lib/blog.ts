@@ -445,6 +445,101 @@ export const posts: Post[] = [
       }
     ]
   },
+    {
+    "slug": "cuanto-cuesta-un-community-manager-en-maracaibo",
+    "title": "¿Cuánto cuesta un community manager en Maracaibo en 2026?",
+    "metaTitle": "Cuánto cuesta un community manager en Maracaibo",
+    "description": "Cuánto cuesta un community manager en Maracaibo en 2026: rangos reales por freelance y agencia, qué incluye cada nivel y cómo evitar pagar de más.",
+    "date": "2026-09-21",
+    "dateLabel": "21 de septiembre, 2026",
+    "readingMin": 5,
+    "body": [
+      {
+        "type": "p",
+        "text": "Si tienes un negocio en Maracaibo y estás pensando en contratar a alguien que maneje tus redes, la primera pregunta es siempre la misma: ¿cuánto cuesta un community manager? La respuesta corta es que depende de qué esperas que haga. Los precios en el mercado venezolano van desde montos muy bajos hasta paquetes de varios cientos de dólares al mes, y la diferencia casi nunca está en el «manejo de redes», sino en lo que viene incluido."
+      },
+      {
+        "type": "h2",
+        "text": "Rangos de precio reales en Maracaibo"
+      },
+      {
+        "type": "p",
+        "text": "Estos son rangos aproximados del mercado local en dólares mensuales. Varían según el volumen de trabajo y la experiencia, pero sirven para ubicarte:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Estudiante o principiante freelance: entre 50 y 150 USD al mes. Suele publicar con plantillas y sin estrategia. Sirve para tener presencia mínima, no para crecer.",
+          "Freelance con experiencia: entre 150 y 400 USD al mes. Planifica contenido, diseña piezas básicas, responde comentarios y entrega un reporte simple.",
+          "Agencia pequeña o estudio: entre 300 y 900 USD al mes. Incluye estrategia, diseño, calendario, edición de video corto y métricas, con un equipo detrás y no una sola persona.",
+          "Paquete completo con producción y pauta: desde 800 USD en adelante, más el presupuesto de publicidad. Incluye fotos y videos propios, gestión de anuncios y reportes de resultados."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Ojo con los extremos. Un precio muy bajo suele significar poco tiempo dedicado a tu marca, y uno muy alto sin desglose es una señal para pedir detalles."
+      },
+      {
+        "type": "h2",
+        "text": "Qué incluye (y qué no) el servicio de community manager"
+      },
+      {
+        "type": "p",
+        "text": "Aquí nace el 80 % de las confusiones. Un community manager en sentido estricto gestiona la comunidad: publica, responde mensajes y comentarios, y modera. Pero muchos negocios esperan además que haga cosas que son otros oficios:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Diseño gráfico de las piezas, que puede estar incluido o cobrarse aparte.",
+          "Fotografía y video, que casi nunca entran en el precio base.",
+          "Pauta publicitaria: gestionar anuncios es un servicio distinto y el dinero de la publicidad lo pones tú, aparte.",
+          "Estrategia de contenido y análisis de métricas, que separa a un profesional de alguien que solo sube posts."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Antes de comparar precios, pide que te digan por escrito cuántas publicaciones al mes, cuántos videos, qué redes y qué reportes recibes. Dos cotizaciones de 200 y 400 dólares pueden parecer distintas y en realidad ofrecer cosas muy diferentes."
+      },
+      {
+        "type": "h2",
+        "text": "Freelance vs. agencia: cuándo conviene cada uno"
+      },
+      {
+        "type": "p",
+        "text": "Un freelance te da trato directo y precio más flexible. Funciona bien si tu negocio es pequeño, ya tienes claro qué comunicar y puedes aportar fotos y material. El riesgo es la dependencia: si esa persona se enferma, viaja o consigue otro trabajo, tu cuenta se queda sin publicar."
+      },
+      {
+        "type": "p",
+        "text": "Una agencia cuesta más, pero reparte el trabajo entre estratega, diseñador y editor. Conviene cuando necesitas consistencia, cuando quieres que las redes se conecten con tu marca y tu web, o cuando el contenido pesa en tus ventas: restaurantes, clínicas, tiendas, inmobiliarias y servicios con mucha competencia en Maracaibo."
+      },
+      {
+        "type": "h2",
+        "text": "Errores comunes al contratar"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Elegir solo por precio. El community manager más barato termina costando más si pierdes meses sin resultados.",
+          "No definir un objetivo. «Tener más seguidores» no es una meta de negocio; «recibir 30 consultas al mes por WhatsApp» sí lo es.",
+          "No pedir reportes. Si nadie te muestra números, no sabes si la inversión funciona.",
+          "Entregar las cuentas sin acceso propio. Tú debes ser siempre el administrador de tus perfiles, nunca el proveedor.",
+          "Firmar sin período de prueba. Lo razonable es empezar con un contrato de dos o tres meses y evaluar."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Cómo decidir cuánto invertir"
+      },
+      {
+        "type": "p",
+        "text": "Una regla práctica: destina a redes una parte de lo que esperas vender gracias a ellas, no un monto al azar. Si un cliente nuevo te deja 100 dólares de utilidad y las redes te traen cinco al mes, ya sabes cuánto puedes invertir sin perder. Empieza por lo esencial, que es constancia, buen diseño y respuesta rápida a los mensajes, y suma video y pauta cuando los resultados lo justifiquen."
+      },
+      {
+        "type": "p",
+        "text": "Si quieres una cotización clara, con lo que incluye cada punto y sin letras pequeñas, escríbele a 1bite Studio. Te contamos qué necesita tu negocio en Maracaibo y cuánto costaría hacerlo bien, sin compromiso."
+      }
+    ]
+  },
   // __CRON_BLOG_INSERT__ — el cron de macgia (~/blog-1bite) inserta posts nuevos
   // encima de esta línea. No borrar ni mover este marcador.
 ];
