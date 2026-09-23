@@ -1,6 +1,10 @@
 // Contacto — todos los CTA "Comienza" abren WhatsApp.
+const webSourceMessage =
+  "Hola, estaba revisando la web de 1bite y estoy interesado en conocer más sobre sus servicios.";
+
 export const waUrl = (mensaje: string) =>
-  "https://wa.me/17869063354?text=" + encodeURIComponent(mensaje);
+  "https://wa.me/17869063354?text=" +
+  encodeURIComponent(`${webSourceMessage}\n\n${mensaje}`);
 
 export const WHATSAPP_URL = waUrl("Hola 1bite, quiero empezar un proyecto.");
 
