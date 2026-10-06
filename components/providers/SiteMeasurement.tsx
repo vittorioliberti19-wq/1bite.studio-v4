@@ -10,5 +10,5 @@ export default function SiteMeasurement() {
     window.dispatchEvent(new Event("site-page-view"));
   }, [pathname]);
 
-  return <Script src="/site-measurement.js" strategy="afterInteractive" />;
+  return <Script src="/site-measurement.js?v=meta-20261006-2" strategy="afterInteractive" />;
 }

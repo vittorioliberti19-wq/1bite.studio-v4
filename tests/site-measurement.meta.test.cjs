@@ -138,6 +138,8 @@ function queued(window, command) {
     ["https://connect.facebook.net/en_US/fbevents.js"],
     "advertising consent loads Meta once"
   );
+  assert.equal(app.window._fbq, app.window.fbq, "official _fbq alias points to the Meta bootstrap");
+  assert.equal(app.window.fbq.push, app.window.fbq, "official Meta bootstrap exposes push as fbq");
   const autoConfig = queued(app.window, "set")[0];
   assert.deepEqual(Array.from(autoConfig).slice(0, 3), ["set", "autoConfig", false]);
   assert.equal(autoConfig[3], "123456789");

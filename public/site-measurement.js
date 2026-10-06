@@ -54,9 +54,9 @@ window.siteMeasurementConfig = {"name": "1bite", "gaId": "G-94J4BJR35Y", "adsId"
   function startMeta() {
     if (!consent.advertising || !config.metaPixelId || !metaAllowedHere()) return;
     if (!window.fbq) {
-      var fbq = function () { fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };
-      fbq.queue = []; fbq.loaded = true; fbq.version = '2.0';
-      window.fbq = fbq;
+      var fbq = window.fbq = function () { fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };
+      if (!window._fbq) window._fbq = fbq;
+      fbq.push = fbq; fbq.queue = []; fbq.loaded = true; fbq.version = '2.0';
     }
     if (!metaInitialized) {
       metaInitialized = true;
