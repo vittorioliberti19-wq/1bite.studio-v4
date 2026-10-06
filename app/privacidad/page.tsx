@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-const UPDATED = "19 de septiembre de 2026";
+const UPDATED = "6 de octubre de 2026";
 
 export default function Privacidad() {
   return (
@@ -37,8 +37,8 @@ export default function Privacidad() {
             <h2>Privacidad de la web 1bite.studio</h2>
             <p>
               Con tu permiso, la web utiliza Google Analytics para medir visitas,
-              páginas y contactos, y Google Ads para atribuir resultados de los
-              anuncios. Puedes aceptar, rechazar o elegir cada categoría en el
+              páginas y contactos, y Google Ads y Meta Pixel para atribuir
+              resultados de los anuncios. Puedes aceptar, rechazar o elegir cada categoría en el
               botón Cookies. La elección se guarda en este navegador por 180 días.
               Las etiquetas opcionales no se cargan antes de tu elección.
             </p>
@@ -59,6 +59,19 @@ export default function Privacidad() {
               <a className="underline" href="https://policies.google.com/technologies/partner-sites">
                 cómo Google usa la información de sitios que utilizan sus servicios
               </a>.
+            </p>
+            <p>
+              Meta Pixel está habilitado en esta web, pero solo se carga con tu
+              permiso para publicidad y mide únicamente páginas vistas. No
+              enviamos contactos, datos de formularios ni otros datos personales
+              mediante Meta Pixel, y desactivamos su configuración automática
+              avanzada. Meta puede recibir la URL actual de la página mediante
+              su SDK; evita incluir datos sensibles en los parámetros o fragmentos
+              de la URL. Para reducir ese riesgo, no lo cargamos en rutas con
+              parámetros no publicitarios o con fragmentos. Al retirar el permiso,
+              solicitamos detener el seguimiento y eliminamos las cookies
+              accesibles <code>_fbp</code> y <code>_fbc</code>. Esto no elimina
+              automáticamente datos ya recibidos por Meta.
             </p>
             <p>
               Los datos que envías en formularios se procesan para responder tu
