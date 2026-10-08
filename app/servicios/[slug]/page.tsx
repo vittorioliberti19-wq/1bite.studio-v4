@@ -141,6 +141,28 @@ export default async function ServicioPage({
           </Reveal>
         )}
 
+        {s.casos && (
+          <Reveal>
+            <h2 className="mt-16 mb-6 text-2xl font-bold md:text-3xl">
+              Proyectos recientes
+            </h2>
+            <div className="grid gap-5 md:grid-cols-2">
+              {s.casos.map((c) => (
+                <a
+                  key={c.href}
+                  href={c.href}
+                  target="_blank"
+                  rel="noopener"
+                  className="block rounded-3xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-white/30"
+                >
+                  <h3 className="text-xl font-bold">{c.nombre}</h3>
+                  <p className="mt-2 text-sm text-white/70">{c.desc}</p>
+                </a>
+              ))}
+            </div>
+          </Reveal>
+        )}
+
         <Reveal>
           <h2 className="mt-16 mb-6 text-2xl font-bold md:text-3xl">
             Lo que ganas

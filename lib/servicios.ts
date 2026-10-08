@@ -17,6 +17,8 @@ export type Servicio = {
    * genérico y esta deje de competir por él.
    */
   padre?: { slug: string; anchor: string; nota: string };
+  /** proyectos reales publicados, con enlace al sitio del cliente */
+  casos?: { nombre: string; desc: string; href: string }[];
 };
 
 export const servicios: Servicio[] = [
@@ -210,6 +212,18 @@ export const servicios: Servicio[] = [
       "SEO técnico: sitemap, datos estructurados, velocidad",
       "Diseño responsive para celular, tablet y desktop",
       "Integraciones: WhatsApp, formularios, pagos, analítica",
+    ],
+    casos: [
+      {
+        nombre: "Viking Foods Group",
+        desc: "Importador y distribuidor de carne de cangrejo azul del Lago de Maracaibo con oficina en Florida. Migramos su WordPress a Next.js, con FAQ, datos estructurados y SEO para buscadores con IA.",
+        href: "https://vikingfoodsgroup.com/",
+      },
+      {
+        nombre: "ACE Total Logistics",
+        desc: "Transporte de mariscos frescos y congelados desde Florida hacia el noreste y los 48 estados contiguos de EE. UU. Rediseño de su sitio corporativo en Next.js con formulario de cotización y SEO técnico.",
+        href: "https://acetotallogistics.com/",
+      },
     ],
     resultados: [
       "Apareces en Google cuando tu cliente te busca",
