@@ -20,11 +20,11 @@ const AI_BOTS = [
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: "*", allow: "/", disallow: ["/cuestionarioweb", "/cuestionarioapp", "/cuestionarioecommerce", "/cuestionarioisp", "/landing"] },
+      { userAgent: "*", allow: "/", disallow: ["/cuestionarioweb", "/cuestionarioapp", "/cuestionarioecommerce", "/cuestionarioisp", "/landing", "/fotos"] },
       ...AI_BOTS.map((userAgent) => ({
         userAgent,
         allow: "/",
-        disallow: ["/cuestionarioweb", "/cuestionarioapp", "/cuestionarioecommerce", "/cuestionarioisp", "/landing"],
+        disallow: ["/cuestionarioweb", "/cuestionarioapp", "/cuestionarioecommerce", "/cuestionarioisp", "/landing", "/fotos"],
       })),
     ],
     sitemap: "https://1bite.studio/sitemap.xml",

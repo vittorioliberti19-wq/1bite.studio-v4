@@ -12,11 +12,12 @@ const csp = [
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com https://challenges.cloudflare.com https://www.googletagmanager.com https://www.googleadservices.com https://www.google.com https://googleads.g.doubleclick.net https://connect.facebook.net`,
   "frame-src https://challenges.cloudflare.com https://www.googletagmanager.com",
   "style-src 'self' 'unsafe-inline'",
-  "img-src https://www.google-analytics.com https://region1.google-analytics.com 'self' data: blob: https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://www.google.co.ve https://www.facebook.com",
+  "img-src https://www.google-analytics.com https://region1.google-analytics.com 'self' data: blob: https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://www.google.co.ve https://www.facebook.com https://pub-3b67cd16e6b4460d809ca4ade08dc7dd.r2.dev",
   "font-src 'self' data:",
   "media-src 'self'",
   // supabase: forms de contacto/vacantes; vitals: Speed Insights
-  "connect-src https://www.google-analytics.com https://region1.google-analytics.com 'self' https://atxmxihxboswsewdbdgz.supabase.co https://vitals.vercel-insights.com https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://www.google.co.ve https://ad.doubleclick.net https://www.facebook.com https://graph.facebook.com",
+  // app.1bite.studio: API de galerías de clientes (/fotos/[slug])
+  `connect-src https://www.google-analytics.com https://region1.google-analytics.com 'self' https://atxmxihxboswsewdbdgz.supabase.co https://vitals.vercel-insights.com https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://www.google.co.ve https://ad.doubleclick.net https://www.facebook.com https://graph.facebook.com https://app.1bite.studio${isDev ? " http://localhost:3001" : ""}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
