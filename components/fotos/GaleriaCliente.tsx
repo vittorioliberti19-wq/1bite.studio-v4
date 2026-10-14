@@ -518,6 +518,9 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
   } | null>(null);
 
   const pendientes = useRef<Set<string>>(new Set());
+  // Generación de sesión: al cambiar de correo o expirar se incrementa y las
+  // respuestas en vuelo de la sesión anterior se descartan (no pisan a la nueva).
+  const generacion = useRef(0);
   const confirmarRef = useRef<HTMLButtonElement>(null);
 
   const avisar = useCallback(
@@ -560,6 +563,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
   }, [confirmando]);
 
   const expirar = useCallback(() => {
+    generacion.current++;
     borrarSesion(slug);
     setSesion(null);
     setVisor(null);
@@ -599,13 +603,16 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
   /** Refresca en silencio (p. ej. tras un 409: el estado pudo cambiar en el servidor). */
   const refrescar = useCallback(async () => {
     if (!sesion) return;
+    const gen = generacion.current;
     try {
       const d = await obtenerFotos(slug, sesion.token);
+      if (gen !== generacion.current) return;
       setGaleria(d.galeria);
       setFotos(d.fotos);
       setEntregas(d.entregas);
       setMisFavoritas(d.mis_favoritas);
     } catch (e) {
+      if (gen !== generacion.current) return;
       if (e instanceof ApiError && e.status === 401) expirar();
     }
   }, [slug, sesion, expirar]);
@@ -626,6 +633,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
     }
 
     pendientes.current.add(id);
+    const gen = generacion.current;
     const aplicar = (fav: boolean) =>
       setFotos((fs) =>
         fs.map((f) => (f.id === id ? { ...f, favorita: fav } : f)),
@@ -634,8 +642,10 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
     setMisFavoritas((n) => Math.max(0, n + (nueva ? 1 : -1)));
     try {
       const r = await marcarFavorita(slug, sesion.token, id, nueva);
+      if (gen !== generacion.current) return;
       if (typeof r.mis_favoritas === "number") setMisFavoritas(r.mis_favoritas);
     } catch (e) {
+      if (gen !== generacion.current) return;
       aplicar(!nueva);
       setMisFavoritas((n) => Math.max(0, n + (nueva ? -1 : 1)));
       if (e instanceof ApiError && e.status === 401) return expirar();
@@ -654,10 +664,19 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
 
   async function enviar() {
     if (!sesion) return;
+    const gen = generacion.current;
     setEnviando(true);
     setErrorEnvio("");
     try {
+      // Un ♥ todavía en vuelo debe terminar antes de cerrar la selección; si
+      // no, el servidor cierra con menos fotos de las que el cliente ve.
+      for (let i = 0; i < 100 && pendientes.current.size > 0; i++) await esperar(100);
+      if (pendientes.current.size > 0) {
+        setErrorEnvio("Aún estamos guardando tus favoritas. Espera un momento e inténtalo de nuevo.");
+        return;
+      }
       await enviarSeleccion(slug, sesion.token);
+      if (gen !== generacion.current) return;
       setGaleria((g) =>
         g
           ? {
@@ -669,7 +688,10 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
       );
       setConfirmando(false);
       setRecienEnviada(true);
+      // el servidor es la verdad: refleja exactamente lo que quedó enviado
+      void refrescar();
     } catch (e) {
+      if (gen !== generacion.current) return;
       if (e instanceof ApiError && e.status === 401) return expirar();
       if (e instanceof ApiError && e.status === 409) {
         setErrorEnvio(e.message);
@@ -703,6 +725,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
   }
 
   function cambiarCorreo() {
+    generacion.current++;
     borrarSesion(slug);
     setSesion(null);
     setRecienEnviada(false);
