@@ -11,6 +11,8 @@ type Props = {
   onClose: () => void;
   /** acciones extra (corazón, descarga) para la foto visible */
   acciones?: (item: LightboxItem) => ReactNode;
+  /** bloque bajo la foto (p. ej. la nota del cliente) */
+  extra?: (item: LightboxItem) => ReactNode;
 };
 
 const btnCls =
@@ -22,6 +24,7 @@ export default function Lightbox({
   onIndex,
   onClose,
   acciones,
+  extra,
 }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const cerrarRef = useRef<HTMLButtonElement>(null);
@@ -47,6 +50,14 @@ export default function Lightbox({
   // teclado: ←/→/Esc + trap de foco
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
+      // escribiendo una nota: las flechas mueven el cursor, Esc solo sale del campo
+      const escribiendo =
+        e.target instanceof HTMLTextAreaElement ||
+        e.target instanceof HTMLInputElement;
+      if (escribiendo && e.key !== "Tab") {
+        if (e.key === "Escape") (e.target as HTMLElement).blur();
+        return;
+      }
       if (e.key === "Escape") {
         e.preventDefault();
         onClose();
@@ -58,7 +69,7 @@ export default function Lightbox({
         onIndex(index + 1);
       } else if (e.key === "Tab" && rootRef.current) {
         const f = rootRef.current.querySelectorAll<HTMLElement>(
-          "button:not([disabled]), a[href]",
+          "button:not([disabled]), a[href], textarea:not([disabled])",
         );
         if (!f.length) return;
         const first = f[0];
@@ -206,6 +217,8 @@ export default function Lightbox({
           </svg>
         </button>
       </div>
+
+      {extra?.(item)}
 
       {/* barra inferior: flechas en móvil + acciones */}
       <div className="flex items-center justify-center gap-4 px-4 pb-[max(16px,env(safe-area-inset-bottom))] pt-3">

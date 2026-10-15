@@ -19,6 +19,8 @@ export type Foto = {
   ancho: number;
   alto: number;
   favorita: boolean;
+  /** nota del cliente sobre esta foto ("" si no hay) */
+  nota: string;
 };
 
 export type Entrega = {
@@ -43,6 +45,7 @@ export type FotosRespuesta = {
   fotos: Foto[];
   entregas: Entrega[];
   mis_favoritas: number;
+  nota_general: string;
 };
 
 export type Sesion = { token: string; email: string };
@@ -144,9 +147,12 @@ export async function obtenerFotos(
       limite: limiteValido(g.limite),
       seleccion_enviada_at: g.seleccion_enviada_at ?? null,
     },
-    fotos: Array.isArray(d.fotos) ? d.fotos : [],
+    fotos: Array.isArray(d.fotos)
+      ? d.fotos.map((f) => ({ ...f, nota: typeof f.nota === "string" ? f.nota : "" }))
+      : [],
     entregas: Array.isArray(d.entregas) ? d.entregas : [],
     mis_favoritas: Number(d.mis_favoritas) || 0,
+    nota_general: typeof d.nota_general === "string" ? d.nota_general : "",
   } satisfies FotosRespuesta;
 }
 
@@ -160,6 +166,20 @@ export function marcarFavorita(
     method: "POST",
     token,
     body: { foto_id, favorita },
+  });
+}
+
+/** foto_id null = nota general. Texto vacío borra la nota. */
+export function guardarNota(
+  slug: string,
+  token: string,
+  foto_id: string | null,
+  texto: string,
+) {
+  return pedir<{ texto: string }>(`${base(slug)}/notas`, {
+    method: "POST",
+    token,
+    body: { foto_id, texto },
   });
 }
 

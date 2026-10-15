@@ -17,6 +17,7 @@ import {
   ApiError,
   borrarSesion,
   enviarSeleccion,
+  guardarNota,
   guardarSesion,
   leerSesion,
   marcarFavorita,
@@ -154,6 +155,150 @@ function IconoDescarga({ className = "" }: { className?: string }) {
     >
       <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />
     </svg>
+  );
+}
+
+function IconoNota({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      aria-hidden
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12z" />
+    </svg>
+  );
+}
+
+/* ───────────────────────── notas ───────────────────────── */
+
+const MAX_NOTA = 1000;
+
+/**
+ * Nota editable con autoguardado (pausa al escribir, al salir del campo y al
+ * desmontar). Se monta con key por foto: el texto local manda mientras se
+ * escribe y no se pisa con lo que vuelve del servidor.
+ */
+function EditorNota({
+  valor,
+  soloLectura,
+  etiqueta,
+  placeholder,
+  plegable = false,
+  onGuardar,
+}: {
+  valor: string;
+  soloLectura: boolean;
+  etiqueta: string;
+  placeholder: string;
+  plegable?: boolean;
+  onGuardar: (texto: string) => Promise<boolean>;
+}) {
+  const [texto, setTexto] = useState(valor);
+  const [abierto, setAbierto] = useState(!plegable || !!valor);
+  const [estado, setEstado] = useState<"" | "guardando" | "guardado" | "error">("");
+  const guardado = useRef(valor);
+  const actual = useRef(valor);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const onGuardarRef = useRef(onGuardar);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const id = useId();
+
+  useEffect(() => {
+    onGuardarRef.current = onGuardar;
+  }, [onGuardar]);
+
+  const guardar = useCallback(async () => {
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = null;
+    const t = actual.current.trim();
+    if (t === guardado.current.trim()) return;
+    guardado.current = t;
+    setEstado("guardando");
+    const ok = await onGuardarRef.current(t);
+    if (!ok) guardado.current = "\u0000"; // fuerza reintento en el próximo cambio
+    setEstado(ok ? "guardado" : "error");
+  }, []);
+
+  // al cambiar de foto o cerrar el visor, lo escrito no se pierde
+  useEffect(
+    () => () => {
+      if (actual.current.trim() !== guardado.current.trim()) {
+        if (timer.current) clearTimeout(timer.current);
+        void onGuardarRef.current(actual.current.trim());
+      }
+    },
+    [],
+  );
+
+  useEffect(() => {
+    if (abierto && plegable && !valor) textareaRef.current?.focus();
+    // solo al abrir manualmente
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [abierto]);
+
+  if (soloLectura) {
+    if (!valor.trim()) return null;
+    return (
+      <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-left">
+        <p className="mb-1 text-[11px] uppercase tracking-[0.2em] text-white/45">
+          {etiqueta}
+        </p>
+        <p className="whitespace-pre-wrap text-sm text-white/80">{valor}</p>
+      </div>
+    );
+  }
+
+  if (!abierto) {
+    return (
+      <button
+        type="button"
+        onClick={() => setAbierto(true)}
+        className={`mx-auto flex min-h-11 items-center gap-2 rounded-full px-4 text-sm text-white/70 hover:bg-white/10 hover:text-white ${anillo}`}
+      >
+        <IconoNota className="h-4 w-4" />
+        Agregar una nota a esta foto
+      </button>
+    );
+  }
+
+  return (
+    <div className="text-left">
+      <label htmlFor={id} className="mb-1.5 flex items-center justify-between gap-3 text-xs text-white/60">
+        <span>{etiqueta}</span>
+        <span aria-live="polite" className={estado === "error" ? "text-[#fd6648]" : "text-white/40"}>
+          {estado === "guardando"
+            ? "Guardando…"
+            : estado === "guardado"
+              ? "Guardada"
+              : estado === "error"
+                ? "No se guardó, intenta de nuevo"
+                : ""}
+        </span>
+      </label>
+      <textarea
+        ref={textareaRef}
+        id={id}
+        value={texto}
+        maxLength={MAX_NOTA}
+        rows={2}
+        placeholder={placeholder}
+        onChange={(e) => {
+          setTexto(e.target.value);
+          actual.current = e.target.value;
+          setEstado("");
+          if (timer.current) clearTimeout(timer.current);
+          timer.current = setTimeout(() => void guardar(), 1000);
+        }}
+        onBlur={() => void guardar()}
+        className="block w-full resize-y rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-base text-white outline-none transition placeholder:text-white/35 focus:border-white/40 focus-visible:ring-2 focus-visible:ring-[#08E1F4]/60 sm:text-sm"
+      />
+    </div>
   );
 }
 
@@ -427,6 +572,15 @@ function GrillaFotos({
                 className="h-full w-full select-none object-cover transition duration-500 [-webkit-touch-callout:none] group-hover:scale-[1.02]"
               />
             </button>
+            {f.nota && (
+              <span
+                className="pointer-events-none absolute left-1.5 top-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-md"
+                title="Tiene una nota"
+              >
+                <IconoNota className="h-3.5 w-3.5" />
+                <span className="sr-only">Tiene una nota</span>
+              </span>
+            )}
             <BotonCorazon
               foto={f}
               soloLectura={soloLectura}
@@ -504,6 +658,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
   const [fotos, setFotos] = useState<Foto[]>([]);
   const [entregas, setEntregas] = useState<Entrega[]>([]);
   const [misFavoritas, setMisFavoritas] = useState(0);
+  const [notaGeneral, setNotaGeneral] = useState("");
 
   const [filtro, setFiltro] = useState<Filtro>("todas");
   const [visor, setVisor] = useState<Visor | null>(null);
@@ -518,6 +673,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
   } | null>(null);
 
   const pendientes = useRef<Set<string>>(new Set());
+  const notasPendientes = useRef(0);
   // Generación de sesión: al cambiar de correo o expirar se incrementa y las
   // respuestas en vuelo de la sesión anterior se descartan (no pisan a la nueva).
   const generacion = useRef(0);
@@ -583,6 +739,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
         setFotos(r.datos.fotos);
         setEntregas(r.datos.entregas);
         setMisFavoritas(r.datos.mis_favoritas);
+        setNotaGeneral(r.datos.nota_general);
       }
       setVista(r.tipo);
     },
@@ -611,6 +768,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
       setFotos(d.fotos);
       setEntregas(d.entregas);
       setMisFavoritas(d.mis_favoritas);
+      setNotaGeneral(d.nota_general);
     } catch (e) {
       if (gen !== generacion.current) return;
       if (e instanceof ApiError && e.status === 401) expirar();
@@ -662,6 +820,40 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
     }
   }
 
+  const guardarNotaCliente = useCallback(
+    async (fotoId: string | null, texto: string) => {
+      if (!sesion) return false;
+      const gen = generacion.current;
+      notasPendientes.current++;
+      try {
+        const r = await guardarNota(slug, sesion.token, fotoId, texto);
+        if (gen !== generacion.current) return false;
+        if (fotoId === null) setNotaGeneral(r.texto);
+        else
+          setFotos((fs) =>
+            fs.map((f) => (f.id === fotoId ? { ...f, nota: r.texto } : f)),
+          );
+        return true;
+      } catch (e) {
+        if (gen !== generacion.current) return false;
+        if (e instanceof ApiError && e.status === 401) {
+          expirar();
+          return false;
+        }
+        avisar(
+          e instanceof ApiError && e.status !== 0
+            ? e.message
+            : "No pudimos guardar tu nota. Revisa tu conexión e inténtalo de nuevo.",
+        );
+        if (e instanceof ApiError && e.status === 409) void refrescar();
+        return false;
+      } finally {
+        notasPendientes.current--;
+      }
+    },
+    [slug, sesion, expirar, avisar, refrescar],
+  );
+
   async function enviar() {
     if (!sesion) return;
     const gen = generacion.current;
@@ -670,8 +862,9 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
     try {
       // Un ♥ todavía en vuelo debe terminar antes de cerrar la selección; si
       // no, el servidor cierra con menos fotos de las que el cliente ve.
-      for (let i = 0; i < 100 && pendientes.current.size > 0; i++) await esperar(100);
-      if (pendientes.current.size > 0) {
+      const ocupado = () => pendientes.current.size > 0 || notasPendientes.current > 0;
+      for (let i = 0; i < 100 && ocupado(); i++) await esperar(100);
+      if (ocupado()) {
         setErrorEnvio("Aún estamos guardando tus favoritas. Espera un momento e inténtalo de nuevo.");
         return;
       }
@@ -928,10 +1121,28 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
                   <strong className="text-white">{limite}</strong>
                 </>
               ) : null}
-              . Tus favoritas se guardan solas, así que puedes volver cuando
+              . Si quieres pedirnos algo puntual de una foto, ábrela y agrégale
+              una nota. Todo se guarda solo, así que puedes volver cuando
               quieras. Cuando termines, toca{" "}
               <strong className="text-white">Enviar selección</strong>.
             </p>
+          )}
+
+          {(seleccionAbierta || notaGeneral) && (
+            <div className="mt-6 max-w-2xl">
+              <EditorNota
+                key={`general-${sesion.email}`}
+                valor={notaGeneral}
+                soloLectura={!seleccionAbierta}
+                etiqueta={
+                  seleccionAbierta
+                    ? "Nota general para el equipo (opcional)"
+                    : "Tu nota para el equipo"
+                }
+                placeholder="Ej.: queremos los colores más cálidos, recortar para Instagram vertical…"
+                onGuardar={(t) => guardarNotaCliente(null, t)}
+              />
+            </div>
           )}
 
           {galeria.estado === "en_edicion" && (
@@ -1151,7 +1362,8 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
                     {plural(misFavoritas, "foto", "fotos")}?
                   </p>
                   <p className="mt-1 text-xs leading-relaxed text-white/55">
-                    Después de enviarla ya no podrás cambiar tus favoritas.
+                    Tus notas se envían junto con la selección. Después ya no
+                    podrás cambiar tus favoritas ni tus notas.
                     {faltan > 0 && (
                       <>
                         {" "}
@@ -1216,6 +1428,24 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
           index={Math.min(visor.index, itemsVisor.length - 1)}
           onIndex={(i) => setVisor((v) => (v ? { ...v, index: i } : v))}
           onClose={() => setVisor(null)}
+          extra={(item) => {
+            if (visor.lista !== "fotos") return null;
+            const f = porId.get(item.id);
+            if (!f || (soloLectura && !f.nota)) return null;
+            return (
+              <div className="mx-auto w-full max-w-xl px-4 pt-3">
+                <EditorNota
+                  key={f.id}
+                  valor={f.nota}
+                  soloLectura={soloLectura}
+                  plegable
+                  etiqueta="Nota sobre esta foto"
+                  placeholder="Ej.: quitar el cable del fondo, aclarar un poco la cara…"
+                  onGuardar={(t) => guardarNotaCliente(f.id, t)}
+                />
+              </div>
+            );
+          }}
           acciones={(item) => {
             if (visor.lista === "fotos") {
               const f = porId.get(item.id);
