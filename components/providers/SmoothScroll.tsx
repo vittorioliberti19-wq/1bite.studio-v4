@@ -32,7 +32,15 @@ export default function SmoothScroll({
     window.addEventListener("load", refresh);
     const t = setTimeout(refresh, 600);
 
+    // <html> es h-full (alto fijo = viewport), así que el ResizeObserver interno
+    // de Lenis nunca ve crecer la página. En vistas que cargan contenido después
+    // (la galería /fotos tras el correo) Lenis se quedaba con el límite viejo y
+    // bloqueaba la rueda. Se observa <body>, que sí crece.
+    const ro = new ResizeObserver(() => lenis.resize());
+    ro.observe(document.body);
+
     return () => {
+      ro.disconnect();
       gsap.ticker.remove(ticker);
       window.removeEventListener("load", refresh);
       clearTimeout(t);
