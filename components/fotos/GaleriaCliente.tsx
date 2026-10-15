@@ -817,9 +817,11 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
 
   /* ───────── galería ───────── */
 
-  // El layout depende solo del estado: si el equipo reabre la selección con
-  // finales ya subidas, el cliente debe volver a ver la barra de envío.
-  const hayEntregas = galeria.estado === "entregada";
+  // Las finales se muestran siempre que existan (aunque la selección esté
+  // abierta para una segunda ronda). Las pruebas se colapsan solo cuando la
+  // galería está "entregada"; con la selección abierta se ve la barra de envío.
+  const hayEntregas = entregas.length > 0 || galeria.estado === "entregada";
+  const pruebasColapsadas = galeria.estado === "entregada";
   const soloLectura = !seleccionAbierta;
   const visibles =
     filtro === "favoritas" ? fotos.filter((f) => f.favorita) : fotos;
@@ -1050,7 +1052,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
         )}
 
         {/* pruebas: protagonistas en selección/edición, secundarias cuando ya hay entregas */}
-        {hayEntregas ? (
+        {pruebasColapsadas ? (
           fotos.length > 0 && (
             <details className="group/d border-t border-white/10 pt-6">
               <summary
