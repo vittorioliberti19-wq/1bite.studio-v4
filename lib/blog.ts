@@ -540,6 +540,75 @@ export const posts: Post[] = [
       }
     ]
   },
+    {
+    "slug": "cuanto-cuesta-gestion-de-redes-sociales-en-maracaibo",
+    "title": "¿Cuánto cuesta la gestión de redes sociales en Maracaibo en 2026?",
+    "metaTitle": "Gestión de redes sociales en Maracaibo: precios 2026",
+    "description": "¿Cuánto cuesta contratar gestión de redes sociales en Maracaibo? Rangos reales de mercado, qué incluye cada nivel y errores que inflan el gasto.",
+    "date": "2026-10-19",
+    "dateLabel": "19 de octubre, 2026",
+    "readingMin": 6,
+    "body": [
+      {
+        "type": "p",
+        "text": "Casi todo negocio en Maracaibo pregunta lo mismo apenas decide profesionalizar sus redes: ¿cuánto cuesta esto en realidad? La respuesta corta es que depende de tres variables — cuántas piezas al mes, si hay producción audiovisual incluida y si alguien administra pauta o solo contenido orgánico. La respuesta larga la explicamos abajo, con rangos reales del mercado venezolano."
+      },
+      {
+        "type": "h2",
+        "text": "Qué cubre (y qué no) la gestión de redes sociales"
+      },
+      {
+        "type": "p",
+        "text": "Gestión de redes sociales no es lo mismo que \"postear fotos\". Un servicio serio incluye estrategia de contenido, calendario editorial, diseño o edición de cada pieza, copywriting, programación, interacción con la comunidad (responder comentarios y DMs) y un reporte de métricas. Lo que casi nunca incluye, salvo que se contrate aparte, es la pauta publicitaria (el presupuesto de Meta o TikTok Ads) ni producción audiovisual pesada tipo comerciales."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Básico (solo contenido): calendario + diseño + copy + programación, sin community management activo",
+          "Intermedio: lo anterior más moderación de comentarios/DMs y reporte mensual",
+          "Avanzado: incluye producción fotográfica o video corto propio, más estrategia de pauta"
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Rangos de precio en el mercado venezolano"
+      },
+      {
+        "type": "p",
+        "text": "En Maracaibo y Venezuela en general, freelancers sueltos cobran desde 80-150 USD/mes por paquetes básicos de pocas piezas semanales, sin mucha estrategia detrás. Agencias boutique con equipo (diseñador, community manager, estratega) manejan paquetes intermedios entre 200 y 450 USD/mes. Agencias con producción audiovisual propia y manejo de pauta suben a 500-1200 USD/mes o más, dependiendo de cuántas marcas o líneas de negocio manejen dentro de la misma cuenta."
+      },
+      {
+        "type": "p",
+        "text": "La pauta publicitaria se cotiza aparte casi siempre: un fee de gestión (10-20% del presupuesto invertido, o un monto fijo mensual) más el presupuesto real que se mete a Meta o TikTok. Nadie serio cobra gestión de pauta incluida en el mismo precio del contenido orgánico — si te la ofrecen \"gratis\", sospecha."
+      },
+      {
+        "type": "h2",
+        "text": "Qué mueve el precio hacia arriba o hacia abajo"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Cantidad de piezas: 3 posts/semana cuesta menos que 1 post diario + historias",
+          "Formato: fotos y gráficos simples cuestan menos que reels/video editado",
+          "Número de plataformas: Instagram solo vs. Instagram + TikTok + Facebook + LinkedIn",
+          "Nivel de producción: contenido grabado en celular vs. sesión fotográfica/video profesional mensual",
+          "Community management activo: alguien respondiendo en tiempo real vs. solo publicar y listo"
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Errores comunes al contratar"
+      },
+      {
+        "type": "p",
+        "text": "El error más caro es elegir solo por precio bajo y terminar con contenido genérico que no mueve ventas — plantillas de Canva sin dirección de marca, copy sin voz propia, cero estrategia de conversión. El segundo error es no preguntar qué pasa con los derechos del contenido: algunas agencias se quedan con los archivos originales y el negocio pierde acceso si cambia de proveedor. El tercero es contratar gestión de redes sin tener antes una base de marca clara (logo, paleta, tono) — ahí cada mes se reinventa la rueda y se nota la inconsistencia."
+      },
+      {
+        "type": "p",
+        "text": "Si estás evaluando mover tus redes a un equipo profesional en Maracaibo, en 1bite Studio podemos armarte un paquete según tu nivel real de necesidad — sin venderte más de lo que tu negocio necesita hoy. Escríbenos y revisamos juntos qué formato te conviene."
+      }
+    ]
+  },
   // __CRON_BLOG_INSERT__ — el cron de macgia (~/blog-1bite) inserta posts nuevos
   // encima de esta línea. No borrar ni mover este marcador.
 ];
