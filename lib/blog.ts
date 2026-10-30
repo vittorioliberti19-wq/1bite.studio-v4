@@ -766,6 +766,165 @@ export const posts: Post[] = [
       }
     ]
   },
+  {
+    "slug": "como-organizar-una-jornada-de-contenido-para-tu-catalogo",
+    "title": "Cómo organizar una jornada de contenido para el catálogo de tu marca",
+    "metaTitle": "Cómo organizar una jornada de contenido para tu catálogo",
+    "description": "Guía para planificar un día de producción de fotos y reels para tu catálogo: shot list, productos por familia, vestuario, props, fondos, fotos vs. reels y entrega del material.",
+    "date": "2026-10-30",
+    "dateLabel": "30 de octubre, 2026",
+    "readingMin": 7,
+    "servicios": [
+      {
+        "slug": "produccion-audiovisual",
+        "anchor": "producción audiovisual en Maracaibo"
+      }
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Fotografiar un catálogo completo en un día es posible, pero no sale de improvisar. Las jornadas que terminan a tiempo y con material útil tienen algo en común: se planificaron antes de llegar al set. Las que se alargan hasta la noche, con productos que faltaron y tomas repetidas, casi siempre fallaron en la preparación, no en la cámara. Esta guía te ayuda a organizar una jornada de contenido para tu catálogo, ya sea de ropa, calzado, accesorios, cosmética o cualquier línea con muchos productos."
+      },
+      {
+        "type": "h2",
+        "text": "Por qué planificar la jornada antes de reservar el espacio"
+      },
+      {
+        "type": "p",
+        "text": "Un día de producción reúne a varias personas al mismo tiempo: fotógrafo, camarógrafo, modelos, quien maquilla, quien produce y alguien de la marca que aprueba. Cada hora perdida buscando un producto o decidiendo un fondo se multiplica por todo ese equipo. Además, el espacio y el equipo suelen contratarse por horas, así que la improvisación se paga."
+      },
+      {
+        "type": "p",
+        "text": "Planificar también protege la coherencia del catálogo. Si las fotos de la mañana tienen una luz y las de la tarde otra, o si cada familia de productos se fotografió con un fondo distinto sin razón, el catálogo se ve armado a pedazos. Cuando las decisiones se toman antes, el día se dedica a ejecutar."
+      },
+      {
+        "type": "h2",
+        "text": "Ordena el catálogo por familias y arma el shot list"
+      },
+      {
+        "type": "p",
+        "text": "El primer documento de la jornada es el inventario de lo que se va a fotografiar. No basta con saber que son \"unos cuarenta productos\": hay que tenerlos listados, agrupados y con lo que necesita cada uno."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Agrupa por familias: vestidos, blusas, pantalones; o labiales, cremas, perfumes. Cada familia comparte fondo, luz y encuadre, y eso permite fotografiarla seguida sin mover el set.",
+          "Ordena las familias por complejidad del montaje, no por importancia. Lo que usa el mismo fondo va junto; los cambios grandes de set se hacen una sola vez.",
+          "Define qué tomas necesita cada producto: frente, espalda, detalle, producto en uso, con modelo o sin modelo.",
+          "Marca las prioridades. Si el día se complica, tienes que saber qué piezas no pueden quedar fuera: lanzamientos, productos estrella o los que más se venden."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Con eso se arma el shot list: una tabla con cada toma, el producto, el tipo de plano, si es foto o video, quién aparece y en qué bloque del día se hace. Es la herramienta que permite saber a las once de la mañana si vas adelantado o atrasado, y decidir a tiempo qué recortar."
+      },
+      {
+        "type": "p",
+        "text": "Un consejo práctico: etiqueta cada producto con un código que coincida con el shot list. Al final del día ese mismo código sirve para nombrar los archivos y evita confundir dos piezas parecidas."
+      },
+      {
+        "type": "h2",
+        "text": "Vestuario, props y fondos"
+      },
+      {
+        "type": "p",
+        "text": "La segunda lista es la de todo lo que acompaña al producto. Aquí es donde más se improvisa y donde más tiempo se pierde."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Vestuario: si hay modelos, define los looks por adelantado, con tallas confirmadas. Plancha o vaporiza todo antes de la jornada; una prenda arrugada obliga a retocar cada foto.",
+          "Props: objetos que dan contexto sin robar protagonismo. Flores, libros, bandejas, telas. Escógelos con la paleta de la marca y llévalos en una caja aparte, ya revisados.",
+          "Fondos: decide cuáles vas a usar por familia. Un fondo neutro para fichas de producto en la tienda online y uno o dos fondos con más carácter para redes y campañas suelen bastar.",
+          "Kit de set: cinta doble faz, alfileres, pinzas, quitapelusas, paños para limpiar huellas, plancha a vapor, baterías y tarjetas de memoria de repuesto."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Si tu marca tiene manual de identidad, el estilismo tiene que respetarlo. El catálogo es una de las piezas donde más se nota si la marca es coherente o si cada sesión parece de una empresa distinta."
+      },
+      {
+        "type": "h2",
+        "text": "Fotos y reels: cómo repartir el día"
+      },
+      {
+        "type": "p",
+        "text": "Hoy un catálogo no vive solo en fotos. La misma jornada suele tener que producir imágenes para la tienda online, piezas para redes y videos cortos. Mezclarlo todo sin orden es la manera más rápida de quedarse sin tiempo."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Separa bloques: primero las fotos de producto con fondo fijo, que son repetitivas y rápidas una vez que la luz está montada; después las fotos con modelo; al final los reels, que necesitan más movimiento y libertad.",
+          "Graba planos para varios formatos: verticales para reels e historias, y algunos horizontales para web, presentaciones o pantallas. Es más fácil grabar un plano extra en el set que recortar después.",
+          "Pide clips limpios, sin texto ni efectos, además de las versiones editadas. Te van a servir para futuras campañas.",
+          "Reserva tiempo para el contenido detrás de cámara. Suele ser de lo que mejor funciona en redes y casi no cuesta producirlo si alguien lo graba con el teléfono."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Dónde producir: estudio, locación o tu propia tienda"
+      },
+      {
+        "type": "p",
+        "text": "El lugar define buena parte del resultado. Fotografiar en la tienda tiene la ventaja de mostrar el espacio real, pero rara vez ofrece control de luz ni fondos limpios. Una locación exterior da ambiente, aunque depende del clima y de la hora. Para un catálogo con muchas piezas, un estudio suele ser la opción más predecible: luz controlada, fondos disponibles y espacio para trabajar varias familias sin desarmar todo."
+      },
+      {
+        "type": "p",
+        "text": "En Maracaibo, The Studio 4 es un estudio de fotografía y video que se alquila por horas: ofrece el espacio y el equipo, y tú llegas con tu propio fotógrafo o con el equipo de producción que contrates. Saber eso cambia la planificación, porque la jornada se diseña alrededor de las horas reservadas y de lo que ya está en el estudio, y el equipo creativo lo pones tú.",
+        "link": {
+          "href": "https://thestudio4.io/",
+          "anchor": "The Studio 4"
+        }
+      },
+      {
+        "type": "p",
+        "text": "Sea cual sea el lugar, visítalo o pide fotos y medidas antes de la jornada. Confirma tomas de corriente, espacio para cambiarse, dónde se guardan los productos y cuánto tiempo toma montar y desmontar."
+      },
+      {
+        "type": "h2",
+        "text": "Entrega: formatos, nombres de archivo y plazos"
+      },
+      {
+        "type": "p",
+        "text": "La jornada no termina cuando se apaga la última luz. Para que el material sea útil, la entrega también tiene que estar acordada antes de empezar."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Formatos: define qué necesitas para cada canal. Fotos en alta resolución para la web y la imprenta, versiones livianas para redes, y videos editados en vertical y en horizontal si los vas a usar en ambos.",
+          "Nombres de archivo: usa el código del shot list y la variante. Así cualquiera del equipo encuentra la foto correcta sin abrir cien archivos.",
+          "Selección y retoque: acuerda cuántas fotos se retocan por producto y quién hace la selección. Es una de las causas más comunes de retrasos.",
+          "Plazos y respaldo: fecha de entrega de una primera selección, fecha de la entrega final y dónde queda guardado el material original."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "En 1bite organizamos jornadas de contenido de principio a fin: shot list, estilismo, fotografía, reels y edición, para que tu catálogo salga en un solo día con una línea visual coherente. Si estás preparando una colección o una tienda online, escríbenos y planificamos la producción contigo."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "¿Cuántos productos se pueden fotografiar en un día?",
+        "a": "Depende de cuántas tomas necesita cada producto, de si hay modelos y de cuántos cambios de fondo exige el catálogo. Por eso el shot list va primero: al listar cada toma y estimar su tiempo sabes si el catálogo cabe en una jornada o conviene dividirlo."
+      },
+      {
+        "q": "¿Qué es un shot list y por qué lo necesito?",
+        "a": "Es la lista de todas las tomas de la jornada, con el producto, el tipo de plano, si es foto o video y en qué bloque del día se hace. Permite trabajar en orden, controlar el tiempo y no olvidar piezas importantes."
+      },
+      {
+        "q": "¿Conviene hacer fotos y reels el mismo día?",
+        "a": "Sí, si se separan por bloques. Lo habitual es hacer primero las fotos de producto con el set fijo, después las tomas con modelo y al final los reels, que necesitan más movimiento. Así se aprovecha la misma producción para varios canales."
+      },
+      {
+        "q": "¿Es mejor fotografiar el catálogo en un estudio o en mi tienda?",
+        "a": "Para catálogos con muchas piezas, un estudio da más control de luz y fondos, y eso hace que todas las fotos se vean consistentes. La tienda funciona para contenido de ambiente o para mostrar el espacio, pero suele exigir más trabajo de retoque."
+      },
+      {
+        "q": "¿Qué debo pedir en la entrega del material?",
+        "a": "Fotos en alta resolución y versiones para redes, videos en los formatos que vas a usar, archivos nombrados con un código claro, la cantidad de fotos retocadas acordada y una fecha de entrega final con respaldo del material original."
+      }
+    ]
+  },
   // __CRON_BLOG_INSERT__ — el cron de macgia (~/blog-1bite) inserta posts nuevos
   // encima de esta línea. No borrar ni mover este marcador.
 ];
