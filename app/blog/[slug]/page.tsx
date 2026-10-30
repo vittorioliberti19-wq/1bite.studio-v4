@@ -6,7 +6,7 @@ import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/ui/Reveal";
 import { posts, getPost } from "@/lib/blog";
 import { WHATSAPP_URL } from "@/lib/content";
-import { articleJsonLd, breadcrumbJsonLd, SITE } from "@/lib/seo";
+import { articleJsonLd, breadcrumbJsonLd, faqJsonLd, SITE } from "@/lib/seo";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
@@ -59,6 +59,7 @@ export default async function BlogPost({
         { name: "Blog", url: `${SITE}/blog` },
         { name: p.title, url: `${SITE}/blog/${p.slug}` },
       ]),
+      ...(p.faqs && p.faqs.length > 0 ? [faqJsonLd(p.faqs)] : []),
     ],
   };
 
@@ -110,10 +111,41 @@ export default async function BlogPost({
                     ))}
                   </ul>
                 );
+              if (b.link && b.text.includes(b.link.anchor)) {
+                const [antes, ...resto] = b.text.split(b.link.anchor);
+                return (
+                  <p key={i}>
+                    {antes}
+                    <a
+                      href={b.link.href}
+                      className="text-white underline underline-offset-4 hover:opacity-80"
+                    >
+                      {b.link.anchor}
+                    </a>
+                    {resto.join(b.link.anchor)}
+                  </p>
+                );
+              }
               return <p key={i}>{b.text}</p>;
             })}
           </div>
         </Reveal>
+
+        {p.faqs && p.faqs.length > 0 && (
+          <Reveal>
+            <h2 className="mt-16 mb-6 text-2xl font-bold text-white md:text-3xl">
+              Preguntas frecuentes
+            </h2>
+            <div className="space-y-6 text-lg leading-relaxed">
+              {p.faqs.map((f, i) => (
+                <div key={i}>
+                  <h3 className="font-semibold text-white">{f.q}</h3>
+                  <p className="mt-2 text-white/70">{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        )}
 
         {p.servicios && p.servicios.length > 0 && (
           <Reveal>

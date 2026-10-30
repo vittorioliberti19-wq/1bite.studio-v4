@@ -1,5 +1,6 @@
 export type Block =
-  | { type: "p"; text: string }
+  /** `link` opcional: `anchor` debe aparecer literal dentro de `text` y se renderiza como enlace. */
+  | { type: "p"; text: string; link?: { href: string; anchor: string } }
   | { type: "h2"; text: string }
   | { type: "ul"; items: string[] };
 
@@ -15,6 +16,8 @@ export type Post = {
   body: Block[];
   /** slugs de servicios a los que enlaza el post, con anchor descriptivo */
   servicios?: { slug: string; anchor: string }[];
+  /** Preguntas frecuentes: se muestran al final y generan FAQPage en JSON-LD */
+  faqs?: { q: string; a: string }[];
 };
 
 export const posts: Post[] = [
@@ -610,6 +613,156 @@ export const posts: Post[] = [
       {
         "type": "p",
         "text": "En 1bite podemos preparar una propuesta que separe gestión de redes, community management, producción y pauta según el alcance solicitado. Cada propuesta detalla el alcance, los entregables y las condiciones del proyecto."
+      }
+    ]
+  },
+  {
+    "slug": "como-adaptar-una-campana-digital-a-pantallas-led",
+    "title": "Cómo adaptar una campaña digital a pantallas LED sin perder el mensaje",
+    "metaTitle": "Cómo adaptar una campaña digital a pantallas LED",
+    "description": "Qué cambia cuando llevas una campaña de redes a pantallas LED en la calle: formatos horizontales, texto, segundos de lectura, sonido, contraste, qué reutilizar y cómo medir.",
+    "date": "2026-10-30",
+    "dateLabel": "30 de octubre, 2026",
+    "readingMin": 6,
+    "servicios": [
+      {
+        "slug": "redes-sociales",
+        "anchor": "gestión de redes sociales y campañas"
+      }
+    ],
+    "body": [
+      {
+        "type": "p",
+        "text": "Tienes una campaña que funciona en Instagram: el reel tiene buen alcance, el carrusel genera mensajes y la promoción se entiende. El siguiente paso lógico es sacarla a la calle en pantallas LED. Y ahí aparece el error más común: subir el mismo archivo y esperar el mismo resultado. Una pantalla en una avenida no es un teléfono más grande. Cambian la distancia, el tiempo de atención, el formato y hasta la forma en que la gente mira. Esta guía resume lo que conviene ajustar para que la campaña mantenga su mensaje cuando pasa del feed a la calle."
+      },
+      {
+        "type": "h2",
+        "text": "Por qué no basta con subir el mismo post"
+      },
+      {
+        "type": "p",
+        "text": "En redes, la persona tiene el contenido en la mano. Puede pausar, volver a ver, leer el texto del carrusel y abrir el perfil. En exterior pasa lo contrario: el público va manejando, caminando o esperando un semáforo, mira la pantalla de reojo y tiene pocos segundos antes de seguir. No hay botón de pausa ni segunda oportunidad."
+      },
+      {
+        "type": "p",
+        "text": "Eso cambia la jerarquía de la pieza. En digital, una campaña puede apoyarse en el copy, en el audio de tendencia o en la explicación del carrusel. En una pantalla LED todo eso desaparece y queda lo esencial: la imagen, la marca y una idea. Si la campaña depende de leer o de escuchar, hay que rediseñarla. Si depende de una imagen fuerte y un mensaje corto, se adapta con mucho menos trabajo."
+      },
+      {
+        "type": "h2",
+        "text": "Qué cambia en el formato"
+      },
+      {
+        "type": "p",
+        "text": "Antes de abrir el archivo original, revisa estos cambios. Son los que más afectan el resultado:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Proporción. Las piezas de redes son verticales o cuadradas; muchas pantallas de exterior son horizontales o tipo banderín, mucho más anchas que altas. Un reel vertical metido en un lienzo horizontal queda con franjas vacías o con el sujeto diminuto. Lo correcto es recomponer la pieza en el formato real, no estirarla ni rellenarla.",
+          "Texto. Lo que en el teléfono se lee a 30 centímetros, en la calle se mira a decenas de metros. Fuera textos legales, descripciones, listas de beneficios y letras pequeñas. Queda la marca, una frase corta y un solo dato de contacto.",
+          "Segundos de lectura. La persona ve la pantalla unos pocos segundos. El mensaje principal tiene que quedarse quieto el tiempo suficiente para leerse completo, en lugar de aparecer y desaparecer con transiciones rápidas como en un reel.",
+          "Sin audio. Las pantallas de exterior no reproducen sonido. Si el reel funciona por la voz en off, el chiste hablado o la canción del momento, en la calle pierde su gancho. Todo tiene que entenderse en silencio.",
+          "Contraste. Una pantalla LED emite luz y se ve de día con sol fuerte y de noche. Los fondos con poco contraste, los degradados suaves y las letras finas se pierden. Colores planos, texto grueso y fondos que separen bien la figura del fondo.",
+          "Código QR y enlaces. Funcionan en el teléfono, no desde un carro en movimiento. Cámbialos por un @ de Instagram, un dominio corto o un número de WhatsApp fácil de recordar."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Reutilizar o rediseñar: qué piezas se pueden aprovechar"
+      },
+      {
+        "type": "p",
+        "text": "No todo se rehace desde cero. La clave es separar los activos de la campaña de las piezas terminadas. Los activos casi siempre se reutilizan; las piezas, casi nunca."
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Se reutiliza: el concepto, el mensaje principal, la paleta, la tipografía, las fotos de producto en alta resolución y los clips de video originales sin texto encima.",
+          "Se adapta: la frase de campaña, que suele necesitar una versión más corta; la animación del logo, que se simplifica; y el cierre, que pasa a tener un solo llamado a la acción.",
+          "Se rediseña: la composición completa para el formato horizontal o de banderín, los textos sobreimpresos y cualquier pieza que dependa del audio o de que la persona lea varias líneas."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Por eso conviene pedir desde el inicio de la campaña los archivos fuente: fotos sin recortar, videos sin subtítulos quemados y el logo en vector. Si solo existe el reel exportado para Instagram, la adaptación se vuelve mucho más difícil y el resultado se nota."
+      },
+      {
+        "type": "p",
+        "text": "Una buena práctica es pensar la versión de exterior en la misma sesión de producción. Si durante la grabación del reel se toman también planos abiertos y horizontales, con espacio alrededor del producto, la pieza para pantalla sale de material real y no de un recorte forzado."
+      },
+      {
+        "type": "h2",
+        "text": "Cómo preparar los archivos y coordinar con el medio"
+      },
+      {
+        "type": "p",
+        "text": "Cada red de pantallas trabaja con resoluciones y condiciones propias, así que el primer paso es pedir la ficha técnica antes de diseñar: dimensiones exactas en píxeles, duración del spot, formato de video aceptado y cada cuánto se puede cambiar el contenido. Diseñar primero y preguntar después es la forma más segura de rehacer el trabajo."
+      },
+      {
+        "type": "p",
+        "text": "En Maracaibo, la red de pantallas LED de 1PIXEL tiene galerías en zonas comerciales de alto tráfico y publica en su web cómo funcionan sus formatos y planes. Con esa información en la mano, la adaptación se diseña directamente a la medida y la campaña sale con la misma identidad que tiene en redes.",
+        "link": {
+          "href": "https://1pixelve.com/",
+          "anchor": "la red de pantallas LED de 1PIXEL"
+        }
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Diseña a la resolución nativa de la pantalla. Escalar un archivo más pequeño introduce pixelado visible.",
+          "Deja márgenes de seguridad en los bordes para que nada importante quede cortado.",
+          "Prepara una versión estática y una animada si el medio acepta ambas; te da margen para rotar.",
+          "Revisa la pieza a tamaño reducido en tu monitor y a varios pasos de distancia. Si no se entiende así, tampoco se va a entender en la calle.",
+          "Organiza las variantes desde el inicio: si el plan permite cambiar el arte durante la pauta, ten listas la promoción de la primera quincena y la de la segunda."
+        ]
+      },
+      {
+        "type": "h2",
+        "text": "Cómo medir una campaña que mezcla digital y exterior"
+      },
+      {
+        "type": "p",
+        "text": "La pantalla no tiene clics, pero eso no significa que no se pueda medir. Lo que se hace es conectar la exposición en la calle con señales que sí se registran en digital:"
+      },
+      {
+        "type": "ul",
+        "items": [
+          "Un código o palabra clave exclusiva de la pantalla, distinto al que usas en redes, para atribuir ventas o mensajes.",
+          "El crecimiento de búsquedas de la marca y de visitas al perfil de Instagram durante las semanas de pauta, comparado con las semanas anteriores.",
+          "El tráfico directo a la web o a una página creada solo para la campaña de exterior.",
+          "Los mensajes de WhatsApp que mencionan la pantalla o la zona donde está ubicada. Pregunta siempre \"¿dónde nos viste?\".",
+          "Las ventas en tiendas cercanas a las pantallas frente a las de otras zonas, si tienes varios puntos."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "La combinación también funciona en sentido contrario: alguien ve la pantalla, busca la marca en redes y se encuentra con el mismo mensaje. Esa coherencia entre lo que ve en la calle y lo que encuentra en el teléfono es lo que hace que la inversión en exterior no quede aislada."
+      },
+      {
+        "type": "p",
+        "text": "En 1bite trabajamos campañas que viven en redes y fuera de ellas, y adaptamos las piezas a cada formato para que la marca se vea igual en el feed y en la calle. Si tienes una campaña digital que quieres llevar a pantallas, escríbenos y revisamos qué se puede aprovechar."
+      }
+    ],
+    "faqs": [
+      {
+        "q": "¿Puedo usar el mismo reel de Instagram en una pantalla LED?",
+        "a": "Rara vez funciona tal cual. El reel es vertical, suele depender del audio y lleva texto pequeño. Puedes reutilizar los clips originales, la paleta y el mensaje, pero la pieza para la pantalla conviene recomponerla en el formato horizontal o de banderín que use el medio."
+      },
+      {
+        "q": "¿Cuánto texto debe llevar un anuncio en pantalla LED?",
+        "a": "El mínimo posible: la marca, una frase corta y un solo dato de contacto. Todo lo que obligue a leer varias líneas se pierde, porque la persona ve la pantalla apenas unos segundos y a distancia."
+      },
+      {
+        "q": "¿Qué hago si mi campaña depende del audio?",
+        "a": "Hay que traducir la idea a imagen y texto corto, porque las pantallas de exterior no reproducen sonido. Si el gancho era una frase hablada, conviértela en el mensaje principal sobreimpreso y deja que la imagen haga el resto."
+      },
+      {
+        "q": "¿Cómo sé qué tamaño debe tener el archivo?",
+        "a": "Pídele la ficha técnica a la red de pantallas antes de diseñar: dimensiones en píxeles, duración del spot y formato de video. Cada red trabaja con medidas propias y diseñar a la resolución exacta evita pixelado y recortes."
+      },
+      {
+        "q": "¿Se puede medir una campaña en pantallas LED?",
+        "a": "Sí, de forma indirecta: con un código exclusivo de la pantalla, el aumento de búsquedas de la marca y de visitas al perfil durante la pauta, el tráfico directo a la web y la pregunta \"¿dónde nos viste?\" en cada conversación de venta."
       }
     ]
   },
