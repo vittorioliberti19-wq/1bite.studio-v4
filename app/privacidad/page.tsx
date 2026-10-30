@@ -84,8 +84,8 @@ export default function Privacidad() {
           </section>
           <section>
             <p>
-              Esta política de privacidad describe cómo Liberti Global Corp,
-              operando bajo la marca 1bite Studio («1bite», «nosotros»),
+              Esta política de privacidad describe cómo 1bite Studio
+              (RIF J-50666658-8) («1bite», «nosotros»),
               recolecta, usa y protege la información de los usuarios de la
               aplicación <strong>1Bite</strong> (la «App»). La App es una
               herramienta de uso interno para nuestro equipo y un portal privado
@@ -228,7 +228,7 @@ export default function Privacidad() {
               .
             </p>
             <p className="text-sm text-white/50">
-              © 2026 Liberti Global Corp · 1bite Studio
+              © 2026 1bite Studio
             </p>
           </section>
         </div>
