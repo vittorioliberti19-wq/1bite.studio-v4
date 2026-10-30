@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { FlipReveal, FlipRevealItem } from "@/components/ui/flip-reveal";
 
@@ -47,82 +48,56 @@ const TABS: { value: string; label: string }[] = [
   { value: "branding", label: "Branding" },
 ];
 
-// El poster se pinta como <img> y el <video> solo se monta al entrar al
-// viewport. Antes el elemento LCP era un <video preload="none">, que el
-// navegador ni siquiera empieza a resolver hasta que es visible.
+// No video request until the visitor chooses to watch a reel.
 function ReelTile({ m, prioridad }: { m: Media; prioridad: boolean }) {
-  const wrap = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = wrap.current;
-    if (!el || visible) return;
-
-    // Los videos esperan a que la página termine de cargar. Montarlos junto con
-    // el primer pintado retrasaba el LCP a ~19 s: el poster estaba descargado
-    // pero no llegaba a pintarse con el hilo ocupado en decodificar video.
-    let io: IntersectionObserver | undefined;
-    const armar = () => {
-      io = new IntersectionObserver(
-        ([e]) => {
-          if (e.isIntersecting) setVisible(true);
-        },
-        { rootMargin: "200px", threshold: 0.01 },
-      );
-      io.observe(el);
-    };
-
-    const cuandoHayaCalma = () => {
-      if (typeof window.requestIdleCallback === "function") {
-        window.requestIdleCallback(armar, { timeout: 3000 });
-      } else {
-        window.setTimeout(armar, 1000);
-      }
-    };
-
-    if (document.readyState === "complete") cuandoHayaCalma();
-    else window.addEventListener("load", cuandoHayaCalma, { once: true });
-
-    return () => {
-      io?.disconnect();
-      window.removeEventListener("load", cuandoHayaCalma);
-    };
-  }, [visible]);
+  const [playing, setPlaying] = useState(false);
 
   return (
-    <div ref={wrap} className="h-full w-full">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={m.poster}
+    <div className="h-full w-full">
+      <Image
+        src={m.poster!}
         alt="Reel del portafolio de 1bite"
         width={540}
         height={960}
+        sizes="(max-width: 767px) 50vw, 33vw"
         loading={prioridad ? "eager" : "lazy"}
         fetchPriority={prioridad ? "high" : "auto"}
         className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
       />
-      {visible && <ReelVideo m={m} />}
+      {playing ? (
+        <ReelVideo m={m} />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPlaying(true)}
+          aria-label="Reproducir reel del portafolio"
+          className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-white focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white"
+        >
+          <span aria-hidden className="flex h-12 w-12 items-center justify-center rounded-full border border-white/60 bg-black/60 text-xl">▶</span>
+          <span className="rounded-full bg-black/70 px-3 py-1 text-xs">Ver reel</span>
+        </button>
+      )}
     </div>
   );
 }
 
-// Se monta encima del poster una vez que el tile está en pantalla. Se pausa al
-// salir del viewport para no dejar decodificación de video corriendo de fondo.
 function ReelVideo({ m }: { m: Media }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) el.play().catch(() => {});
-        else el.pause();
-      },
-      { rootMargin: "200px", threshold: 0.1 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    const video = ref.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) video.pause();
+    }, { threshold: 0.1 });
+    const pauseWhenHidden = () => { if (document.hidden) video.pause(); };
+    observer.observe(video);
+    document.addEventListener("visibilitychange", pauseWhenHidden);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", pauseWhenHidden);
+      video.pause();
+    };
   }, []);
 
   return (
@@ -130,12 +105,14 @@ function ReelVideo({ m }: { m: Media }) {
       ref={ref}
       src={m.src}
       poster={m.poster}
+      controls
+      autoPlay
       muted
       loop
       playsInline
       preload="none"
-      aria-hidden
-      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+      aria-label="Reel del portafolio de 1bite"
+      className="absolute inset-0 h-full w-full object-cover"
     />
   );
 }
@@ -150,8 +127,7 @@ export default function GaleriaGrid() {
   const [limite, setLimite] = useState(TANDA);
   const centinela = useRef<HTMLDivElement>(null);
 
-  // Al cambiar de filtro se vuelve a la primera tanda.
-  useEffect(() => setLimite(TANDA), [active]);
+  const filtered = active === "all" ? MEDIA : MEDIA.filter((item) => item.cat === active);
 
   // El centinela solo se arma después de que el usuario se mueva. Sin esta
   // condición se dispara en cascada con la página quieta (la sección mide
@@ -162,31 +138,36 @@ export default function GaleriaGrid() {
     if (huboScroll) return;
     const marcar = () => setHuboScroll(true);
     const opts = { once: true, passive: true } as const;
-    window.addEventListener("scroll", marcar, opts);
-    window.addEventListener("pointerdown", marcar, opts);
-    window.addEventListener("keydown", marcar, opts);
+    // Layout/Flip changes can generate scroll events without user intent.
+    // Clicking a filter must not arm the next batch during its animation.
+    const withKeyboard = (event: KeyboardEvent) => {
+      if (["ArrowDown", "PageDown", "End", " "].includes(event.key)) marcar();
+    };
+    window.addEventListener("wheel", marcar, opts);
+    window.addEventListener("touchmove", marcar, opts);
+    window.addEventListener("keydown", withKeyboard);
     return () => {
-      window.removeEventListener("scroll", marcar);
-      window.removeEventListener("pointerdown", marcar);
-      window.removeEventListener("keydown", marcar);
+      window.removeEventListener("wheel", marcar);
+      window.removeEventListener("touchmove", marcar);
+      window.removeEventListener("keydown", withKeyboard);
     };
   }, [huboScroll]);
 
   useEffect(() => {
     const el = centinela.current;
-    if (!el || !huboScroll || limite >= MEDIA.length) return;
+    if (!el || !huboScroll || limite >= filtered.length) return;
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting)
-          setLimite((n) => Math.min(n + TANDA, MEDIA.length));
+          setLimite((n) => Math.min(n + TANDA, filtered.length));
       },
       { rootMargin: "400px" },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [limite, huboScroll]);
+  }, [limite, huboScroll, filtered.length]);
 
-  const visibles = MEDIA.slice(0, limite);
+  const visibles = filtered.slice(0, limite);
 
   return (
     <section className="mx-auto flex min-h-[140vh] w-full max-w-6xl flex-col items-center gap-10 px-6 pb-28 pt-36 md:pt-44">
@@ -211,7 +192,7 @@ export default function GaleriaGrid() {
               key={t.value}
               data-cursor
               aria-pressed={on}
-              onClick={() => setActive(t.value)}
+              onClick={() => { setActive(t.value); setLimite(TANDA); setHuboScroll(false); }}
               className={`rounded-full px-5 py-2 text-sm font-medium uppercase tracking-[0.15em] transition ${
                 on
                   ? "text-[color:var(--deep-code)]"
@@ -233,7 +214,7 @@ export default function GaleriaGrid() {
       >
         {visibles.map((m, i) => (
           <FlipRevealItem
-            key={i}
+            key={m.src}
             flipKey={m.cat}
             className={active === "all" || active === m.cat ? "block" : "hidden"}
           >
@@ -241,19 +222,19 @@ export default function GaleriaGrid() {
               {m.type === "video" ? (
                 <ReelTile m={m} prioridad={i === 0} />
               ) : (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={m.src}
                   alt={`Trabajo de ${m.cat} del portafolio de 1bite`}
                   width={540}
                   height={960}
+                  sizes="(max-width: 767px) 50vw, 33vw"
                   loading={i === 0 ? "eager" : "lazy"}
                   fetchPriority={i === 0 ? "high" : "auto"}
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
               )}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <span className="absolute bottom-3 left-3 text-xs uppercase tracking-[0.2em] text-white/80">
+              <span className="pointer-events-none absolute bottom-3 left-3 text-xs uppercase tracking-[0.2em] text-white/80">
                 {m.cat}
               </span>
             </div>
@@ -261,7 +242,7 @@ export default function GaleriaGrid() {
         ))}
       </FlipReveal>
 
-      {limite < MEDIA.length && (
+      {limite < filtered.length && (
         <div ref={centinela} aria-hidden className="h-px w-full" />
       )}
     </section>

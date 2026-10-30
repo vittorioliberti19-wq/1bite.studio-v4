@@ -53,6 +53,12 @@ export default function Hero() {
     >
       <RadialShader className="hero-bg -z-10" />
 
+      <div className="hero-fade absolute left-6 right-6 top-28 mx-auto max-w-md text-left md:hidden">
+        <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-white/70">Maracaibo · Venezuela</p>
+        <p className="mt-3 text-2xl font-semibold leading-tight text-white">Branding, contenido y desarrollo digital para tu marca.</p>
+        <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/75">Cuéntanos tu idea y preparemos el siguiente paso.</p>
+      </div>
+
       {/* espacio reservado: el FlyingLogo (fixed) arranca aquí y vuela al header */}
       <div
         aria-hidden

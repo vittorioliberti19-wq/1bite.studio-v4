@@ -27,14 +27,14 @@ test("SEO: departamentos, galería y fechas editoriales", async ({ page }) => {
   await expect(page.locator('img[src*="unsplash"]')).toHaveCount(0);
   await page.getByRole("button", {name:"Branding",exact:true}).click();
   await expect(page.getByRole("button", {name:"Branding",exact:true})).toHaveAttribute("aria-pressed","true");
-  await expect(page.locator('img[src*="/branding/"]').first()).toBeVisible();
+  await expect(page.locator('[data-flip="branding"] img').first()).toBeVisible();
   await page.goto("/blog/cuanto-cuesta-una-app-movil-en-venezuela");
   await expect(page.getByText("Equipo 1bite Studio", {exact:true})).toBeVisible();
-  await expect(page.locator('time[datetime="2026-09-12"]')).toBeVisible();
+  await expect(page.locator('time[datetime="2026-10-29"]')).toBeVisible();
   const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
   const graph = scripts.flatMap(s=>JSON.parse(s)["@graph"] ?? [JSON.parse(s)]);
   const article = graph.find(n=>n["@type"] === "BlogPosting");
   expect(article.datePublished).toBe("2026-08-24");
-  expect(article.dateModified).toBe("2026-09-12");
+  expect(article.dateModified).toBe("2026-10-29");
   expect(article.image).toBe("https://1bite.studio/opengraph-image.png");
 });

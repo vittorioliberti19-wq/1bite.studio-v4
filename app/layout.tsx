@@ -14,13 +14,13 @@ const inter = Inter({
 });
 
 const DESC =
-  "Agencia creativa en Maracaibo, Venezuela. Branding, redes sociales, páginas web, desarrollo de apps, sistemas operativos a la medida y producción audiovisual. Concebimos experiencias indelebles.";
+  "Branding, redes sociales, páginas web, apps y producción audiovisual desde Maracaibo. Conoce los servicios y trabajos de 1bite Studio.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://1bite.studio"),
   title: {
     default:
-      "1bite — Agencia de marketing, branding y desarrollo web en Maracaibo",
+      "1bite — Branding y agencia creativa en Maracaibo",
     template: "%s · 1bite",
   },
   description: DESC,

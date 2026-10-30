@@ -89,7 +89,7 @@ export const servicios: Servicio[] = [
     slug: "branding-gastronomico",
     nombre: "Branding Gastro",
     metaTitle:
-      "Branding para restaurantes en Maracaibo | Identidad gastronómica",
+      "Branding para restaurantes en Maracaibo",
     metaDescription:
       "Branding especializado para restaurantes, cafés y delivery en Maracaibo: identidad, menú, empaque de delivery, dirección fotográfica de platos y plantillas de Instagram.",
     h1: "Branding para restaurantes que abren llenos desde el día uno",
@@ -158,7 +158,7 @@ export const servicios: Servicio[] = [
   {
     slug: "redes-sociales",
     nombre: "Redes Sociales",
-    metaTitle: "Manejo de redes sociales y community manager en Maracaibo",
+    metaTitle: "Gestión de redes sociales en Maracaibo",
     metaDescription:
       "Manejo profesional de redes sociales en Maracaibo: estrategia, contenido, producción audiovisual y campañas en Instagram, Facebook y Google que venden.",
     h1: "Redes sociales que venden, no que solo se ven bonitas",
@@ -197,10 +197,10 @@ export const servicios: Servicio[] = [
   {
     slug: "paginas-web",
     nombre: "Páginas Web",
-    metaTitle: "Diseño y desarrollo de páginas web en Maracaibo, Venezuela",
+    metaTitle: "Diseño de páginas web en Maracaibo",
     metaDescription:
       "Diseñamos y programamos páginas web rápidas, optimizadas para Google y pensadas para vender. Sitios corporativos, landing pages y tiendas para empresas en Venezuela.",
-    h1: "Páginas web que cargan rápido, salen en Google y venden",
+    h1: "Páginas web en Maracaibo, diseñadas para tu negocio",
     lead: "Tu web es tu vendedor que trabaja 24/7. Que esté a la altura.",
     intro: [
       "Diseñamos y programamos sitios web a la medida: desde una landing page para una campaña hasta un sitio corporativo completo. No usamos plantillas genéricas; cada proyecto se construye sobre tu marca y tus objetivos de negocio.",
@@ -226,9 +226,9 @@ export const servicios: Servicio[] = [
       },
     ],
     resultados: [
-      "Apareces en Google cuando tu cliente te busca",
-      "Carga en segundos, incluso desde el celular",
-      "Conviertes visitas en mensajes y ventas reales",
+      "SEO técnico para facilitar el rastreo y la comprensión del sitio",
+      "Optimización de carga y experiencia en celulares",
+      "Canales de contacto y medición de consultas según el alcance",
     ],
     paquetes: [
       {
@@ -318,7 +318,7 @@ export const servicios: Servicio[] = [
   {
     slug: "sistemas",
     nombre: "Sistemas",
-    metaTitle: "Desarrollo de sistemas y software a la medida en Venezuela",
+    metaTitle: "Software y sistemas a la medida en Venezuela",
     metaDescription:
       "Construimos sistemas operativos internos, ERP y software a la medida para gestionar tu empresa: inventario, ventas, finanzas y operaciones, en Venezuela.",
     h1: "Sistemas a la medida para operar tu empresa sin caos",
@@ -353,7 +353,7 @@ export const servicios: Servicio[] = [
   {
     slug: "produccion-audiovisual",
     nombre: "Audiovisual",
-    metaTitle: "Producción audiovisual y fotografía profesional en Maracaibo",
+    metaTitle: "Producción audiovisual en Maracaibo",
     metaDescription:
       "Producción audiovisual en Maracaibo: video corporativo, fotografía de producto, reels y cobertura de eventos con equipo profesional y uso de drone.",
     h1: "Producción audiovisual que cuenta tu historia y vende tu producto",

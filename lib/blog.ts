@@ -20,7 +20,7 @@ export type Post = {
 export const posts: Post[] = [
   {
     slug: "cuanto-cuesta-una-pagina-web-en-venezuela",
-    modified: "2026-09-12",
+    modified: "2026-10-29",
     title: "¿Cuánto cuesta una página web en Venezuela en 2026?",
     metaTitle: "¿Cuánto cuesta una página web en Venezuela en 2026?",
     description:
@@ -34,12 +34,12 @@ export const posts: Post[] = [
     body: [
       {
         type: "p",
-        text: "Es la primera pregunta que nos hace casi todo el que escribe: ¿cuánto me cuesta una página web? Y la respuesta honesta es: depende. No es lo mismo una landing para una campaña que un sitio corporativo o una tienda con pagos. Acá te explicamos de qué depende el precio para que sepas qué estás pagando y por qué.",
+        text: "No hay una tarifa universal para una página web. Una landing para una campaña, un sitio corporativo y una tienda con pagos parten de alcances distintos. Esta guía sirve para preparar una solicitud de propuesta y comparar lo que cada proveedor incluye; no reemplaza una cotización para tu proyecto.",
       },
       { type: "h2", text: "De qué depende el precio" },
       {
         type: "p",
-        text: "El costo de una web no se mide en cantidad de páginas, se mide en complejidad. Estos son los factores que más mueven la aguja:",
+        text: "Al comparar propuestas, la cantidad de páginas no basta para entender el alcance. Revisa estos factores junto con las condiciones de cada proveedor:",
       },
       {
         type: "ul",
@@ -54,7 +54,7 @@ export const posts: Post[] = [
       { type: "h2", text: "Cómo cambia el presupuesto según el tipo de sitio" },
       {
         type: "p",
-        text: "Una landing page de una sola sección, pensada para una campaña, es la opción más económica. Un sitio corporativo con varias páginas, blog y formularios sube de precio porque hay más diseño y más estructura. Una tienda en línea con pagos y manejo de inventario es la inversión más alta, porque es prácticamente un sistema. Lo importante: pide siempre una propuesta detallada, no un número suelto.",
+        text: "Una landing para campaña, un sitio corporativo y una tienda con pagos requieren entregables diferentes. Para compararlos, pide una propuesta detallada: páginas y secciones, diseño, contenido, integraciones, pruebas, capacitación, soporte y costos recurrentes. Un número sin ese desglose no permite contrastar dos alcances.",
       },
       { type: "h2", text: "Cuidado con lo barato (y con lo carísimo)" },
       {
@@ -182,11 +182,12 @@ export const posts: Post[] = [
   },
   {
     slug: "cuanto-cuesta-un-logo-en-venezuela",
+    modified: "2026-10-29",
     title:
       "¿Cuánto cuesta un logo en Venezuela en 2026? (y cuándo necesitas más que un logo)",
     metaTitle: "¿Cuánto cuesta un logo en Venezuela en 2026?",
     description:
-      "Rangos reales de precio de un logo en Venezuela, por qué varían tanto, y cómo saber si lo que tu negocio necesita es un logo o una marca completa.",
+      "Cómo preparar una cotización de logo o identidad visual: alcance, entregables, derechos y revisiones para comparar propuestas sin asumir tarifas de mercado.",
     date: "2026-06-11",
     dateLabel: "11 de junio, 2026",
     readingMin: 4,
@@ -196,26 +197,26 @@ export const posts: Post[] = [
     body: [
       {
         type: "p",
-        text: "“¿Cuánto me cobras por un logo?” es de las preguntas que más recibimos. Y la respuesta corta es: en Venezuela un logo puede costar desde 20 dólares hasta varios miles. La diferencia no es capricho, es qué estás comprando realmente. Acá te lo desglosamos para que compares con criterio.",
+        text: "No existe una tarifa universal para un logo en Venezuela. Antes de comparar propuestas, define si necesitas solo un identificador visual o una identidad con sistema, aplicaciones y guía de uso. Esta guía explica qué solicitar; no presenta rangos de mercado ni tarifas de 1bite.",
       },
       { type: "h2", text: "Por qué los precios varían tanto" },
       {
         type: "ul",
         items: [
-          "Un logo de 20-50 dólares suele ser una plantilla adaptada o un diseño sin investigación: rápido, pero genérico.",
-          "Un logo profesional (rango medio) incluye proceso: estudio de tu competencia, propuestas, revisiones y archivos finales en todos los formatos.",
-          "Un sistema de identidad completo incluye además paleta, tipografías, usos correctos e incorrectos y manual de marca: lo que hace que tu negocio se vea coherente en todos lados.",
+          "Investigación, estrategia o revisión de referencias: confirma si están dentro del alcance.",
+          "Propuestas y revisiones: acuerda cuántas incluye el proceso y cómo se aprueban.",
+          "Entregables: especifica versiones del logo, archivos vectoriales, paleta, tipografías, aplicaciones y manual si lo necesitas.",
         ],
       },
       { type: "h2", text: "El error más caro: comprar el logo dos veces" },
       {
         type: "p",
-        text: "Lo vemos constantemente: un negocio paga un logo barato para salir del paso, crece, y al año tiene que pagar un rebranding completo porque aquel logo no funciona en redes, no se lee pequeño, o se parece al de la competencia. Lo barato terminó costando el doble, más el costo invisible de un año viéndose amateur.",
+        text: "El riesgo no es un precio bajo o alto por sí mismo, sino contratar sin definir usos y entregables. Antes de aprobar, revisa el logo en los tamaños y canales que realmente usarás, y deja por escrito qué sucede si se requieren ajustes fuera de las revisiones acordadas.",
       },
       { type: "h2", text: "¿Logo o branding? Cómo saber cuál necesitas" },
       {
         type: "p",
-        text: "Si estás arrancando y solo necesitas identificarte, un buen logo con archivos correctos puede bastar. Pero si ya tienes un negocio andando, compites contra marcas establecidas o quieres cobrar más caro que el promedio, necesitas branding: el sistema completo que hace que te reconozcan y confíen en ti. Te lo explicamos a fondo en nuestro artículo de branding vs. logo.",
+        text: "Un logo puede cubrir una necesidad puntual de identificación. Si también necesitas definir tono, jerarquías visuales, aplicaciones y reglas para que varias personas comuniquen de forma consistente, pide una propuesta de identidad o branding. La decisión depende de tus canales, equipo y objetivos; no de una tarifa genérica.",
       },
       { type: "h2", text: "Qué exigir siempre, pagues lo que pagues" },
       {
@@ -229,7 +230,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "En 1bite diseñamos identidades de marca en Maracaibo desde 2016, desde la estrategia hasta el manual. Si quieres saber qué le conviene a tu negocio (y cuánto cuesta en tu caso), escríbenos y te orientamos sin compromiso.",
+        text: "En 1bite podemos revisar tu contexto y preparar una propuesta con alcance, entregables y condiciones. El precio se define según el alcance y las condiciones de tu proyecto.",
       },
     ],
   },
@@ -289,7 +290,7 @@ export const posts: Post[] = [
   },
   {
     slug: "cuanto-cuesta-un-video-corporativo-en-maracaibo",
-    modified: "2026-09-12",
+    modified: "2026-10-29",
     title: "¿Cuánto cuesta un video corporativo en Maracaibo en 2026?",
     metaTitle: "Cuánto cuesta un video corporativo en Maracaibo 2026",
     description:
@@ -334,7 +335,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "El freelancer suele ser la opción más económica: una sola persona graba, edita y a veces también dirige. Funciona bien para videos simples, testimoniales o contenido de redes sociales. El límite aparece cuando necesitas dirección de arte, guion trabajado o coordinación de varias personas en set — ahí un freelancer solo se satura y la calidad cae. La productora dedicada da equipo completo (director, camarógrafo, editor) y mejor control de calidad, pero cobra acorde. La agencia creativa como 1bite entra en un punto intermedio: coordina la producción audiovisual dentro de una estrategia de marca más amplia, así el video no queda suelto sino conectado con tu identidad visual y tus redes.",
+        text: "Un freelancer, una productora y una agencia pueden estructurar el trabajo de formas distintas. En vez de asumir qué modelo conviene por precio, compara quién responde por dirección, guion, rodaje, edición, coordinación, licencias y aprobaciones. Una agencia puede además coordinar el video con otros entregables de marca cuando ese sea el alcance contratado.",
       },
       {
         type: "h2",
@@ -356,7 +357,7 @@ export const posts: Post[] = [
       },
       {
         type: "p",
-        text: "Pide siempre desglose: cuántos días de rodaje, qué equipo se usa, cuántas rondas de corrección incluye la edición y en qué formatos entregan el video final (horizontal, vertical, con o sin subtítulos). Si dos cotizaciones difieren mucho, casi siempre es porque una incluye pre-producción seria y la otra no. También pregunta si el precio incluye los derechos de la música y si puedes reutilizar el material en distintas plataformas sin costo adicional.",
+        text: "Pide un desglose de jornadas, equipo, rondas de corrección y formatos de entrega (horizontal, vertical, con o sin subtítulos). Si dos propuestas difieren, revisa qué cubre cada una: preproducción, rodaje, edición, licencias y derechos de reutilización. Confirma por escrito las condiciones antes de decidir.",
       },
       {
         type: "p",
@@ -366,7 +367,7 @@ export const posts: Post[] = [
   },
     {
     "slug": "cuanto-cuesta-una-app-movil-en-venezuela",
-    modified: "2026-09-12",
+    modified: "2026-10-29",
     servicios: [{ slug: "desarrollo-apps", anchor: "Desarrollo de apps en Maracaibo" }],
     "title": "¿Cuánto cuesta una app móvil en Venezuela en 2026?",
     "metaTitle": "Cuánto cuesta una app móvil en Venezuela 2026",
@@ -403,11 +404,11 @@ export const posts: Post[] = [
       {
         "type": "ul",
         "items": [
-          "Nativa vs multiplataforma: React Native o Flutter (una sola app para iOS y Android) suele costar menos que desarrollar nativo por separado en Swift y Kotlin.",
-          "Backend y base de datos: si la app necesita guardar usuarios, pedidos o inventario en tiempo real, el backend puede costar tanto como el frontend.",
-          "Integraciones de pago: Zelle, PayPal, pasarelas locales o criptomonedas cada una suma trabajo de desarrollo y pruebas.",
-          "Publicación en tiendas: cuenta de desarrollador de Apple (pago anual) y Google Play (pago único), más el proceso de revisión que puede tardar semanas.",
-          "Mantenimiento post-lanzamiento: actualizaciones de sistema operativo, corrección de bugs y nuevas funciones no están incluidas en el desarrollo inicial salvo que lo acuerdes."
+          "Tecnología y plataformas: define si el alcance cubre iOS, Android o ambas, y cómo se mantendrá cada una.",
+          "Backend y datos: documenta usuarios, permisos, información que se guardará, paneles e integraciones necesarias.",
+          "Pagos e integraciones: identifica proveedores, flujos, pruebas y responsables antes de compararlos en una propuesta.",
+          "Publicación: confirma cuentas, activos, requisitos de revisión y quién acompaña el proceso de tiendas.",
+          "Soporte posterior: acuerda por separado el período, las correcciones, actualizaciones y funciones futuras."
         ]
       },
       {
@@ -447,37 +448,38 @@ export const posts: Post[] = [
   },
     {
     "slug": "cuanto-cuesta-un-community-manager-en-maracaibo",
+    "modified": "2026-10-29",
     "title": "¿Cuánto cuesta un community manager en Maracaibo en 2026?",
     "metaTitle": "Cuánto cuesta un community manager en Maracaibo",
-    "description": "Cuánto cuesta un community manager en Maracaibo en 2026: rangos reales por freelance y agencia, qué incluye cada nivel y cómo evitar pagar de más.",
+    "description": "Qué hace un community manager y cómo solicitar una propuesta: comunidad, entregables, responsabilidades y límites frente a la gestión integral de una agencia.",
     "date": "2026-09-21",
     "dateLabel": "21 de septiembre, 2026",
     "readingMin": 5,
     "body": [
       {
         "type": "p",
-        "text": "Si tienes un negocio en Maracaibo y estás pensando en contratar a alguien que maneje tus redes, la primera pregunta es siempre la misma: ¿cuánto cuesta un community manager? La respuesta corta es que depende de qué esperas que haga. Los precios en el mercado venezolano van desde montos muy bajos hasta paquetes de varios cientos de dólares al mes, y la diferencia casi nunca está en el «manejo de redes», sino en lo que viene incluido."
+        "text": "Un community manager y una gestión integral de redes no son lo mismo. Un community manager se enfoca en la comunidad y la operación diaria de los canales acordados; una agencia puede sumar estrategia, contenido, producción y coordinación de especialistas. El costo se define por alcance y condiciones, no por una tarifa universal de mercado."
       },
       {
         "type": "h2",
-        "text": "Rangos de precio reales en Maracaibo"
+        "text": "Define el alcance del community manager"
       },
       {
         "type": "p",
-        "text": "Estos son rangos aproximados del mercado local en dólares mensuales. Varían según el volumen de trabajo y la experiencia, pero sirven para ubicarte:"
+        "text": "Antes de pedir una cotización, deja claro qué parte de la operación asumirá la persona y qué aportará tu equipo. Por ejemplo:"
       },
       {
         "type": "ul",
         "items": [
-          "Estudiante o principiante freelance: entre 50 y 150 USD al mes. Suele publicar con plantillas y sin estrategia. Sirve para tener presencia mínima, no para crecer.",
-          "Freelance con experiencia: entre 150 y 400 USD al mes. Planifica contenido, diseña piezas básicas, responde comentarios y entrega un reporte simple.",
-          "Agencia pequeña o estudio: entre 300 y 900 USD al mes. Incluye estrategia, diseño, calendario, edición de video corto y métricas, con un equipo detrás y no una sola persona.",
-          "Paquete completo con producción y pauta: desde 800 USD en adelante, más el presupuesto de publicidad. Incluye fotos y videos propios, gestión de anuncios y reportes de resultados."
+          "Canales, horario de atención, idioma y protocolo para comentarios, mensajes y situaciones sensibles.",
+          "Volumen de publicaciones o programación que realmente quedará bajo su responsabilidad.",
+          "Escalamiento de ventas, reclamos y preguntas técnicas: quién responde y en qué plazo.",
+          "Reporte: métricas, período, responsables y decisiones que se tomarán con esa información."
         ]
       },
       {
         "type": "p",
-        "text": "Ojo con los extremos. Un precio muy bajo suele significar poco tiempo dedicado a tu marca, y uno muy alto sin desglose es una señal para pedir detalles."
+        "text": "Pide el alcance por escrito y no compares montos sin comparar responsabilidades, disponibilidad y entregables. Esta página no publica rangos de mercado ni tarifas de 1bite."
       },
       {
         "type": "h2",
@@ -490,15 +492,15 @@ export const posts: Post[] = [
       {
         "type": "ul",
         "items": [
-          "Diseño gráfico de las piezas, que puede estar incluido o cobrarse aparte.",
-          "Fotografía y video, que casi nunca entran en el precio base.",
-          "Pauta publicitaria: gestionar anuncios es un servicio distinto y el dinero de la publicidad lo pones tú, aparte.",
-          "Estrategia de contenido y análisis de métricas, que separa a un profesional de alguien que solo sube posts."
+          "Diseño gráfico de las piezas: confirma si está dentro del alcance o si lo aporta otro rol.",
+          "Fotografía y video: especifica preproducción, sesión, edición y derechos de uso si los necesitas.",
+          "Pauta publicitaria: separa presupuesto de medios, configuración y gestión; no los confundas con moderación de comunidad.",
+          "Estrategia y análisis: define si el rol solo ejecuta un plan existente o también lo construye y revisa."
         ]
       },
       {
         "type": "p",
-        "text": "Antes de comparar precios, pide que te digan por escrito cuántas publicaciones al mes, cuántos videos, qué redes y qué reportes recibes. Dos cotizaciones de 200 y 400 dólares pueden parecer distintas y en realidad ofrecer cosas muy diferentes."
+        "text": "Antes de comparar propuestas, solicita por escrito cantidad de publicaciones, canales, horario de atención, protocolo de respuestas, responsables de contenido y formato de reporte. Así comparas el mismo alcance, no etiquetas parecidas."
       },
       {
         "type": "h2",
@@ -506,11 +508,11 @@ export const posts: Post[] = [
       },
       {
         "type": "p",
-        "text": "Un freelance te da trato directo y precio más flexible. Funciona bien si tu negocio es pequeño, ya tienes claro qué comunicar y puedes aportar fotos y material. El riesgo es la dependencia: si esa persona se enferma, viaja o consigue otro trabajo, tu cuenta se queda sin publicar."
+        "text": "Un profesional independiente puede encargarse del alcance acordado directamente. Antes de contratar, valida disponibilidad, sustitución, acceso a cuentas, proceso de aprobación y continuidad si la persona no puede atender."
       },
       {
         "type": "p",
-        "text": "Una agencia cuesta más, pero reparte el trabajo entre estratega, diseñador y editor. Conviene cuando necesitas consistencia, cuando quieres que las redes se conecten con tu marca y tu web, o cuando el contenido pesa en tus ventas: restaurantes, clínicas, tiendas, inmobiliarias y servicios con mucha competencia en Maracaibo."
+        "text": "Una agencia puede coordinar community management con estrategia, diseño, producción o pauta cuando esos servicios estén especificados. Pide el organigrama de trabajo, el responsable de cada entregable y los límites de cada servicio; gestión de agencia no equivale automáticamente a solo community management."
       },
       {
         "type": "h2",
@@ -519,11 +521,11 @@ export const posts: Post[] = [
       {
         "type": "ul",
         "items": [
-          "Elegir solo por precio. El community manager más barato termina costando más si pierdes meses sin resultados.",
-          "No definir un objetivo. «Tener más seguidores» no es una meta de negocio; «recibir 30 consultas al mes por WhatsApp» sí lo es.",
+          "Elegir solo por precio, sin comparar el alcance y la capacidad de respuesta.",
+          "No definir un objetivo y una métrica que permita revisarlo con el tiempo.",
           "No pedir reportes. Si nadie te muestra números, no sabes si la inversión funciona.",
           "Entregar las cuentas sin acceso propio. Tú debes ser siempre el administrador de tus perfiles, nunca el proveedor.",
-          "Firmar sin período de prueba. Lo razonable es empezar con un contrato de dos o tres meses y evaluar."
+          "No acordar período de revisión, condiciones de salida y entrega de activos al terminar."
         ]
       },
       {
@@ -532,26 +534,27 @@ export const posts: Post[] = [
       },
       {
         "type": "p",
-        "text": "Una regla práctica: destina a redes una parte de lo que esperas vender gracias a ellas, no un monto al azar. Si un cliente nuevo te deja 100 dólares de utilidad y las redes te traen cinco al mes, ya sabes cuánto puedes invertir sin perder. Empieza por lo esencial, que es constancia, buen diseño y respuesta rápida a los mensajes, y suma video y pauta cuando los resultados lo justifiquen."
+        "text": "Parte de un objetivo de negocio, el alcance necesario para operarlo y los recursos que tu equipo puede aportar. Luego solicita una propuesta que separe community management, contenido, producción y pauta si aplican. No hay una fórmula universal de inversión ni una promesa de resultados."
       },
       {
         "type": "p",
-        "text": "Si quieres una cotización clara, con lo que incluye cada punto y sin letras pequeñas, escríbele a 1bite Studio. Te contamos qué necesita tu negocio en Maracaibo y cuánto costaría hacerlo bien, sin compromiso."
+        "text": "Si necesitas una propuesta, 1bite puede documentar qué parte corresponde a community management y qué parte a gestión integral, con entregables y condiciones. El precio se define según las responsabilidades y los entregables acordados."
       }
     ]
   },
     {
     "slug": "cuanto-cuesta-gestion-de-redes-sociales-en-maracaibo",
+    "modified": "2026-10-29",
     "title": "¿Cuánto cuesta la gestión de redes sociales en Maracaibo en 2026?",
-    "metaTitle": "Gestión de redes sociales en Maracaibo: precios 2026",
-    "description": "¿Cuánto cuesta contratar gestión de redes sociales en Maracaibo? Rangos reales de mercado, qué incluye cada nivel y errores que inflan el gasto.",
+    "metaTitle": "Gestión de redes sociales en Maracaibo: qué comparar",
+    "description": "Cómo solicitar y comparar una propuesta de gestión de redes sociales: estrategia, contenido, producción, comunidad y pauta como alcances separados.",
     "date": "2026-10-19",
     "dateLabel": "19 de octubre, 2026",
     "readingMin": 6,
     "body": [
       {
         "type": "p",
-        "text": "Casi todo negocio en Maracaibo pregunta lo mismo apenas decide profesionalizar sus redes: ¿cuánto cuesta esto en realidad? La respuesta corta es que depende de tres variables — cuántas piezas al mes, si hay producción audiovisual incluida y si alguien administra pauta o solo contenido orgánico. La respuesta larga la explicamos abajo, con rangos reales del mercado venezolano."
+        "text": "La gestión de redes sociales puede reunir estrategia, contenido, producción, community management y pauta, pero no son un paquete universal. Esta guía te ayuda a pedir una propuesta comparable según el alcance que necesitas; no presenta rangos de mercado ni tarifas de 1bite."
       },
       {
         "type": "h2",
@@ -559,27 +562,28 @@ export const posts: Post[] = [
       },
       {
         "type": "p",
-        "text": "Gestión de redes sociales no es lo mismo que \"postear fotos\". Un servicio serio incluye estrategia de contenido, calendario editorial, diseño o edición de cada pieza, copywriting, programación, interacción con la comunidad (responder comentarios y DMs) y un reporte de métricas. Lo que casi nunca incluye, salvo que se contrate aparte, es la pauta publicitaria (el presupuesto de Meta o TikTok Ads) ni producción audiovisual pesada tipo comerciales."
+        "text": "Gestión de redes sociales no es solo publicar. La propuesta debe indicar cuáles de estos componentes incluye: estrategia de contenido, calendario editorial, diseño o edición, copy, programación, community management y reporte. La pauta y la producción audiovisual deben aparecer como alcances separados, con responsables y condiciones claras."
       },
       {
         "type": "ul",
         "items": [
-          "Básico (solo contenido): calendario + diseño + copy + programación, sin community management activo",
-          "Intermedio: lo anterior más moderación de comentarios/DMs y reporte mensual",
-          "Avanzado: incluye producción fotográfica o video corto propio, más estrategia de pauta"
+          "Estrategia: objetivos, audiencias, pilares y proceso de aprobación.",
+          "Contenido: piezas, formatos, copy, calendario, responsables y material que aporta cada parte.",
+          "Comunidad: atención de comentarios y mensajes, horarios, respuestas aprobadas y escalamiento.",
+          "Pauta y producción: presupuesto de medios, gestión, sesiones, edición, licencias y derechos de uso."
         ]
       },
       {
         "type": "h2",
-        "text": "Rangos de precio en el mercado venezolano"
+        "text": "Cómo comparar propuestas sin asumir tarifas"
       },
       {
         "type": "p",
-        "text": "En Maracaibo y Venezuela en general, freelancers sueltos cobran desde 80-150 USD/mes por paquetes básicos de pocas piezas semanales, sin mucha estrategia detrás. Agencias boutique con equipo (diseñador, community manager, estratega) manejan paquetes intermedios entre 200 y 450 USD/mes. Agencias con producción audiovisual propia y manejo de pauta suben a 500-1200 USD/mes o más, dependiendo de cuántas marcas o líneas de negocio manejen dentro de la misma cuenta."
+        "text": "Solicita que cada propuesta enumere entregables, frecuencia, responsables, canales, procesos de aprobación y período. Después compárala con las mismas preguntas: qué se produce, quién atiende la comunidad, qué métricas se reportan y qué costos externos quedan fuera."
       },
       {
         "type": "p",
-        "text": "La pauta publicitaria se cotiza aparte casi siempre: un fee de gestión (10-20% del presupuesto invertido, o un monto fijo mensual) más el presupuesto real que se mete a Meta o TikTok. Nadie serio cobra gestión de pauta incluida en el mismo precio del contenido orgánico — si te la ofrecen \"gratis\", sospecha."
+        "text": "Separa el presupuesto que se invierte en plataformas de la gestión de campañas y del contenido orgánico. Confirma titularidad de cuentas, acceso, objetivos, reportes y condiciones de facturación antes de contratar."
       },
       {
         "type": "h2",
@@ -588,11 +592,11 @@ export const posts: Post[] = [
       {
         "type": "ul",
         "items": [
-          "Cantidad de piezas: 3 posts/semana cuesta menos que 1 post diario + historias",
-          "Formato: fotos y gráficos simples cuestan menos que reels/video editado",
-          "Número de plataformas: Instagram solo vs. Instagram + TikTok + Facebook + LinkedIn",
-          "Nivel de producción: contenido grabado en celular vs. sesión fotográfica/video profesional mensual",
-          "Community management activo: alguien respondiendo en tiempo real vs. solo publicar y listo"
+          "Cantidad de piezas, formatos y canales incluidos.",
+          "Origen del material: archivos del cliente, sesión de foto, video o producción adicional.",
+          "Cobertura de community management: horarios, protocolos y escalamiento.",
+          "Nivel de estrategia, análisis, aprobaciones y coordinación con otros proveedores.",
+          "Pauta: objetivos, presupuesto de medios, configuración, optimización y reporte."
         ]
       },
       {
@@ -601,11 +605,11 @@ export const posts: Post[] = [
       },
       {
         "type": "p",
-        "text": "El error más caro es elegir solo por precio bajo y terminar con contenido genérico que no mueve ventas — plantillas de Canva sin dirección de marca, copy sin voz propia, cero estrategia de conversión. El segundo error es no preguntar qué pasa con los derechos del contenido: algunas agencias se quedan con los archivos originales y el negocio pierde acceso si cambia de proveedor. El tercero es contratar gestión de redes sin tener antes una base de marca clara (logo, paleta, tono) — ahí cada mes se reinventa la rueda y se nota la inconsistencia."
+        "text": "Evita comparar solo por precio o por cantidad de publicaciones. Revisa derechos de uso y acceso a archivos, titularidad de cuentas, responsables de aprobación y qué ocurrirá con los activos si cambia el proveedor. Si falta una base de marca, indícalo para decidir si forma parte del alcance o si debe resolverse antes."
       },
       {
         "type": "p",
-        "text": "Si estás evaluando mover tus redes a un equipo profesional en Maracaibo, en 1bite Studio podemos armarte un paquete según tu nivel real de necesidad — sin venderte más de lo que tu negocio necesita hoy. Escríbenos y revisamos juntos qué formato te conviene."
+        "text": "En 1bite podemos preparar una propuesta que separe gestión de redes, community management, producción y pauta según el alcance solicitado. Cada propuesta detalla el alcance, los entregables y las condiciones del proyecto."
       }
     ]
   },
