@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import GradientBar from "@/components/ui/GradientBar";
 import { servicios } from "@/lib/servicios";
 
@@ -81,6 +82,9 @@ export default function Footer() {
             build v42
           </span>
         </div>
+      </div>
+      <div className="mt-8 text-center">
+        <a className="onebite-credit onebite-credit--dark" href="https://1bite.studio/" target="_blank" rel="noopener noreferrer" aria-label="Developed by 1bite Studio"><span>Developed by</span><span className="onebite-credit__brand"><Image className="onebite-credit__logo" src="/assets/1bite-credit-logo.png" width="48" height="19" alt="1bite" /><span className="onebite-credit__line" aria-hidden="true"></span></span></a>
       </div>
     </footer>
   );
