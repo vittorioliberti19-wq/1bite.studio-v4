@@ -49,6 +49,7 @@ export default function Hero() {
   return (
     <section
       ref={root}
+      data-hero-logo-origin
       className="relative isolate flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
     >
       <RadialShader className="hero-bg -z-10" />

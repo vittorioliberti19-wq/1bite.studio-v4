@@ -17,6 +17,8 @@ export default function FlyingLogo() {
     gsap.registerPlugin(ScrollTrigger);
     const el = ref.current;
     if (!el) return;
+    const hero = document.querySelector<HTMLElement>("[data-hero-logo-origin]");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // El elemento se dimensiona en su tamaño inicial (startW) vía CSS width fijo
     // y SOLO animamos transform (translate + scale). Nunca tocamos layout props.
@@ -35,13 +37,18 @@ export default function FlyingLogo() {
 
       measure = () => {
         const w = window.innerWidth;
+        const heroBounds = hero?.getBoundingClientRect();
         const startW = Math.min(w * 0.42, 420);
         const endW = w < 768 ? 78 : 104;
         const pad = w < 768 ? 24 : 48;
         const endH = endW * (1140 / 2872);
         geo.startW = startW;
-        geo.startX = w / 2;
-        geo.startY = window.innerHeight * 0.62;
+        // El shader está centrado en el hero, no en el viewport visible de Safari.
+        // scrollY conserva ese origen al refrescar ScrollTrigger a mitad del vuelo.
+        geo.startX = heroBounds ? heroBounds.left + heroBounds.width / 2 : w / 2;
+        geo.startY = heroBounds
+          ? heroBounds.top + window.scrollY + heroBounds.height / 2
+          : window.innerHeight / 2;
         geo.endX = pad + endW / 2;
         geo.endY = 16 + endH / 2;
         geo.scale = endW / startW;
@@ -57,21 +64,24 @@ export default function FlyingLogo() {
           transformOrigin: "50% 50%",
           force3D: true,
         });
+        if (reducedMotion) {
+          gsap.set(el, {
+            x: geo.endX - geo.startX,
+            y: geo.endY - geo.startY,
+            scale: geo.scale,
+          });
+        }
       };
       measure();
+      ScrollTrigger.addEventListener("refreshInit", measure);
 
       // prefers-reduced-motion: logo directo en el header (estado final), sin vuelo
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.set(el, {
-          x: geo.endX - geo.startX,
-          y: geo.endY - geo.startY,
-          scale: geo.scale,
-        });
+      if (reducedMotion) {
         gsap.set(".flying-bar", { opacity: 1 });
         return;
       }
 
-      gsap.to(el, {
+      gsap.fromTo(el, { x: 0, y: 0, scale: 1 }, {
         scrollTrigger: {
           trigger: document.documentElement,
           start: 0,
@@ -103,7 +113,6 @@ export default function FlyingLogo() {
         },
       );
 
-      ScrollTrigger.addEventListener("refreshInit", measure);
     }, ref);
 
     return () => {
@@ -129,11 +138,11 @@ export default function FlyingLogo() {
       }}
       className="fixed z-[60] cursor-pointer will-change-transform"
       // estado inicial vía CSS para evitar flash gigante antes de que GSAP mida
-      // (coincide con measure(): startW=min(42vw,420), centro en 50%/62vh)
+      // (coincide con el centro del hero de 100vh antes de medir su geometría)
       style={{
         width: "min(42vw, 420px)",
         left: "50%",
-        top: "62vh",
+        top: "50vh",
         transform: "translate(-50%, -50%)",
         transformOrigin: "50% 50%",
       }}
@@ -149,7 +158,7 @@ export default function FlyingLogo() {
       />
       <div
         aria-hidden
-        className="flying-bar mt-[10px] h-[8px] w-full rounded-full opacity-0"
+        className="flying-bar absolute left-0 top-full mt-[10px] h-[8px] w-full rounded-full opacity-0"
         style={{ background: "var(--grad-firma)" }}
       />
     </div>
