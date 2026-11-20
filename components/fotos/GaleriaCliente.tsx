@@ -658,6 +658,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
   const [fotos, setFotos] = useState<Foto[]>([]);
   const [entregas, setEntregas] = useState<Entrega[]>([]);
   const [originales, setOriginales] = useState<Entrega[]>([]);
+  const [zipOriginales, setZipOriginales] = useState<FotosRespuesta["originales_zip"]>(null);
   const [misFavoritas, setMisFavoritas] = useState(0);
   const [notaGeneral, setNotaGeneral] = useState("");
 
@@ -740,6 +741,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
         setFotos(r.datos.fotos);
         setEntregas(r.datos.entregas);
         setOriginales(r.datos.originales);
+        setZipOriginales(r.datos.originales_zip);
         setMisFavoritas(r.datos.mis_favoritas);
         setNotaGeneral(r.datos.nota_general);
       }
@@ -770,6 +772,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
       setFotos(d.fotos);
       setEntregas(d.entregas);
       setOriginales(d.originales);
+      setZipOriginales(d.originales_zip);
       setMisFavoritas(d.mis_favoritas);
       setNotaGeneral(d.nota_general);
     } catch (e) {
@@ -1287,22 +1290,41 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
                   editar y sin marca de agua, en resolución completa
                 </p>
               </div>
-              <div className="flex flex-col items-start gap-1 sm:items-end">
-                <button
-                  type="button"
-                  onClick={() => descargarTodas(originales)}
-                  disabled={!!descarga}
-                  className={btnPrimario}
-                >
-                  <IconoDescarga className="h-4 w-4" />
-                  {descarga
-                    ? `Descargando ${descarga.actual} de ${descarga.total}…`
-                    : "Descargar todas"}
-                </button>
-                <p className="text-xs text-white/40">
-                  Si tu navegador pregunta, permite descargar varios archivos.
-                </p>
-              </div>
+              {zipOriginales ? (
+                <div className="flex flex-col items-start gap-1 sm:items-end">
+                  <a
+                    href={urlDescarga(slug, zipOriginales.id, sesion.token)}
+                    download={zipOriginales.nombre}
+                    rel="noopener"
+                    className={btnPrimario}
+                  >
+                    <IconoDescarga className="h-4 w-4" />
+                    Descargar todo en ZIP
+                  </a>
+                  <p className="text-xs text-white/40">
+                    Un solo archivo
+                    {zipOriginales.size > 0 && <> de {formatoPeso(zipOriginales.size)}</>}
+                    . También puedes bajar cada foto por separado.
+                  </p>
+                </div>
+              ) : (
+                <div className="flex flex-col items-start gap-1 sm:items-end">
+                  <button
+                    type="button"
+                    onClick={() => descargarTodas(originales)}
+                    disabled={!!descarga}
+                    className={btnPrimario}
+                  >
+                    <IconoDescarga className="h-4 w-4" />
+                    {descarga
+                      ? `Descargando ${descarga.actual} de ${descarga.total}…`
+                      : "Descargar todas"}
+                  </button>
+                  <p className="text-xs text-white/40">
+                    Si tu navegador pregunta, permite descargar varios archivos.
+                  </p>
+                </div>
+              )}
             </div>
             {grillaDescargas(originales, abrirOriginales)}
           </section>

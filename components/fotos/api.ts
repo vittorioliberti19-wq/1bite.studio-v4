@@ -46,6 +46,8 @@ export type FotosRespuesta = {
   entregas: Entrega[];
   /** material original sin editar ni marca de agua (opcional por galería) */
   originales: Entrega[];
+  /** ZIP con todo el material original: una sola descarga (null si no hay) */
+  originales_zip: { id: string; nombre: string; size: number } | null;
   mis_favoritas: number;
   nota_general: string;
 };
@@ -154,6 +156,10 @@ export async function obtenerFotos(
       : [],
     entregas: Array.isArray(d.entregas) ? d.entregas : [],
     originales: Array.isArray(d.originales) ? d.originales : [],
+    originales_zip:
+      d.originales_zip && typeof d.originales_zip.id === "string"
+        ? d.originales_zip
+        : null,
     mis_favoritas: Number(d.mis_favoritas) || 0,
     nota_general: typeof d.nota_general === "string" ? d.nota_general : "",
   } satisfies FotosRespuesta;
