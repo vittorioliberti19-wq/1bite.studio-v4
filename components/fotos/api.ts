@@ -44,6 +44,8 @@ export type FotosRespuesta = {
   galeria: GaleriaMeta;
   fotos: Foto[];
   entregas: Entrega[];
+  /** material original sin editar ni marca de agua (opcional por galería) */
+  originales: Entrega[];
   mis_favoritas: number;
   nota_general: string;
 };
@@ -151,6 +153,7 @@ export async function obtenerFotos(
       ? d.fotos.map((f) => ({ ...f, nota: typeof f.nota === "string" ? f.nota : "" }))
       : [],
     entregas: Array.isArray(d.entregas) ? d.entregas : [],
+    originales: Array.isArray(d.originales) ? d.originales : [],
     mis_favoritas: Number(d.mis_favoritas) || 0,
     nota_general: typeof d.nota_general === "string" ? d.nota_general : "",
   } satisfies FotosRespuesta;

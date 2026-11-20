@@ -35,7 +35,7 @@ import {
 
 type Vista = "cargando" | "no_existe" | "error" | "gate" | "galeria";
 type Filtro = "todas" | "favoritas";
-type Visor = { lista: "fotos" | "entregas"; ids: string[]; index: number };
+type Visor = { lista: "fotos" | "entregas" | "originales"; ids: string[]; index: number };
 type Aviso = { id: number; texto: string };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -657,6 +657,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
   const [galeria, setGaleria] = useState<GaleriaMeta | null>(null);
   const [fotos, setFotos] = useState<Foto[]>([]);
   const [entregas, setEntregas] = useState<Entrega[]>([]);
+  const [originales, setOriginales] = useState<Entrega[]>([]);
   const [misFavoritas, setMisFavoritas] = useState(0);
   const [notaGeneral, setNotaGeneral] = useState("");
 
@@ -738,6 +739,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
         setGaleria(r.datos.galeria);
         setFotos(r.datos.fotos);
         setEntregas(r.datos.entregas);
+        setOriginales(r.datos.originales);
         setMisFavoritas(r.datos.mis_favoritas);
         setNotaGeneral(r.datos.nota_general);
       }
@@ -767,6 +769,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
       setGaleria(d.galeria);
       setFotos(d.fotos);
       setEntregas(d.entregas);
+      setOriginales(d.originales);
       setMisFavoritas(d.mis_favoritas);
       setNotaGeneral(d.nota_general);
     } catch (e) {
@@ -899,9 +902,8 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
     }
   }
 
-  async function descargarTodas() {
+  async function descargarTodas(lista: Entrega[]) {
     if (!sesion || descarga) return;
-    const lista = entregas;
     for (let i = 0; i < lista.length; i++) {
       setDescarga({ actual: i + 1, total: lista.length });
       // el servidor responde con Content-Disposition: attachment → descarga sin salir de la página
@@ -1019,13 +1021,15 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
   const visibles =
     filtro === "favoritas" ? fotos.filter((f) => f.favorita) : fotos;
   const porId = new Map(fotos.map((f) => [f.id, f]));
-  const entregaPorId = new Map(entregas.map((e) => [e.id, e]));
+  const entregaPorId = new Map([...entregas, ...originales].map((e) => [e.id, e]));
   const faltan = limite !== null ? Math.max(0, limite - misFavoritas) : 0;
 
   const abrirFotos = (i: number) =>
     setVisor({ lista: "fotos", ids: visibles.map((f) => f.id), index: i });
   const abrirEntregas = (i: number) =>
     setVisor({ lista: "entregas", ids: entregas.map((e) => e.id), index: i });
+  const abrirOriginales = (i: number) =>
+    setVisor({ lista: "originales", ids: originales.map((e) => e.id), index: i });
 
   const itemsVisor: LightboxItem[] = visor
     ? visor.ids
@@ -1036,6 +1040,53 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
         // finales: el visor muestra la miniatura; "Descargar" baja el original
         .map((x) => ("thumb" in x && x.thumb ? { ...x, url: x.thumb } : x))
     : [];
+
+  const grillaDescargas = (lista: Entrega[], abrir: (i: number) => void) => (
+    <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+      {lista.map((e, i) => (
+        <li key={e.id} className="min-w-0">
+          <button
+            type="button"
+            onClick={() => abrir(i)}
+            aria-label={`Ver ${e.nombre} en grande`}
+            className={`block aspect-[4/5] w-full overflow-hidden rounded-lg bg-white/[0.05] ${anillo}`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element -- host remoto R2, sin optimizador */}
+            <img
+              src={e.thumb ?? e.url}
+              alt={e.nombre}
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+              className="h-full w-full select-none object-cover transition duration-500 [-webkit-touch-callout:none] hover:scale-[1.02]"
+            />
+          </button>
+          <div className="mt-2 flex items-center justify-between gap-2">
+            <div className="min-w-0">
+              <p className="truncate text-xs text-white/70">
+                {e.nombre}
+              </p>
+              {e.size > 0 && (
+                <p className="text-[11px] text-white/40">
+                  {formatoPeso(e.size)}
+                </p>
+              )}
+            </div>
+            <a
+              href={urlDescarga(slug, e.id, sesion.token)}
+              download={e.nombre}
+              rel="noopener"
+              aria-label={`Descargar ${e.nombre}`}
+              className={`inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-white/80 hover:bg-white/10 hover:text-white ${anillo}`}
+            >
+              <IconoDescarga className="h-4 w-4" />
+              Descargar
+            </a>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
 
   const grillaPruebas = (
     <>
@@ -1193,7 +1244,7 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
                 <div className="flex flex-col items-start gap-1 sm:items-end">
                   <button
                     type="button"
-                    onClick={descargarTodas}
+                    onClick={() => descargarTodas(entregas)}
                     disabled={!!descarga}
                     className={btnPrimario}
                   >
@@ -1210,55 +1261,49 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
             </div>
 
             {entregas.length > 0 ? (
-              <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-                {entregas.map((e, i) => (
-                  <li key={e.id} className="min-w-0">
-                    <button
-                      type="button"
-                      onClick={() => abrirEntregas(i)}
-                      aria-label={`Ver ${e.nombre} en grande`}
-                      className={`block aspect-[4/5] w-full overflow-hidden rounded-lg bg-white/[0.05] ${anillo}`}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element -- host remoto R2, sin optimizador */}
-                      <img
-                        src={e.thumb ?? e.url}
-                        alt={e.nombre}
-                        loading="lazy"
-                        decoding="async"
-                        draggable={false}
-                        className="h-full w-full select-none object-cover transition duration-500 [-webkit-touch-callout:none] hover:scale-[1.02]"
-                      />
-                    </button>
-                    <div className="mt-2 flex items-center justify-between gap-2">
-                      <div className="min-w-0">
-                        <p className="truncate text-xs text-white/70">
-                          {e.nombre}
-                        </p>
-                        {e.size > 0 && (
-                          <p className="text-[11px] text-white/40">
-                            {formatoPeso(e.size)}
-                          </p>
-                        )}
-                      </div>
-                      <a
-                        href={urlDescarga(slug, e.id, sesion.token)}
-                        download={e.nombre}
-                        rel="noopener"
-                        aria-label={`Descargar ${e.nombre}`}
-                        className={`inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-3 text-xs font-medium text-white/80 hover:bg-white/10 hover:text-white ${anillo}`}
-                      >
-                        <IconoDescarga className="h-4 w-4" />
-                        Descargar
-                      </a>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              grillaDescargas(entregas, abrirEntregas)
             ) : (
               <div className="rounded-2xl border border-dashed border-white/15 px-6 py-12 text-center text-sm text-white/60">
                 Estamos preparando tus descargas. Vuelve en un rato.
               </div>
             )}
+          </section>
+        )}
+
+        {/* material original: todas las fotos de la sesión sin editar y sin marca */}
+        {originales.length > 0 && (
+          <section aria-labelledby="titulo-originales" className="pb-14">
+            <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <h2
+                  id="titulo-originales"
+                  className="text-2xl font-bold sm:text-3xl"
+                >
+                  Material original
+                </h2>
+                <p className="mt-1 max-w-xl text-sm text-white/50">
+                  {plural(originales.length, "foto", "fotos")} de la sesión sin
+                  editar y sin marca de agua, en resolución completa
+                </p>
+              </div>
+              <div className="flex flex-col items-start gap-1 sm:items-end">
+                <button
+                  type="button"
+                  onClick={() => descargarTodas(originales)}
+                  disabled={!!descarga}
+                  className={btnPrimario}
+                >
+                  <IconoDescarga className="h-4 w-4" />
+                  {descarga
+                    ? `Descargando ${descarga.actual} de ${descarga.total}…`
+                    : "Descargar todas"}
+                </button>
+                <p className="text-xs text-white/40">
+                  Si tu navegador pregunta, permite descargar varios archivos.
+                </p>
+              </div>
+            </div>
+            {grillaDescargas(originales, abrirOriginales)}
           </section>
         )}
 
