@@ -1159,7 +1159,8 @@ export default function GaleriaCliente({ slug }: { slug: string }) {
           <p className="mt-4 text-sm text-white/60">
             {galeria.cliente && <>Para {galeria.cliente}</>}
             {galeria.cliente && <span className="mx-2 text-white/25">·</span>}
-            {plural(fotos.length, "foto", "fotos")}
+            {/* sin pruebas (galería solo de descargas) se cuentan las finales */}
+            {plural(fotos.length || entregas.length, "foto", "fotos")}
           </p>
           <GradientBar className="mt-8 max-w-24" />
 
